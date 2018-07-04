@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2018-06-29 16:22:37
+  product: 
+  product_for_sale: false
+  active: false
+
+two:
+  date: 2018-06-29 16:22:37
+  product: 
+  product_for_sale: false
+  active: false

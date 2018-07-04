@@ -1,0 +1,21 @@
+<%= simple_form_for @transaction, 
+  wrapper: :floating_labels_form do |f| %>
+  
+  <%= f.error_notification %>
+  <div class="form-row">
+	  <%= f.input :account, wrapper_html: {class: "col-md mb-3"} %>
+	  <%= f.association :counter_party, wrapper_html: {class: "col-md mb-3"} %>
+  </div>
+  <%= f.button :submit, class: "btn-primary" %>
+<% end %>
+
+<%= semantic_form_for @transaction do |f| %>
+	<div class="row">
+			<%= f.input :account, prompt: :Tanlang, 
+			wrapper_html: {class: "col-md-6 mb-3"}, input_html: {class: "form-control"} %>
+			<%= f.input :counter_party, prompt: :Tanlang,
+			wrapper_html: {class: "col-md-6 mb-3"}, input_html: {class: "form-control"} %>
+	</div>
+	<%= f.action :submit, button_html: {class: "btn btn-primary"} %>
+	
+<% end %>

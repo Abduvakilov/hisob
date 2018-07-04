@@ -1,0 +1,47 @@
+<%= form_with(model: transaction, local: true) do |form| %>
+  <% if transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= transaction.errors.count %> ta xato aylanmani saqlashga to'sqinlik qilyapti:</h2>
+
+      <ul>
+      <% transaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :type %><br>
+    <%= form.number_field :type %>
+  </div>
+ 
+  <div>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </div>
+ 
+   <div>
+    <%= form.label :amount %><br>
+    <%= form.number_field :amount %>
+  </div>
+
+   <div>
+    <%= form.label :date %><br>
+    <%= form.date_field :date, step: 1000.0 %>
+  </div>
+  <div>
+    <%= form.label :account_id %><br>
+    <%= form.number_field :account_id %>
+  </div>
+
+  <div>
+    <%= form.submit %><br>
+  </div>
+
+<% end %>
