@@ -10,12 +10,13 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = Transaction.new(transaction_params)
-    if @transaction.save
-      redirect_to @transaction
-    else
-      render :new
-    end
+    render plain: params
+    # @transaction = Transaction.new(transaction_params)
+    # if @transaction.save
+    #   redirect_to @transaction
+    # else
+    #   render :new
+    # end
   end
 
   def update

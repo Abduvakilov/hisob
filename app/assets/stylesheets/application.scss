@@ -2,6 +2,7 @@
 .bg-light {
     background-color: #f8f9fa!important;
 }
-.form-group {
-	@extend .col-md;
+.currency {
+	text-align: right;
+	max-width: 200px;
 }

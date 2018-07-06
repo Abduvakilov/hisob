@@ -17,3 +17,40 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+
+(function($, undefined) {
+
+	"use strict";
+
+// 	// When ready.
+	$(function() {
+		
+		var cleave = new Cleave('.currency input', {
+		    numeral: true,
+		    numeralThousandsGroupStyle: 'thousand',
+		    numeralDecimalMark: ',',
+		    delimiter: ' ',	
+	        numeralDecimalScale: 4,
+            numeralIntegerScale: 15,
+		    numeralPositiveOnly: true
+		});
+		
+		var cleavey = new Cleave('.date input', {
+		    date: true,
+		    datePattern: ['d', 'm', 'y'],
+		    delimiter: '.'
+		});
+
+// 		/**
+// 		 * ==================================
+// 		 * When Form Submitted
+// 		 * ==================================
+// 		 */
+		$('form').on( "submit", function( event ) {
+			cleave.element.value = cleave.getRawValue()
+		});
+
+
+	});
+})(jQuery);
+

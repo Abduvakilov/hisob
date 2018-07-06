@@ -1,21 +1,22 @@
-<%= simple_form_for @transaction,  wrapper: :custom_multi_select do |f| %>
+<%= simple_form_for @transaction,  defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
   
   <%= f.error_notification %>
 
   <div class="form-row">
-  	<%= f.input :date %>
-  </div>
-  <div class="form-row">
+  	<%= f.input :date, as: :string, wrapper_html: {class: :date}, required: true %>
 	  <%= f.association :account %>
-	  <%= f.association :counter_party %>
   </div>
   <div class="form-row">
-		<%= f.input :amount %>
+	<%= f.association :counter_party %>
+	<%= f.input :amount, as: :currency, required: true %>
+  </div>
+  <div class="form-row">
   </div>
 
-  <%= f.button :submit, class: "btn-primary" %>
+  <%= link_to "Ortga", transactions_path, class: "btn btn-outline-secondary" %>
+  <%= f.button :submit, class: "btn-primary float-right" %>
 <% end %>
-
+<!-- 
 <%= semantic_form_for @transaction do |f| %>
 	<div class="row">
 		<%= f.input :account, prompt: :Tanlang, 
@@ -25,4 +26,4 @@
 	</div>
 	<%= f.action :submit, button_html: {class: "btn btn-primary"} %>
 	
-<% end %>
+<% end %> -->
