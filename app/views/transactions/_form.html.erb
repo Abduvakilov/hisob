@@ -3,27 +3,19 @@
   <%= f.error_notification %>
 
   <div class="form-row">
-  	<%= f.input :date, as: :string, wrapper_html: {class: :date}, required: true %>
-	  <%= f.association :account %>
+  	<%= f.input :date, label: "Sana (kun.oy.yil)", required: true, input_html: {value: (Date.today-1).strftime("%d.%m.%y")} %>
+	  <%= f.association :account, prompt: "Hisobni tanlang" %>
   </div>
   <div class="form-row">
-	<%= f.association :counter_party %>
-	<%= f.input :amount, as: :currency, required: true %>
+    <%= f.association :counter_party, label: "Ikkinchi tomon" %>
+    <%= f.input :amount, label: "Qiymati", as: :currency, required: true %>
   </div>
   <div class="form-row">
+    <%= f.input :coefficient, label: "Koeffitsient (%)" %>
+  </div>  <div class="form-row">
+    <%= f.input :notes, label: 'Qaydlar' %>
   </div>
 
   <%= link_to "Ortga", transactions_path, class: "btn btn-outline-secondary" %>
-  <%= f.button :submit, class: "btn-primary float-right" %>
+  <%= f.button :submit, text, class: "btn-primary float-right" %>
 <% end %>
-<!-- 
-<%= semantic_form_for @transaction do |f| %>
-	<div class="row">
-		<%= f.input :account, prompt: :Tanlang, 
-			wrapper_html: {class: "col-md-6 mb-3"}, input_html: {class: "form-control"} %>
-		<%= f.input :counter_party, prompt: :Tanlang,
- 			wrapper_html: {class: "col-md-6 mb-3"}, input_html: {class: "form-control"} %>
-	</div>
-	<%= f.action :submit, button_html: {class: "btn btn-primary"} %>
-	
-<% end %> -->

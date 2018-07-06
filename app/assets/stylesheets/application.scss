@@ -4,5 +4,7 @@
 }
 .currency {
 	text-align: right;
-	max-width: 200px;
+}
+.currency, .float {
+  max-width: 200px;
 }
