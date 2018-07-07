@@ -25,7 +25,7 @@
 // 	// When ready.
 	$(function() {
 		
-		var cleave = new Cleave('.currency input', {
+		var currency = new Cleave('.currency input', {
 		    numeral: true,
 		    numeralThousandsGroupStyle: 'thousand',
 		    numeralDecimalMark: ',',
@@ -35,7 +35,7 @@
 		    numeralPositiveOnly: true
 		});
 		
-		var cleavey = new Cleave('.date input', {
+		var date = new Cleave('.date input', {
 		    date: true,
 		    datePattern: ['d', 'm', 'y'],
 		    delimiter: '.'
@@ -47,7 +47,8 @@
 // 		 * ==================================
 // 		 */
 		$('form').on( "submit", function( event ) {
-			cleave.element.value = cleave.getRawValue()
+			currency.element.value = cleave.getRawValue()
+			date.element.value = cleave.getRawValue()
 		});
 
 

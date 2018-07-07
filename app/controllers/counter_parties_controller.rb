@@ -1,4 +1,4 @@
-class CounterPartyController < ApplicationController
+class CounterPartiesController < ApplicationController
   before_action :set_counter_party, only: [:show, :edit, :update, :destroy]
 
   def new
