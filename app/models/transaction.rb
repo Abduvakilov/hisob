@@ -4,9 +4,9 @@ class Transaction < ApplicationRecord
 
   cattr_reader :types, :type_values
   @@types = {
-            Kirim:  [:income, :receivableback, :payable],
-            Chiqim: [:expense,  :receivable,   :payableback],
-            Boshqa: [:withdrawal, :conversion]
+            Tushum:  ["Savdodan tushgan", "Boshqa shaxslardan"],
+            Chiqim: ["Xaridga chiqim",  "Xodimlarga",   "Boshqa shaxslarga"],
+            Boshqa: ["Pul yechish", "Konversiya"]
             # Togirlash: [:kopaytirish, :kamaytirish]
             }
 

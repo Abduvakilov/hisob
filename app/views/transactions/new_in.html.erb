@@ -1,3 +1,6 @@
-<h1>Yangi pul aylanmasi</h1>
+<h1>Yangi Tushum</h1>
 
-<%= render partial: 'form', transaction: @transaction, locals: {text: "Saqlash"} %>
+<%= render partial: 'form_in', transaction: @transaction, locals: {text: "Yarat",
+                                                                   create_and_new: true,
+                                                                   type_name: :Tushum
+} %>

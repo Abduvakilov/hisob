@@ -1,6 +1,5 @@
-<h1>Pul aylanmasini o'zgartirish</h1>
+<h1>Pul aylanmasini o‘zgartirish</h1>
 
-<%= render 'form', transaction: @transaction %>
+<%= render partial: 'form_in', transaction: @transaction, locals: {text: "Yarat", show: true} %>
 
-<%= link_to "Ko'rsat", @transaction, html_options: {class: "btn btn-info"} %> |
-<%= link_to 'Ortga', transaction_path, html_options: {class: "btn"} %>
+<%= link_to "Ko‘rsat", @transaction, html_options: {class: "btn btn-info"} %> |

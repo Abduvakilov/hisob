@@ -9,6 +9,12 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new
   end
 
+  def create_in
+    @transaction = Transaction.new(transaction_params)
+
+    render plain: params
+  end
+
   def create
     render plain: params
     # @transaction = Transaction.new(transaction_params)
@@ -45,6 +51,6 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:title, :description, :date, :amount, :account_id, :type)
+    params.require(:transaction).permit(:notes, :date, :amount, :account, :type)
   end
 end

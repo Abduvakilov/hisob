@@ -3,10 +3,17 @@ Rails.application.routes.draw do
   resources :transactions, except: :new do 
     collection do
       get 'new_in'
+      post 'create_in'
+
       get 'new_out'
+      post 'create_out'
+
       get 'new_inout'
+      post 'create_inout'
+
       get 'new_other'
+      post 'create_other'
     end
   end
-  resources :products, :application
+  resources :products, :application, :counter_party
 end

@@ -1,0 +1,36 @@
+<%= simple_form_for @transaction, url: create_in_transactions_path,  defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
+  
+  <%= f.error_notification %>
+
+  <div class="form-row">
+    <%= f.input :type, label: "#{type_name} turi", selected: 0, collection: Transaction.types[type_name] %>
+    <%= f.input :date, label: "Sana (kun.oy.yil)", required: true, input_html: {value: (Date.today-1).strftime("%d.%m.%y")} %>
+  </div>
+  <div class="form-row">
+  </div>
+  <div class="form-row">
+	  <%= f.association :account, selected: 0,
+                      hint: "Hisob valyutasi: {valyuta}, Hisobdagi pul: {pul}" %>
+    <!-- TODO: Selected should be user default-->
+  </div>
+  <div class="form-row">
+    <%= f.association :counter_party, label: "Ikkinchi tomon" %>
+    <%= f.input :amount, label: "Qiymati", as: :currency, required: true %>
+  </div>
+  <div class="form-row">
+    <%= f.input :coefficient, label: "Koeffitsient (%)" %>
+  </div>  <div class="form-row">
+    <%= f.input :notes, label: 'Qaydlar' %>
+  </div>
+
+  <%= link_to "Ortga", transactions_path, class: "btn btn-outline-secondary" %>
+  <div class="float-right">
+    <%= f.button :submit, text, class: "btn-primary" %>
+    <% if local_assigns[:create_and_new] %>
+      <%= f.button :submit, "Yarat va yangisiga", class: "btn-outline-info", name: :create_and_new  %>
+    <% end %>
+    <% if local_assigns[:show] %>
+      <% link_to "Ko‘rsat", @transaction %>
+    <% end %>
+    </div>
+<% end %>

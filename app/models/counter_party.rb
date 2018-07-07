@@ -1,4 +1,4 @@
 class CounterParty < ApplicationRecord
-  belongs_to :district
-  belongs_to :category
+  belongs_to :district, optional: true
+  belongs_to :category, optional: true
 end

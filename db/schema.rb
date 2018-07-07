@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 2018_07_01_071634) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "type"
+    t.integer "type_id"
     t.integer "counter_party_id"
     t.float "coefficient"
     t.integer "account_id"

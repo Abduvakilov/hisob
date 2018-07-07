@@ -1,6 +1,6 @@
 class ChangeTransactions < ActiveRecord::Migration[5.2]
   def change
-    add_column :transactions, :type, :integer
+    add_column :transactions, :type_id, :integer
     add_reference :transactions, :counter_party
     add_column :transactions, :coefficient, :float
     add_reference :transactions, :account
