@@ -15,5 +15,5 @@ Rails.application.routes.draw do
       post 'create_other'
     end
   end
-  resources :application, :products, :counter_parties
+  resources :application, :products, :counter_parties, :accounts
 end

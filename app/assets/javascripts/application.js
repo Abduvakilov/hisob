@@ -13,45 +13,11 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree .
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
-
-(function($, undefined) {
-
-	"use strict";
-
-// 	// When ready.
-	$(function() {
-		
-		var currency = new Cleave('.currency input', {
-		    numeral: true,
-		    numeralThousandsGroupStyle: 'thousand',
-		    numeralDecimalMark: ',',
-		    delimiter: ' ',	
-	        numeralDecimalScale: 4,
-            numeralIntegerScale: 15,
-		    numeralPositiveOnly: true
-		});
-		
-		var date = new Cleave('.date input', {
-		    date: true,
-		    datePattern: ['d', 'm', 'y'],
-		    delimiter: '.'
-		});
-
-// 		/**
-// 		 * ==================================
-// 		 * When Form Submitted
-// 		 * ==================================
-// 		 */
-		$('form').on( "submit", function( event ) {
-			currency.element.value = cleave.getRawValue()
-			date.element.value = cleave.getRawValue()
-		});
+//= require ./form/cleave.min.js
+//= require_tree .
 
 
-	});
-})(jQuery);
 

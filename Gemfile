@@ -65,3 +65,5 @@ gem 'formtastic'
 gem 'simple_form'
 gem 'bootstrap'
 gem 'jquery-rails'
+gem "datagrid", :git => "https://github.com/bogdan/datagrid.git"
+gem 'kaminari'

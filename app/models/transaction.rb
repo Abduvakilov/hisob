@@ -24,6 +24,9 @@ class Transaction < ApplicationRecord
     end
   end
 
+  def amount_formatted
+    amount
+  end
 
   # belongs_to :reference, optional: true
   belongs_to :counter_party, optional: true

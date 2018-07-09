@@ -8,9 +8,9 @@ class CounterPartiesController < ApplicationController
   def create
     @counter_party = CounterParty.new(counter_party_params)
     if @counter_party.save
-      render :new
-    else
       render plain: params
+    else
+      render :new
     end
   end
 

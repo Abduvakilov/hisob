@@ -1,5 +1,7 @@
 <h1>Yangi Tushum</h1>
-
+<% if @notice %>
+  <div class="p-2 mb-2 bg-success text-white text-center rounded"><%= @notice %></div>
+<% end %>
 <%= render partial: 'form_in', transaction: @transaction, locals: {text: "Yarat",
                                                                    create_and_new: true,
                                                                    type_name: :Tushum

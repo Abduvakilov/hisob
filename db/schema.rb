@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 2018_07_01_071634) do
     t.integer "type"
     t.integer "type_id"
     t.integer "counter_party_id"
-    t.float "coefficient"
+    t.float "coefficient", default: 100.0
     t.integer "account_id"
     t.integer "reference_id"
     t.string "reference_type"

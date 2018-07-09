@@ -1,40 +1,14 @@
 <p id="notice"><%= notice %></p>
 <h1>Pul aylanmalari</h1>
- <p></p>
 
 <%= link_to "Yangi kirim", new_in_transactions_path %>
 <%= link_to "Yangi kirim", new_in_transactions_path %>
 <%= link_to "Yangi kirim", new_in_transactions_path %>
 
-<table>
-  <tr>
-<!--  <% Transaction.attribute_names.each do |key| %>
-   <p><%= key %></p>
- <% end %> -->
-    <th>Title</th>
-    <th>Description</th>
-    <th>Type</th>
-    <th>Account</th>
-    <th>Counter Party</th>
-    <th>Amount</th>
-    <th>Date</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
- 
-  <% @transactions.each do |transaction| %>
-    <tr>
-      <td><%= transaction.title %></td>
-      <td><%= transaction.description %></td>
-      <td><%= transaction.type %></td>
-      <td><%= transaction.account %></td>
-      <td><%= transaction.counter_party %></td>
-      <td><%= transaction.amount %></td>
-      <td><%= transaction.date %></td>
-      <td><%= link_to "Ko'rsat", transaction_path(transaction) %></td>
-      <td><%= link_to 'Tahrirlash', edit_transaction_path(transaction) %></td>
-      <td><%= link_to "O'chirish", transaction_path(transaction), method: :delete %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="col">
+  <%#= datagrid_form_for @transactions_grid, url: transactions_path %>
+
+  <div class='total'>Total: <%= @transactions_grid.assets.count %></div>
+  <%= datagrid_table @transactions_grid, html: {class: "table table-hover table-light table-responsive"} %>
+  <%= paginate @transactions_grid.assets %>
+</div>

@@ -1,28 +1,34 @@
 class TransactionsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
   def index
-    @transactions = Transaction.all
+    # @transactions = Transaction.all
+    @transactions_grid = TransactionsGrid.new(params[:Transaction_grid]) do |scope|
+      scope.page(params[:page])
+    end
+  end
+
+  def show
+
   end
 
 	def new_in
     @transaction = Transaction.new
   end
 
-  def create_in
-    @transaction = Transaction.new(transaction_params)
-
-    render plain: params
-  end
-
   def create
-    render plain: params
-    # @transaction = Transaction.new(transaction_params)
-    # if @transaction.save
-    #   redirect_to @transaction
-    # else
-    #   render :new
-    # end
+    @transaction = Transaction.new(transaction_params)
+    if @transaction.save
+      if params[:create_and_new]
+        @transaction = Transaction.new
+        @notice = "Aylanma saqlanib qo'yildi"
+        render :new_in
+      else
+        redirect_to :index
+      end
+    else
+      render :new_in
+    end
   end
 
   def update
@@ -51,6 +57,6 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:notes, :date, :amount, :account, :type)
+    params.require(:transaction).permit(:notes, :date, :amount, :account_id, :type)
   end
 end

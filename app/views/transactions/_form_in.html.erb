@@ -1,16 +1,13 @@
-<%= simple_form_for @transaction, url: create_in_transactions_path,  defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
+<%= simple_form_for @transaction,  defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
   
   <%= f.error_notification %>
 
   <div class="form-row">
     <%= f.input :type, label: "#{type_name} turi", selected: 0, collection: Transaction.types[type_name] %>
-    <%= f.input :date, label: "Sana (kun.oy.yil)", required: true, input_html: {value: (Date.today-1).strftime("%d.%m.%y")} %>
+    <%= f.input :date, as: :date, label: "Sana (kun.oy.yil)", required: true, input_html: {value: (Date.today-1).strftime("%d.%m.%y")}, html5: true %> <!-- TODO user setting -->
   </div>
   <div class="form-row">
-  </div>
-  <div class="form-row">
-	  <%= f.association :account, selected: 0,
-                      hint: "Hisob valyutasi: {valyuta}, Hisobdagi pul: {pul}" %>
+	  <%= f.association :account, as: :account, selected: 1 %>
     <!-- TODO: Selected should be user default-->
   </div>
   <div class="form-row">
