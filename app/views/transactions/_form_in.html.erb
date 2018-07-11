@@ -3,7 +3,7 @@
   <%= f.error_notification %>
 
   <div class="form-row">
-    <%= f.input :type, label: "#{type_name} turi", selected: 0, collection: Transaction.types[type_name] %>
+    <%= f.input :in_out_type, label: "#{type_name} turi", selected: 0, collection: Transaction.types[type_name] %>
     <%= f.input :date, as: :date, label: "Sana (kun.oy.yil)", required: true, input_html: {value: (Date.today-1).strftime("%d.%m.%y")}, html5: true %> <!-- TODO user setting -->
   </div>
   <div class="form-row">

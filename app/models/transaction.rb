@@ -12,11 +12,11 @@ class Transaction < ApplicationRecord
 
   @@type_values = @@types.values.flatten
 
-  def type=(value)
+  def in_out_type=(value)
     self.type_id = @@type_values.find_index(value) 
   end
 
-  def type
+  def in_out_type
     if type_id
       @@type_values[type_id]
     else

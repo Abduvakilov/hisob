@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Acc</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+	<title>Acc</title>
+	<%= csrf_meta_tags %>
+	<%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body class="bg-light">
-    <div class="container my-3">
-      <div class="col-md-8">
-        <%= yield %>
-      </div>
-    </div>
-  </body>
+<body class="bg-light">
+	<% flash.each do |key, value| %>
+	<div class="alert alert-dismissible fade show alert-<%= key %>" role="alert">
+		<%= value %>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<% end %>
+	<div class="container my-3">
+		<%= yield %>
+	</div>
+</div>
+</body>
 </html>

@@ -435,6 +435,7 @@ SimpleForm.setup do |config|
     radio_buttons: :custom_collection,
     range:         :custom_range,
     time:          :custom_multi_select,
-    select:        :custom_multi_select
+    select:        :custom_multi_select,
+    account:       :custom_multi_select
   }
 end

@@ -19,12 +19,12 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
     if @transaction.save
+      flash[:success] = "Aylanma saqlanib qo'yildi"
       if params[:create_and_new]
         @transaction = Transaction.new
-        @notice = "Aylanma saqlanib qo'yildi"
         render :new_in
-      else
-        redirect_to :index
+      else        
+        redirect_to transactions_path
       end
     else
       render :new_in
@@ -57,6 +57,6 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:notes, :date, :amount, :account_id, :type)
+    params.require(:transaction).permit(:notes, :date, :amount, :account_id, :in_out_type)
   end
 end

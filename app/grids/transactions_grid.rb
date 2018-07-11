@@ -6,7 +6,7 @@ class TransactionsGrid
     Transaction.order(:created_at)
   end
 
-  # filter :rating, :enum, :select => 0..10
+  filter :in_out_type, :enum, :select => Transaction.types
   # filter :title, :header => "Title (contains)" do |value|
   #   where(:title => /#{Regexp.escape(value)}/i)
   # end
@@ -19,10 +19,12 @@ class TransactionsGrid
   # end
   #
   # filter :condition, :dynamic, :header => "Dynamic condition"
-  column :type
+  column :in_out_type
   column :account
   column :counter_party
   column :amount_formatted
   column :date
+  column :notes
+  column :coefficient
 
 end
