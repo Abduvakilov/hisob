@@ -5,11 +5,11 @@
         $.ajax({url: `/accounts/${accountId}.json`}).done(
             (json) => {
                 $(".account #leftover").html(json.leftover);
-                $(".account #currency").html(json.currency);
             });
     }
 // 	// When ready.
-    $(function() {
+//     $(function() {
+    $( document ).on('turbolinks:load', function() {
 
         let $form = $('form.new_transaction');
         if ($form.length) {
@@ -44,6 +44,6 @@
                 currency.element.value = currency.getRawValue()
                 // date.element.value = cleave.getRawValue()
             });
-        };
+        }
     });
 })(jQuery);

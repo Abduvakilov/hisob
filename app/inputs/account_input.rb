@@ -5,12 +5,11 @@ class AccountInput < SimpleForm::Inputs::CollectionSelectInput
     end
   end
   def hint(wrapper_options=nil)
-    text = "Hisob valyutasi: <b id='currency'>%s</b>,<br>
-       Hisobdagi qoldiq: <b id='leftover'>%s</b>".html_safe
+    text = "Qoldiq: <b id='leftover'>%s</b>".html_safe
     if selected_account
-      text % [selected_account.currency.name, selected_account.leftover]
+      text % [selected_account.leftover]
     else
-      text % ['...', '...']
+      text % '...'
     end
   end
 
