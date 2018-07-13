@@ -17,4 +17,5 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require cleave.min
+//= require datepicker.min
 //= require_tree .

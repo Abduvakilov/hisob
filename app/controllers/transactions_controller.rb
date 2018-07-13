@@ -2,7 +2,6 @@ class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
   def index
-    # @transactions = Transaction.all
     @transactions_grid = TransactionsGrid.new(params[:Transaction_grid]) do |scope|
       scope.page(params[:page])
     end
@@ -17,6 +16,8 @@ class TransactionsController < ApplicationController
   end
 
   def create
+    require 'date'
+    params[:date] = Date.strptime params[:date], '%d.%m.%Y'
     @transaction = Transaction.new(transaction_params)
     if @transaction.save
       flash[:success] = "Aylanma saqlanib qo'yildi"
