@@ -9,7 +9,7 @@
     }
 // 	// When ready.
 //     $(function() {
-    $( document ).on('turbolinks:load', function() {
+    $(document).on('turbolinks:load', function() {
 
         let $form = $('form.new_transaction');
         if ($form.length) {
@@ -28,6 +28,15 @@
                 numeralIntegerScale: 15,
                 numeralPositiveOnly: true
             });
+
+            $('input.date_picker').datepicker({
+                format: "dd.mm.yy",
+                todayBtn: 'linked',
+                language: "uz-latn",
+                todayHighlight: true,
+                container: 'div.date_picker', //<!-- TODO user setting -->
+                autoclose: true,
+            }).datepicker("setDate",'now');
 
             // let date = new Cleave('.date input', {
             //     date: true,

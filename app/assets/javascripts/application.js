@@ -14,8 +14,8 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery3
-//= require popper
-//= require bootstrap-sprockets
+// require popper
+// require bootstrap-sprockets
 //= require cleave.min
-//= require datepicker.min
+//= require bootstrap-datepicker
 //= require_tree .
