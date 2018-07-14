@@ -1,5 +1,5 @@
 @import 'bootstrap';
-@import 'bootstrap-datepicker';
+@import 'bootstrap-datepicker.css';
 .bg-light {
     background-color: #f8f9fa!important;
 }
@@ -8,4 +8,18 @@
 }
 .currency, .float {
   max-width: 200px;
+}
+.datepicker {
+  .active.day {
+    @extend .bg-primary;
+  }
+  .active.day, .active.day:hover {
+    background: none;
+  }
+  .today.day {
+    @extend .text-warning;
+  }
+  .today.day, .today.day:hover {
+    background: none;
+  }
 }
