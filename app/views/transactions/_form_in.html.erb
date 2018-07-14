@@ -4,27 +4,27 @@
 
   <div class="form-row">
     <%= f.input :in_out_type, label: "#{type_name} turi", selected: 0, collection: Transaction.types[type_name] %>
-    <%= f.input :date, as: :date_picker, label: "Sana (kun.oy.yil)", required: true %>
+    <%= f.input :date, as: :date_picker %>
   </div>
   <div class="form-row">
 	  <%= f.association :account, as: :account, selected: 1 %>
     <!-- TODO: Selected should be user default-->
   </div>
   <div class="form-row">
-    <%= f.association :counter_party, label: "Ikkinchi tomon" %>
-    <%= f.input :amount, label: "Qiymati", as: :currency, required: true %>
+    <%= f.association :counter_party %>
+    <%= f.input :amount, as: :currency, required: true %>
   </div>
   <div class="form-row">
-    <%= f.input :coefficient, label: "Koeffitsient (%)" %>
+    <%= f.input :coefficient, placeholder: "%" %>
   </div>  <div class="form-row">
     <%= f.input :notes, label: 'Qaydlar' %>
   </div>
 
   <%= link_to "Ortga", transactions_path, class: "btn btn-outline-secondary" %>
   <div class="float-right">
-    <%= f.button :submit, text, class: "btn-primary" %>
+    <%= f.button :submit, class: "btn-primary" %>
     <% if local_assigns[:create_and_new] %>
-      <%= f.button :submit, "Yarat va yangisiga", class: "btn-outline-info", name: :create_and_new  %>
+      <%= f.button :submit, class: "btn-outline-info", name: :create_and_new  %>
     <% end %>
     <% if local_assigns[:show] %>
       <% link_to "Ko‘rsat", @transaction %>

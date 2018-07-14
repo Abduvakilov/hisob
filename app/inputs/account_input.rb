@@ -7,13 +7,9 @@ class AccountInput < SimpleForm::Inputs::CollectionSelectInput
   def hint(wrapper_options=nil)
     text = "Qoldiq: <b id='leftover'>%s</b>".html_safe
     if selected_account
-      text % [selected_account.leftover]
+      text % selected_account.leftover
     else
       text % '...'
     end
-  end
-
-  def input_html_classes
-    super.push('account')
   end
 end

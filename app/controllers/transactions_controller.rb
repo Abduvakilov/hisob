@@ -17,7 +17,9 @@ class TransactionsController < ApplicationController
 
   def create
     require 'date'
-    params[:date] = Date.strptime params[:date], '%d.%m.%Y'
+    if params[:date] 
+      params[:date] = Date.strptime params[:date], '%d.%m.%Y'
+    end
     @transaction = Transaction.new(transaction_params)
     if @transaction.save
       flash[:success] = "Aylanma saqlanib qo'yildi"
