@@ -1,6 +1,6 @@
 class Transaction < ApplicationRecord
   validates :amount, numericality: {min: 0.0001}
-  validates_presence_of :type_id
+  validates_presence_of :type_id, :date
 
   cattr_reader :types, :type_values
   @@types = {

@@ -1,5 +1,3 @@
 setTimeout(function() {
-    $(".alert").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove(); 
-    });
+    $(".alert").removeClass('alert-error alert-danger').addClass('border rounded');
 }, 4000);

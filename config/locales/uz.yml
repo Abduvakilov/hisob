@@ -1,0 +1,26 @@
+uz:
+  activerecord:
+    errors:
+      messages:
+        less_than: "%{count} dan kam bo‘lishi kerak"
+        blank: bo‘sh bo‘lishi mumkin emas
+        not_a_number: raqam bo‘lishi kerak
+    models:
+      category: 'Toifa'
+      account: 'Hisob'
+      transaction: 'Pul aylanmasi'
+      counter_party: 'Ikkinchi tomon'
+    attributes:
+      user:
+        first_name: Ismi
+      transaction:
+        account: Hisob
+        date: Sana
+        amount: Qiymat
+        coefficient: Koeffitsient
+
+  helpers:
+    submit:
+      create: "%{model}ni yarat"
+      submit: "%{model}ni saqla"
+      update: "%{model}ni tahrirla"
