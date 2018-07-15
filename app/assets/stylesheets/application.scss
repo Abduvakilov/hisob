@@ -1,10 +1,7 @@
 @import 'bootstrap';
 @import 'bootstrap-datepicker.css';
-.bg-light {
-    background-color: #f8f9fa!important;
-}
 .currency {
-	text-align: right;
+  text-align: right;
 }
 .currency, .float {
   max-width: 200px;
@@ -24,5 +21,29 @@
   }
 }
 .alert {
-		transition: 0.5s ease-in;
+  transition: 0.5s ease-in;
+}
+a.anchor_input {
+  display: inline-block;
+  padding: 0rem 1rem 0rem 0.75rem;
+  line-height: 1.5;
+}
+
+.more-state {
+  display: none;
+}
+.more-wrap {
+  display: none;
+}
+.more-state:checked ~ .more-wrap {
+  display: inherit;
+}
+.more-state:checked ~ label {
+  display: none;
+}
+.more-trigger {
+  color: #007bff;
+  &:hover {
+    text-decoration: underline;
+  }
 }

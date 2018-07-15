@@ -352,7 +352,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.optional :readonly
     b.use :label, class: 'control-label'
-    b.wrapper :wrapper, tag: 'div', class: 'col-sm-9' do |ba|
+    b.wrapper :anchor_input_wrapper, tag: 'div', class: 'col' do |ba|
       ba.wrapper :anchor, tag: 'a', html: {href: '#', class: "anchor_input", "data-turbolinks": "false"} do end
       ba.wrapper :hide_wrapper, tag: 'div', class: 'd-none' do |bb|
         bb.wrapper tag: 'div', class: 'd-flex flex-row justify-content-between align-items-center' do |bc|
@@ -360,7 +360,7 @@ SimpleForm.setup do |config|
         end
       end
       ba.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
-      ba.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
+      ba.use :hint, wrap_with: { tag: 'small', class: 'd-inline form-text text-muted' }
     end
   end
 
