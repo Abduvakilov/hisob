@@ -1,5 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+  before_action :set_new_transaction, only: [:new_in, :new_out, :new_in_out]
 
   def index
     @transactions_grid = TransactionsGrid.new(params[:Transaction_grid]) do |scope|
@@ -8,11 +9,15 @@ class TransactionsController < ApplicationController
   end
 
   def show
-
   end
 
 	def new_in
-    @transaction = Transaction.new
+  end
+
+  def new_out
+  end
+
+  def new_in_out
   end
 
   def create
@@ -24,19 +29,18 @@ class TransactionsController < ApplicationController
     if @transaction.save
       flash[:success] = "Aylanma saqlanib qo'yildi"
       if params[:create_and_new]
-        @transaction = Transaction.new
-        render :new_in
+        redirect_to :back
       else        
         redirect_to transactions_path
       end
     else
-      render :new_in
+      render :back
     end
   end
 
   def update
     if @transaction.update(transaction_params)
-      redirect_to @transaction, notice: "Muvaffaqqiyatli saqlandi"
+      redirect_to @transaction, flush: { success: "Aylanma muvaffaqqiyatli tahrirlandi" }
     else
       render :edit
     end
@@ -49,14 +53,19 @@ class TransactionsController < ApplicationController
 
   def show
   end
+
   def edit
   end
 
 
   private
 
-  def set_product
+  def set_transaction
     @transaction = Transaction.find(params[:id])
+  end
+
+  def set_new_transaction
+    @transaction = Transaction.new
   end
 
   def transaction_params

@@ -1,3 +1,4 @@
+// var unhideNext;
 (function($, undefined) {
     "use strict";
 
@@ -7,6 +8,14 @@
                 $(".account #leftover").html(json.leftover);
             });
     }
+
+    var unhideNext = () => {
+        console.log('unhide')
+        var $this   = $(this);
+        console.log($this)
+        $this.next().removeClass('d-none')
+    }
+
 // 	// When ready.
 //     $(function() {
     $(document).on('turbolinks:load', function() {
@@ -38,12 +47,10 @@
                 autoclose: true,
             }).datepicker("setDate",'now');
 
-            // let date = new Cleave('.date input', {
-            //     date: true,
-            //     datePattern: ['d', 'm', 'y'],
-            //     delimiter: '.'
-            // });
+            var $anchor = $('a.anchor_input');
 
+            $anchor.append( $('select.anchor_input').text() );
+            $anchor.click(unhideNext())
 // 		/**
 // 		 * ==================================
 // 		 * When Form Submitted

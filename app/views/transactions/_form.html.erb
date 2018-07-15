@@ -6,25 +6,24 @@
     <%= f.input :in_out_type, label: "#{type_name} turi", selected: 0, collection: Transaction.types[type_name] %>
     <%= f.input :date, as: :date_picker %>
   </div>
-  <div class="form-row">
-	  <%= f.association :account, as: :account, selected: 1 %>
-    <!-- TODO: Selected should be user default-->
-  </div>
+
+  <%= f.association :account, as: :account, selected: 1 %> <!-- TODO: Selected should be user default-->
+
   <div class="form-row">
     <%= f.association :counter_party %>
-    <%= f.input :amount, as: :currency, required: true %>
+    <%= f.input :amount, as: :currency %>
   </div>
   <div class="form-row">
     <%= f.input :coefficient, placeholder: "%" %>
   </div>  <div class="form-row">
-    <%= f.input :notes, label: 'Qaydlar' %>
+    <%= f.input :notes %>
   </div>
 
   <%= link_to "Ortga", transactions_path, class: "btn btn-outline-secondary" %>
   <div class="float-right">
     <%= f.button :submit, class: "btn-primary" %>
     <% if local_assigns[:create_and_new] %>
-      <%= f.button :submit, class: "btn-outline-info", name: :create_and_new  %>
+      <%= f.button :submit, create_and_new, name: :create_and_new, class: "btn-outline-info"  %>
     <% end %>
     <% if local_assigns[:show] %>
       <% link_to "Ko‘rsat", @transaction %>
