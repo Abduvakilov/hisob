@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: categories
+#
+#  id                 :integer          not null, primary key
+#  description        :text
+#  name               :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  parent_category_id :integer
+#  type_id            :integer
+#
+# Indexes
+#
+#  index_categories_on_parent_category_id  (parent_category_id)
+#
+
 class Category < ApplicationRecord
   cattr_reader :types
   @@types = [:product, :product_price_history, :counter_party]

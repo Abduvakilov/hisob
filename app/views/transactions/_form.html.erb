@@ -1,4 +1,4 @@
-<%= simple_form_for @transaction,  defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
+<%= simple_form_for @transaction, url: transactions_path, defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
 
   <%= f.error_notification %>
 
@@ -13,24 +13,13 @@
     <%= f.association :counter_party %>
     <%= f.input :amount, as: :currency %>
   </div>
-  <input type="checkbox" class="more-state" id="more"/>
-  <label for="more" class="more-trigger mb-4">Boshqa</label>
-  <div class="more-wrap">
+  <%= more_wrapped do %>
     <div class="form-row">
       <%= f.input :coefficient %>
     </div>
     <div class="form-row">
       <%= f.input :notes %>
     </div>
-  </div>
-  <div class="d-sm-flex">
-      <%= link_to "Ortga", transactions_path, class: "d-none d-sm-flex mr-sm-auto btn btn-outline-secondary" %>
-      <%= f.button :submit, class: "btn-primary mx-1" %>
-      <% if local_assigns[:create_and_new] %>
-        <%= f.button :submit, create_and_new, name: :create_and_new, class: "btn-outline-info"  %>
-      <% end %>
-      <% if local_assigns[:show] %>
-        <% link_to "Ko‘rsat", @transaction %>
-      <% end %>
-  </div>
+  <% end %>
+  <%= render 'layouts/form_buttons', f: f %>
 <% end %>

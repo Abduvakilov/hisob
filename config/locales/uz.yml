@@ -2,6 +2,7 @@ uz:
   activerecord:
     errors:
       messages:
+        required: kiritishi kerak
         less_than: "%{count} dan kam bo‘lishi kerak"
         blank: bo‘sh bo‘lishi mumkin emas
         not_a_number: raqam bo‘lishi kerak

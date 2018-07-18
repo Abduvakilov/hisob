@@ -9,7 +9,15 @@
   <%- end -%>
   </div>
 
-  <div class="form-actions">
-    <%%= f.button :submit %>
+  <div class="d-sm-flex">
+    <%%= link_to "Ortga", <%= plural_table_name %>_path, class: "d-none d-sm-flex mr-sm-auto btn btn-outline-secondary" %>
+    <%%= f.button :submit, class: "btn-primary mx-1" %>
+    <%% if local_assigns[:create_and_new] %>
+      <%%= f.button :submit, create_and_new, name: :create_and_new, class: "btn-outline-info"  %>
+    <%% end %>
+    <%% if local_assigns[:show] %>
+      <%% link_to "Ko‘rsat", @<%= singular_table_name %> %>
+    <%% end %>
   </div>
+
 <%% end %>

@@ -1,0 +1,23 @@
+.col
+	h1 Pul aylanmalari
+
+	a.btn.btn-outline-success.mr-2 href=new_in_transactions_path + Tushum
+	a.btn.btn-outline-danger.mr-2 href=new_out_transactions_path - Chiqim
+	a.btn.btn-outline-secondary href=new_inout_transactions_path Ko‘chirish
+
+	.row.my-3
+		.col-md-9.order-2.order-md-1
+			table.table.table-hover.table-light.table-responsive
+				thead
+					tr
+						- Transaction.shown_columns.each do |column|
+							th = Transaction.human_attribute_name column
+				tbody
+					- @transactions.each do |t|
+						tr
+							td = t.amount
+			/ = paginate @transactions_grid.assets
+
+
+		.col-md-3.order-1.order-md-2.my-3
+			/ datagrid_form_for @transactions_grid, url: transactions_path

@@ -3,21 +3,7 @@ class TransactionsController < ApplicationController
   before_action :set_new_transaction, only: [:new_in, :new_out, :new_in_out]
 
   def index
-    @transactions_grid = TransactionsGrid.new(params[:Transaction_grid]) do |scope|
-      scope.page(params[:page])
-    end
-  end
-
-  def show
-  end
-
-	def new_in
-  end
-
-  def new_out
-  end
-
-  def new_in_out
+    @transactions = Transaction.page params[:page]
   end
 
   def create
@@ -51,12 +37,20 @@ class TransactionsController < ApplicationController
     redirect_to :index
   end
 
-  def show
-  end
-
   def edit
   end
 
+  def show
+  end
+
+  def new_in
+  end
+
+  def new_out
+  end
+
+  def new_in_out
+  end
 
   private
 
@@ -65,7 +59,7 @@ class TransactionsController < ApplicationController
   end
 
   def set_new_transaction
-    @transaction = Transaction.new
+    @transaction = Income.new
   end
 
   def transaction_params

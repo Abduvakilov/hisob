@@ -1,7 +1,23 @@
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id                  :integer          not null, primary key
+#  bank_account_number :integer
+#  is_bank_account     :boolean
+#  name                :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  company_id          :integer
+#  currency_id         :integer
+#
+# Indexes
+#
+#  index_accounts_on_company_id   (company_id)
+#  index_accounts_on_currency_id  (currency_id)
+#
+
 class Account < ApplicationRecord
-  belongs_to :currency
-  belongs_to :company
-  has_many   :transactions
 
   def leftover
     sum = ActionController::Base.helpers.number_with_precision self.transactions.sum(:amount), precision: 0, delimiter: ' '
@@ -11,5 +27,15 @@ class Account < ApplicationRecord
   def to_s
     self.name + ' (' + self.currency + ')'
   end
+
+  def to_str
+    to_s
+  end
+
+  belongs_to :currency
+  belongs_to :company
+  has_many   :transactions
+
+  validates_presence_of :name
 
 end

@@ -11,6 +11,7 @@ module Acc
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     
+    config.autoload_paths += Dir[Rails.root.join("app", "models", "transaction")]
     config.i18n.load_path += Dir[Rails.root.join('locales', '*.uz.yml').to_s]
   	config.i18n.default_locale = :uz
     # Settings in config/environments/* take precedence over those specified here.
