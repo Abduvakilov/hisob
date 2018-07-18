@@ -33,23 +33,11 @@ class Transaction < ApplicationRecord
             # Togirlash: [:kopaytirish, :kamaytirish]
             }
 
-  # @@type_values = @@types.values.inject(&:merge)
-
   enum type_id: @@all_types.values.inject(&:merge)
 
-  # def in_out_type=(value)
-  #   self.type_id = @@type_values[value]
-  # end
-
-  # def in_out_type
-  #   if type_id
-  #     @@type_values.key type_id
-  #   end
-  # end
-
-  # def amount_formatted
-  #   amount
-  # end
+  def self.shown_columns
+    %w[date type_id amount account counter_party notes coefficient]
+  end
 
   # belongs_to :reference, optional: true
   belongs_to :counter_party, optional: true

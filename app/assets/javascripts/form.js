@@ -16,7 +16,7 @@
 //     $(function() {
     $(document).on('turbolinks:load', function() {
 
-        let $form = $('form.new_transaction');
+        let $form = $('form');
         if (!$form.length) {
             return;
         }
@@ -38,9 +38,9 @@
             todayBtn: 'linked',
             language: "uz-latn",
             todayHighlight: true,
-            container: 'div.date_picker', //<!-- TODO user setting -->
+            container: 'div.date_picker',
             autoclose: true,
-        }).datepicker("setDate", 'now');
+        }).datepicker("setDate", 'now'); //<!-- TODO user setting -->
         const $anchor = $('a.anchor_input');
         $anchor.append($('select.anchor_input option:selected').text());
         $anchor.click(function() {

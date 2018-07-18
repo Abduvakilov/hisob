@@ -3,7 +3,7 @@
   <%= f.error_notification %>
 
   <div class="form-row">
-    <%= f.input :in_out_type, label: "#{type_name} turi", selected: 0, collection: Transaction.types[type_name] %>
+    <%= f.input :type_id, label: "#{type_name} turi", selected: 0, collection: Transaction.all_types[type_name] %>
     <%= f.input :date, as: :date_picker %>
   </div>
 

@@ -15,9 +15,12 @@
 				tbody
 					- @transactions.each do |t|
 						tr
-							td = t.amount
-			/ = paginate @transactions_grid.assets
+                            - Transaction.shown_columns.each do |column|
+							    td = t[column]
+			.row
+			    == paginate @transactions
 
 
 		.col-md-3.order-1.order-md-2.my-3
 			/ datagrid_form_for @transactions_grid, url: transactions_path
+= console

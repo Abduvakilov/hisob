@@ -20,7 +20,7 @@ class TransactionsController < ApplicationController
         redirect_to transactions_path
       end
     else
-      render :back
+      redirect_back fallback_location: @transaction
     end
   end
 
@@ -59,10 +59,10 @@ class TransactionsController < ApplicationController
   end
 
   def set_new_transaction
-    @transaction = Income.new
+    @transaction = Transaction.new
   end
 
   def transaction_params
-    params.require(:transaction).permit(:notes, :date, :amount, :account_id, :in_out_type)
+    params.require(:transaction).permit Transaction.shown_columns
   end
 end
