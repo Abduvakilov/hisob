@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_18_121227) do
+ActiveRecord::Schema.define(version: 2018_07_23_131615) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -104,20 +104,7 @@ ActiveRecord::Schema.define(version: 2018_07_18_121227) do
     t.index ["company_id"], name: "index_products_on_company_id"
   end
 
-  create_table "transactions", force: :cascade do |t|
-    t.text "notes"
-    t.float "amount"
-    t.date "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "type_id"
-    t.integer "counter_party_id"
-    t.float "coefficient", default: 100.0
-    t.integer "account_id"
-    t.integer "reference_id"
-    t.string "reference_type"
-    t.index ["account_id"], name: "index_transactions_on_account_id"
-    t.index ["counter_party_id"], name: "index_transactions_on_counter_party_id"
-  end
+# Could not dump table "transactions" because of following StandardError
+#   Unknown type 'reference' for column 'counter_account'
 
 end

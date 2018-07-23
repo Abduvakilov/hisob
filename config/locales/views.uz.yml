@@ -1,6 +1,7 @@
 uz:
   views:
-    search: Qidir  
+    search: Qidir
+    more: Boshqa
     pagination:
       first: Boshi
       last: Oxiri

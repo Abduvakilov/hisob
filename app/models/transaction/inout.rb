@@ -21,7 +21,7 @@
 #  index_transactions_on_counter_party_id  (counter_party_id)
 #
 
-class InOut < Transaction
+class Inout < Transaction
 
 	enum type_id: @@all_types[:Boshqa]
 

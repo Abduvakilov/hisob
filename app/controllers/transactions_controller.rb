@@ -1,6 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
-  before_action :set_new_transaction, only: [:new_in, :new_out, :new_in_out]
+  before_action :set_new_transaction, only: [:new_in, :new_out, :new_inout]
 
   def index
     @transactions = Transaction.search(params[:search])
@@ -11,7 +11,6 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    require 'date'
     @transaction = Transaction.new(transaction_params)
     if @transaction.save
       flash[:success] = "Aylanma saqlanib qo'yildi"
@@ -51,7 +50,7 @@ class TransactionsController < ApplicationController
   def new_out
   end
 
-  def new_in_out
+  def new_inout
   end
 
   private
@@ -65,6 +64,7 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
+    require 'date'
     tp = params.require(:transaction).permit Transaction.permitted_params
     tp[:type_id] = tp[:type_id].to_i
     tp[:date] = Date.strptime(tp[:date], '%d.%m.%y').strftime

@@ -1,0 +1,31 @@
+.table th.sortable {
+
+	padding-right: 3em;
+	cursor: pointer;
+	position: relative;
+
+	&:before {
+		right: 1.4em;
+		content: "\2191";
+	}
+
+	&:after {
+		right: 0.7em;
+		content: "\2193";
+	}
+
+	&:before, &:after {
+		position: absolute;
+		bottom: 0.9em;
+		display: block;
+		opacity: 0.3;
+	}
+	
+	&.asc:before {
+		opacity: 1;
+	}
+
+	&.desc:after {
+		opacity: 1;
+	}
+}

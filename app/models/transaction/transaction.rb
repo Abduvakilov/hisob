@@ -23,14 +23,14 @@
 
 class Transaction < ApplicationRecord
   default_scope { order('date desc, created_at desc') }
-  validates :amount, numericality: {min: 0.0001}
+  validates :amount, numericality: {greater_than: 0}
   validates_presence_of :type_id, :date
 
   cattr_reader :all_types
   @@all_types = {
-            Tushum:  {"Savdodan tushgan": 0, "Boshqa shaxslardan": 1},
+            Kirim:  {"Savdodan tushgan": 0, "Boshqa shaxslardan": 1},
             Chiqim: {"Xaridga chiqim": 10,  "Xodimlarga": 11,   "Boshqa shaxslarga": 12},
-            Boshqa: {"Pul yechish": 20, "Konversiya": 21}
+            Ko‘chirish: {"Pul yechish": 20, "Konversiya": 21}
             # Togirlash: [:kopaytirish, :kamaytirish]
             }
 
@@ -46,6 +46,10 @@ class Transaction < ApplicationRecord
 
   def self.searched_fields
     ['notes']
+  end
+
+  def self.sortable_fields
+    super - ['type_id']
   end
 
   # belongs_to :reference, optional: true
