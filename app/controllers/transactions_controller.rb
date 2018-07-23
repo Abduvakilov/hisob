@@ -3,38 +3,40 @@ class TransactionsController < ApplicationController
   before_action :set_new_transaction, only: [:new_in, :new_out, :new_in_out]
 
   def index
-    @transactions = Transaction.page params[:page]
+    @transactions = Transaction.search(params[:search])
+      .page( params[:page] ).per 10
+    if params.key? :sort
+      @transactions.order_values.prepend "#{params[:sort]} #{params[:dir]}"
+    end
   end
 
   def create
     require 'date'
-    if params[:date] 
-      params[:date] = Date.strptime params[:date], '%d.%m.%Y'
-    end
     @transaction = Transaction.new(transaction_params)
     if @transaction.save
       flash[:success] = "Aylanma saqlanib qo'yildi"
       if params[:create_and_new]
-        redirect_to :back
+        redirect_back fallback_location: transactions_path
       else        
         redirect_to transactions_path
       end
     else
-      redirect_back fallback_location: @transaction
+      render Rails.application.routes.recognize_path(request.referer)[:action]
     end
   end
 
   def update
     if @transaction.update(transaction_params)
-      redirect_to @transaction, flush: { success: "Aylanma muvaffaqqiyatli tahrirlandi" }
+      redirect_to transactions_path, flash: { success: "Aylanma muvaffaqqiyatli tahrirlandi" }
     else
       render :edit
     end
   end
  
   def destroy
-    @transaction.destroy
-    redirect_to :index
+    if @transaction.destroy
+      redirect_to transactions_path, flash: { success: "Aylanma o‘chirib tashlandi" }
+    end
   end
 
   def edit
@@ -63,6 +65,9 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction).permit Transaction.shown_columns
+    tp = params.require(:transaction).permit Transaction.permitted_params
+    tp[:type_id] = tp[:type_id].to_i
+    tp[:date] = Date.strptime(tp[:date], '%d.%m.%y').strftime
+    return tp
   end
 end

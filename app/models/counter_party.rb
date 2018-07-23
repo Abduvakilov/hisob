@@ -25,4 +25,12 @@
 class CounterParty < ApplicationRecord
   belongs_to :district, optional: true
   belongs_to :category, optional: true
+  
+  def self.searched_by_childs
+  	%w[name company_name]
+  end
+
+  def to_s
+  	self.name || self.company_name
+  end
 end

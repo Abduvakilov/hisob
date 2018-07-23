@@ -1,36 +1,9 @@
 <div class="col-md-8">
-<div>
-  <strong>Title:</strong>
-  <%= @transaction.title %>
-</div>
- 
-<div>
-  <strong>Description:</strong>
-  <%= @transaction.description %>
-</div>
-
-<div>
-  <strong>Description:</strong>
-  <%= @transaction.description %>
-</div>
-
-<div>
-  <strong>Amount:</strong>
-  <%= @transaction.amount %>
-</div>
-
-<div>
-  <strong>Date:</strong>
-  <%= @transaction.date %>
-</div>
-
-<div>
-  <strong>Account:</strong>
-  <%= @transaction.account.name %>
-</div>
-
-<div>
-  <strong>Type:</strong>
-  <%= @transaction.type %>
-</div>
+<% Transaction.shown_columns.each do |column| %>
+  <div class="row">
+    <strong><%= Transaction.human_attribute_name column %>:</strong>
+    <%= @transaction.send column %>
+  </div>
+<% end %>
+<%= link_to "O‘chirib tashla", @transaction, method: :delete, confirm: "Aminmisiz?" %>
 </div>

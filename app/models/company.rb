@@ -12,7 +12,7 @@ class Company < ApplicationRecord
   has_many :products
 
   def to_s
-  	@name
+  	self.name
   end
 
 end

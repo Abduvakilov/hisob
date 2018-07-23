@@ -28,6 +28,10 @@ class Account < ApplicationRecord
     self.name + ' (' + self.currency + ')'
   end
 
+  def self.searched_by_childs
+    'name'
+  end
+
   def to_str
     to_s
   end

@@ -22,6 +22,7 @@
 #
 
 class Transaction < ApplicationRecord
+  default_scope { order('date desc, created_at desc') }
   validates :amount, numericality: {min: 0.0001}
   validates_presence_of :type_id, :date
 
@@ -35,8 +36,16 @@ class Transaction < ApplicationRecord
 
   enum type_id: @@all_types.values.inject(&:merge)
 
-  def self.shown_columns
+  def type
+    @@all_types.keys[type_id_before_type_cast / 10]
+  end
+
+  def self.shown_fields
     %w[date type_id amount account counter_party notes coefficient]
+  end
+
+  def self.searched_fields
+    ['notes']
   end
 
   # belongs_to :reference, optional: true
