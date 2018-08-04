@@ -21,8 +21,8 @@ module Table
 	module Search
 
 	  def search(query)
-	    if fields = searched_fields && query
-	      where multiple_like_query(fields), q: "%#{query}%"
+	    if searched_fields && query
+	      where multiple_like_query(searched_fields), q: "%#{query}%"
 	    else
 	      all
 	    end

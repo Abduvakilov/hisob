@@ -1,15 +1,17 @@
 uz:
   activerecord:
-    errors:
-      messages:
-        required: kiritishi kerak
-        less_than: "%{count} dan kam bo‘lishi kerak"
-        blank: bo‘sh bo‘lishi mumkin emas
-        not_a_number: raqam bo‘lishi kerak
+    # errors:
+      # messages:
+      #   required: kiritishi kerak
+      #   less_than: "%{count} dan kam bo‘lishi kerak"
+      #   blank: bo‘sh bo‘lishi mumkin emas
+      #   not_a_number: raqam bo‘lishi kerak
     models:
       category: Toifa
       account: Hisob
-      transaction: Pul aylanmasi
+      transaction: 
+        one: Pul aylanmasi
+        other: Pul aylanmalari
       counter_party: Ikkinchi tomon
     attributes:
       user:

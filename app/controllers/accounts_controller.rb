@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:show, :edit, :update, :destroy]
+  before_action :set_account, only: [:show, :update, :destroy]
 
   # GET /accounts
   # GET /accounts.json
@@ -15,10 +15,6 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @account = Account.new
-  end
-
-  # GET /accounts/1/edit
-  def edit
   end
 
   # POST /accounts

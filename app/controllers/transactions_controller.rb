@@ -13,7 +13,7 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
     if @transaction.save
-      flash[:success] = "Aylanma saqlanib qo'yildi"
+      flash[:success] = t('views.flash.success.create', model: Transaction.model_name.human)
       if params[:create_and_new]
         redirect_back fallback_location: transactions_path
       else        
@@ -26,7 +26,7 @@ class TransactionsController < ApplicationController
 
   def update
     if @transaction.update(transaction_params)
-      redirect_to transactions_path, flash: { success: "Aylanma muvaffaqqiyatli tahrirlandi" }
+      redirect_to transactions_path, flash: { success: t('views.flash.success.update', model: Transaction.model_name.human) }
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class TransactionsController < ApplicationController
  
   def destroy
     if @transaction.destroy
-      redirect_to transactions_path, flash: { success: "Aylanma o‘chirib tashlandi" }
+      redirect_to transactions_path, flash: { success: t('views.flash.success.destroy', model: Transaction.model_name.human) }
     end
   end
 

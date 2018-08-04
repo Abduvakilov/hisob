@@ -28,9 +28,9 @@ class Transaction < ApplicationRecord
 
   cattr_reader :all_types
   @@all_types = {
-            Kirim:  {"Savdodan tushgan": 0, "Boshqa shaxslardan": 1},
-            Chiqim: {"Xaridga chiqim": 10,  "Xodimlarga": 11,   "Boshqa shaxslarga": 12},
-            Ko‘chirish: {"Pul yechish": 20, "Konversiya": 21}
+            Kirim:  {"Savdodan": 0, "Konversiyadan": 1, "Boshqalardan": 2},
+            Chiqim: {"Xaridga": 10, "Konversiyaga": 11,  "Xodimlarga": 12, "Boshqalarga": 13},
+            Ko‘chirish: {"Ko‘chirish": 20}
             # Togirlash: [:kopaytirish, :kamaytirish]
             }
 
@@ -54,5 +54,6 @@ class Transaction < ApplicationRecord
 
   # belongs_to :reference, optional: true
   belongs_to :counter_party, optional: true
+  belongs_to :counter_account, class_name: 'Account', optional: true
   belongs_to :account
 end

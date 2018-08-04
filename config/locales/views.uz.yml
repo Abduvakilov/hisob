@@ -5,3 +5,9 @@ uz:
     pagination:
       first: Boshi
       last: Oxiri
+
+    flash:
+      success:
+        create: "%{model} mufaffaqqiyatli yaratildi"
+        update: "%{model} mufaffaqqiyatli tahrirlandi"
+        destroy: "%{model} muvaffaqqiyatli o‘chirib tashlandi"

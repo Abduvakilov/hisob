@@ -1,4 +1,4 @@
-h1 Pul aylanmalari
+h1= Transaction.model_name.human(:count => 2)
 .row
 	.col-md-9.order-2.order-md-1
 		.row
@@ -7,24 +7,15 @@ h1 Pul aylanmalari
 				a.btn.btn-outline-danger.mr-2 href=new_out_transactions_path - Chiqim
 				a.btn.btn-outline-secondary href=new_inout_transactions_path Ko‘chirish
 			.col-md.mt-2.mt-md-0
-				form.input-group.mb-3 action=transactions_path method='get'
+				form.mb-3 action=transactions_path method='get'
 					input type='hidden' name='sort' value=params[:sort]
 					input type='hidden' name='dir' value=params[:dir]
-					input.form-control type='text' name='search' required=true
-					.input-group-append.bg-white.rounded
-						button.btn.btn-outline-primary type='submit' = t('views.search')
-		table.table.table-hover.table-light.table-responsive
-			thead
-				tr
-					- Transaction.shown_fields.each do |column|
-						== th_sortable Transaction, column
-			tbody
-				- @transactions.each do |t|
-					tr data-url=edit_transaction_path(t)
-						- Transaction.shown_fields.each do |column|
-							td = t.send(column)
-		== paginate @transactions
+					.input-group
+						input.form-control type='text' name='search' value=params[:search]
+						.input-group-append
+							button.btn.btn-outline-primary type='submit' = t('views.search')
+		== render 'layouts/table', records: @transactions
 
 
 	.col-md-3.order-1.order-md-2
-		/ datagrid_form_for @transactions_grid, url: transactions_path
+		/ aside

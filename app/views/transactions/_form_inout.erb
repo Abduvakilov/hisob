@@ -1,0 +1,24 @@
+<%= simple_form_for @transaction, defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
+
+  <%= f.error_notification %>
+  
+  <%= f.input :type_id, as: :hidden, input_html: {value: 20} %>
+
+  <div class="form-row">
+    <%= f.input :date, as: :date_picker %>
+    <%= f.input :amount, as: :currency %>
+  </div>
+
+
+  <div class="form-row">
+    <%= f.association :account, as: :account, wrapper: :custom_multi_select, label: "Hisobdan", selected: 1 %> <!-- TODO: Selected should be user default-->
+    <%= f.association :counter_account, as: :account, wrapper: :custom_multi_select, label: "Hisobga" %>
+  </div>
+  
+  <%= more_wrapped do %>
+    <div class="form-row">
+      <%= f.input :notes %>
+    </div>
+  <% end %>
+  <%= render 'layouts/form_buttons', f: f %>
+<% end %>

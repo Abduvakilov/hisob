@@ -6,10 +6,16 @@ function form($, undefined) {
         return;
     }
 
-    function updateAccountDetails(accountId) {
-        $.ajax({url: `/accounts/${accountId}.json`}).done(
-            (json) => {
-                $(".account #leftover").html(json.leftover);
+    function updateAccountDetail(e) {
+        let $target = $(e.target);
+        let place = $target.parent().next().find('#leftover');
+        if (!$target.val()) {
+            place.html('...');
+            return;
+        }
+        $.ajax( { url: `/accounts/${$target.val()}.json` } )
+            .done((json) => {
+                place.html(json['leftover']);
             });
     }
 
@@ -17,10 +23,8 @@ function form($, undefined) {
         $this.next().removeClass('d-none')
     }
 
-    const account = $('.account select');
-    account.change((e) => {
-        updateAccountDetails(account.val())
-    });
+    $('.account select').change( updateAccountDetail );
+
     let currency;
     if ($('.currency input').length) {
         currency = new Cleave('.currency input', {
@@ -42,11 +46,11 @@ function form($, undefined) {
         autoclose: true,
     }).datepicker("setDate", 'now'); //<!-- TODO user setting -->
     const $anchor = $('a.anchor_input');
-    $anchor.append($('select.anchor_input option:selected').text());
-    $anchor.click(function() {
-        let $this   = $(this);
-        unhideNext($this);
-        $this.remove()
+    $anchor.html($('select.anchor_input option:selected').text());
+    $anchor.click( e => {
+        let $target   = $(e.target);
+        unhideNext($target);
+        $target.remove()
     });
     $form.submit(() => {
         currency.element.value = currency.getRawValue()

@@ -1,9 +1,6 @@
 <div class="col-md-8">
-<% Transaction.shown_columns.each do |column| %>
-  <div class="row">
-    <strong><%= Transaction.human_attribute_name column %>:</strong>
-    <%= @transaction.send column %>
-  </div>
-<% end %>
-<%= link_to "O‘chirib tashla", @transaction, method: :delete, confirm: "Aminmisiz?" %>
+	<h1>Pul aylanmasini o‘zgartirish</h1>
+
+	<% form = @transaction.type == :Ko‘chirish ? 'form_inout' : 'form' %>
+	<%= render partial: form, transaction: @transaction %>
 </div>

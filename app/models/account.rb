@@ -32,10 +32,6 @@ class Account < ApplicationRecord
     'name'
   end
 
-  def to_str
-    to_s
-  end
-
   belongs_to :currency
   belongs_to :company
   has_many   :transactions
