@@ -40,7 +40,7 @@ module Table
 
 	  def belong_search_fields 
 	    belongs.reduce([]) { |memo, x| 
-	      if fields = x.classify.constantize.searched_by_childs and fields.is_a? Array
+	      if fields = x.classify.constantize.searched_by_child and fields.is_a? Array
 	        fields.each do |field|
 	          memo.push "#{x}.#{field}"
 	        end

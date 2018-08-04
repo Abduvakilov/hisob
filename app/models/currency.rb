@@ -11,10 +11,10 @@
 #
 
 class Currency < ApplicationRecord
+
+  validates_presence_of :code, :name
+
   def to_s
     self.code
-  end
-  def to_str
-    to_s
   end
 end

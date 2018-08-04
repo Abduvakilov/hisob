@@ -28,7 +28,7 @@ class Account < ApplicationRecord
     self.name + ' (' + self.currency + ')'
   end
 
-  def self.searched_by_childs
+  def self.searched_by_child
     'name'
   end
 
