@@ -1,7 +1,8 @@
 uz:
   activerecord:
-    # errors:
-      # messages:
+    errors:
+      messages:
+        is_more_than_account_leftover: hisobdagi qoldiqdan ortiq
       #   required: kiritishi kerak
       #   less_than: "%{count} dan kam bo‘lishi kerak"
       #   blank: bo‘sh bo‘lishi mumkin emas
@@ -13,17 +14,26 @@ uz:
         one: Pul aylanmasi
         other: Pul aylanmalari
       counter_party: Ikkinchi tomon
+      income: Kirim
+      expense: Chiqim
+      replace: Ko‘chirish
     attributes:
       user:
         first_name: Ismi
-      transaction:
+      transaction: &transaction
         account: Hisob
         date: Sana
         amount: Qiymat
         coefficient: Koeffitsient
         notes: Qaydlar
-        counter_party: Ikkinchi tomon
+        counter_party: "Ikkinchi tomon"
         type_id: Turi
+      # income:
+      #   <<: *transaction
+      # expense:
+      #   <<: *transaction
+      # replace:
+      #   <<: *transaction
 
   helpers:
     submit:

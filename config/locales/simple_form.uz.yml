@@ -31,5 +31,6 @@ uz:
     #   defaults:
     #     age: 'Rather not say'
     prompts:
-      defaults: 
-        counter_party: 'Tanlang'
+      defaults:
+        type_id: Toifani tanlang
+        counter_party: Ikkinchi tomonni tanlang

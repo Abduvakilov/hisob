@@ -1,0 +1,41 @@
+<% path = @transaction.persisted? ? transaction_path(@transaction) : transactions_path %>
+<%= simple_form_for @transaction, as: :transaction, url: path,
+    # html: { 'data-controller': 'transaction' },
+    defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
+
+  <%= f.error_notification %>
+  
+  <%= f.input :type_id, as: :hidden, input_html: {value: 20} %>
+
+  <div class="form-row">
+    <%= f.input :date, as: :date_picker,
+      input_html: {value: (@transaction.date || Date.today).strftime('%d.%m.%y')} %>
+    <%= f.input :amount, as: :currency %>
+  </div>
+
+
+  <div class="form-row">
+    <%= f.association :account, as: :account, label: "Hisobdan",
+      selected: (@transaction.account_id ||= 1),
+      wrapper_html: { 'data-controller': 'account' },
+      input_html: { 'data-action': 'change->account#updateLeftover',
+                  'data-target': 'account.input' },
+      leftover: format_transaction_amount(@transaction, @transaction.account.leftover),
+      leftover_data_target: 'account.leftover'
+    %> <!-- TODO: Selected should be user default-->
+    <%= f.association :counter_account, as: :account, label: "Hisobga",
+      wrapper_html: { 'data-controller': 'account' },
+      input_html: { 'data-action': 'change->account#updateLeftover',
+                  'data-target': 'account.input' },
+      leftover: (format_transaction_amount(@transaction, @transaction.counter_account.leftover) if @transaction.counter_account),
+      leftover_data_target: 'account.leftover'
+    %>
+  </div>
+  
+  <%= more_wrapped do %>
+    <div class="form-row">
+      <%= f.input :notes %>
+    </div>
+  <% end %>
+  <%= render 'layouts/form_buttons', f: f %>
+<% end %>

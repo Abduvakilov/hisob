@@ -1,0 +1,19 @@
+<nav class="navbar-primary">
+  <a href="#" class="btn-expand-collapse"><%= icon 'caret-square-left'%></a>
+  <ul class="navbar-primary-menu">
+    <li>
+      <%= link_to transactions_path do %><%=icon 'money-bill-alt'%> 
+      	<span class="nav-label"><%=Transaction.model_name.human %></span><% end %>
+      <%= link_to accounts_path do %><%=icon 'money-check-alt'%>
+      	<span class="nav-label"><%=Account.model_name.human %></span><% end %>
+    	<%= link_to products_path do %><%=icon 'apple-alt'%>
+      	<span class="nav-label"><%=Product.model_name.human %></span><% end %>
+    	<%= link_to categories_path do %><%=icon 'shapes'%>
+      	<span class="nav-label"><%=Category.model_name.human %></span><% end %>
+    	<%= link_to currencies_path do %><%=icon 'dollar-sign'%>
+      	<span class="nav-label"><%=Currency.model_name.human %></span><% end %>
+    	<%= link_to districts_path do %><%=icon 'map-marked-alt'%>
+      	<span class="nav-label"><%=District.model_name.human %></span><% end %>
+    </li>
+  </ul>
+</nav>

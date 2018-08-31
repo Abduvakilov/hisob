@@ -1,9 +1,9 @@
 <div class="d-sm-flex">
-  <%= link_to "Ortga", f.options[:url], class: "d-none d-sm-flex mr-sm-auto btn btn-outline-secondary" %>
+  <%= link_to "Ortga", controller_path, class: "d-none d-sm-flex mr-sm-auto btn btn-outline-secondary" %>
   <%= f.button :submit, class: "btn-primary mx-1" %>
   <% unless f.object.persisted? %>
   <%= f.button :submit, "Yarat va yangisiga", name: :create_and_new, class: "btn-outline-info"  %>
   <% else %>
-  <% link_to "Ko‘rsat", f.object %>
+  <% link_to "Ko‘rsat", controller_path(f.object) %>
   <% end %>
 </div>

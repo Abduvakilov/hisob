@@ -29,3 +29,15 @@
 		opacity: 1;
 	}
 }
+
+.table {
+  white-space: nowrap;
+}
+
+.filter [type=radio] {
+  opacity: 0;
+  width: 0;
+}
+.filter .list-group-item {
+  padding: 0.375rem 0.75rem;
+}

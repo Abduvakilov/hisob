@@ -1,17 +1,30 @@
-<%= simple_form_for @transaction, defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
+<% path = @transaction.persisted? ? transaction_path(@transaction) : transactions_path %>
+<%= simple_form_for @transaction, as: :transaction, url: path,
+    html: { 'data-controller': 'transaction'},
+    defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
 
   <%= f.error_notification %>
 
   <div class="form-row">
-    <%= f.input :type_id, label: "#{type_name} turi", selected: 0, collection: Transaction.all_types[type_name] %>
-    <%= f.input :date, as: :date_picker %>
+    <%= f.input :type_id, label: "Pul aylanmasi turi",
+        collection: @transaction.class.type_ids,
+        selected: @transaction.type_id_before_type_cast %>
+    <%= f.input :date, as: :date_picker,
+      input_html: { value: (@transaction.date || Date.today).strftime('%d.%m.%y')} %>
   </div>
 
-  <%= f.association :account, as: :account, selected: 1 %> <!-- TODO: Selected should be user default-->
+  <%= f.association :account, as: :account, selected: (@transaction.account_id ||= 1),
+    wrapper: :hidden_account,
+    leftover: format_transaction_amount(@transaction, @transaction.account.leftover),
+    leftover_data_target: 'account.leftover'
+  %> <!-- TODO: Selected should be user default-->
 
   <div class="form-row">
     <%= f.association :counter_party %>
-    <%= f.input :amount, as: :currency %>
+    <%= f.input :amount, as: :currency, input_html: {
+      value: number_to_currency(@transaction.amount,
+      precision: @transaction.account&.currency&.precision) || 0
+    }%>
   </div>
   <%= more_wrapped do %>
     <div class="form-row">

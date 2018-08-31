@@ -1,0 +1,15 @@
+a.btn.btn-outline-success.mr-2 href=new_transaction_path(type: 0) = "+ #{Income.model_name.human}"
+a.btn.btn-outline-danger.mr-2 href=new_transaction_path(type: 1) = "- #{Expense.model_name.human}"
+a.btn.btn-outline-secondary href=new_transaction_path(type: 2) = Replace.model_name.human
+
+= content_for :second_row
+	form.form-row.ml-auto.mb-2.align-items-center.d-flex.justify-content-end action=transactions_path method='get'
+		- %I[ sort dir type_id date account_id currency_id search ].each do |field|
+			= hidden_field_tag field, params[field], id: nil if params[field].present?
+		- Transaction.models.each_with_index do |model,i|
+			.col-2: .custom-control.custom-checkbox
+				input.custom-control-input id="type#{i}" name='type[]' type='checkbox' value=i onclick='submit(this)' checked=(params[:type]&.include? i.to_s)
+				label.custom-control-label for="type#{i}" = model.model_name.human
+		.col-3
+			- if @sorted
+				a.btn.text-dark.border href=transactions_path = t 'views.clear_sort'

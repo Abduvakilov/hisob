@@ -1,0 +1,22 @@
+<h5>Filterlar</h5>
+<form action="<%=transactions_path%>" method="get" class="filter">
+
+	<% %I[ sort dir search].each do |field| %>
+		<%= hidden_field_tag field, params[field], id: nil if params[field].present? %>
+	<% end %>
+
+  <%= select_tag :type_id,
+      grouped_options_for_select(Transaction.all_types, params[:type_id]),
+      class: 'custom-select', prompt: t('simple_form.prompts.defaults.type_id'),
+      onchange: 'submit(this)', id: nil %>
+
+  <h6 class='mt-sm-2 mb-sm-1'>Sana:</h6>
+  <%= date_filter_links :date, params[:date] %>
+
+  <h6 class='mt-sm-2 mb-sm-1'>Valyuta:</h6>
+  <%= filter_links :currency_id, Currency.all, params[:currency_id] %>
+
+  <h6 class='mt-sm-2 mb-sm-1'>Hisob:</h6>
+  <%= filter_links :account_id, Account.all, params[:account_id] %>
+
+</form>

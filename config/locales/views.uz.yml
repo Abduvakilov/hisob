@@ -2,6 +2,7 @@ uz:
   views:
     search: Qidir
     more: Boshqa
+    clear_sort: × Saralashni bekor qil
     pagination:
       first: Boshi
       last: Oxiri
@@ -11,3 +12,15 @@ uz:
         create: "%{model} mufaffaqqiyatli yaratildi"
         update: "%{model} mufaffaqqiyatli tahrirlandi"
         destroy: "%{model} muvaffaqqiyatli o‘chirib tashlandi"
+
+    title:
+      action:
+        new: Yangi %{model}
+        show: '%{model}ni o‘zgartirish'
+  date:
+    today: Bugun
+    yesterday: Kecha
+    this_week: Shu hafta
+    prev_week: O‘tgan hafta
+    this_month: Shu oy
+    prev_month: O‘tgan oy

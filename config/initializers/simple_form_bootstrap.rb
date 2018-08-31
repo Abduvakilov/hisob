@@ -347,23 +347,6 @@ SimpleForm.setup do |config|
     b.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
   end
 
-  # horizontal custom multi select
-  config.wrappers :anchor_input, tag: 'div', class: 'form-group row', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
-    b.use :html5
-    b.optional :readonly
-    b.use :label, class: 'control-label'
-    b.wrapper :anchor_input_wrapper, tag: 'div', class: 'col' do |ba|
-      ba.wrapper :anchor, tag: 'a', html: {href: '#', class: "anchor_input", "data-turbolinks": "false"} do end
-      ba.wrapper :hide_wrapper, tag: 'div', class: 'd-none' do |bb|
-        bb.wrapper tag: 'div', class: 'd-flex flex-row justify-content-between align-items-center' do |bc|
-          bc.use :input, tag: 'div', class: 'anchor_input custom-select mx-1', error_class: 'is-invalid', valid_class: 'is-valid'
-        end
-      end
-      ba.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
-      ba.use :hint, wrap_with: { tag: 'small', class: 'd-inline form-text text-muted' }
-    end
-  end
-
   # custom range input
   config.wrappers :custom_range, tag: 'div', class: 'form-group', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
     b.use :html5
@@ -446,13 +429,12 @@ SimpleForm.setup do |config|
   config.wrapper_mappings = {
     boolean:       :custom_boolean,
     check_boxes:   :custom_collection,
-    # date:          :custom_multi_select,
     datetime:      :custom_multi_select,
     file:          :custom_file,
     radio_buttons: :custom_collection,
     range:         :custom_range,
     time:          :custom_multi_select,
     select:        :custom_multi_select,
-    account:       :anchor_input
+    account:       :custom_multi_select
   }
 end

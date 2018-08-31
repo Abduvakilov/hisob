@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hisob</title>
+	<title><%= title = yield(:title).presence || title_of_page %></title>
 	<%= csrf_meta_tags %>
 	<%= csp_meta_tag %>
 
-	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_pack_tag 'application' %>
+	<%= stylesheet_pack_tag 'application' %>
+	<%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+	<%# javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-<body class="bg-light">
-	<% flash.each do |key, value| %>
-	<div class="alert alert-dismissible fade show alert-<%= key %>" role="alert">
-		<%= value %>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	<% end %>
-	<div class="container my-3">
-		<%= yield %>
+<body>
+	<div class="row">
+
+		<%= render 'layouts/menu' %>
+
+		<div class="col main-content">
+
+			<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %>" role="alert">
+				<%= value %>
+				<button type="button" class="close" onclick="dismiss(event)" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<% end %>
+
+			<div class="container my-3">
+
+				<h1><%= title %></h1>		
+				<div class="row">
+
+					<div class="col-sm-<%=col=@col||8%>">
+						<%= yield %>		
+					</div>
+
+					<aside class="col-sm-<%=12-col%>">
+						<%= yield :aside %>		
+					</aside>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
 	</div>
 </body>
 </html>

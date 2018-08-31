@@ -1,22 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root "application#index"
-  resources :transactions, except: [:new, :edit] do 
-    collection do
-      get 'new_in'
-      post 'create_in'
-
-      get 'new_out'
-      post 'create_out'
-
-      get 'new_inout'
-      post 'create_inout'
-
-      get 'new_other'
-      post 'create_other'
-    end
-  end
-  resources :application, :products, :counter_parties, :accounts, except: :edit
+  root "pages#index"
+  resources :transactions, :products, :counter_parties,
+  					:accounts, :categories, :districts, :currencies, except: :edit
 
 
 end

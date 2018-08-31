@@ -1,31 +1,27 @@
-# == Schema Information
-#
-# Table name: accounts
-#
-#  id                  :integer          not null, primary key
 #  bank_account_number :integer
 #  is_bank_account     :boolean
 #  name                :string
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
 #  company_id          :integer
 #  currency_id         :integer
-#
-# Indexes
-#
-#  index_accounts_on_company_id   (company_id)
-#  index_accounts_on_currency_id  (currency_id)
-#
-
 class Account < ApplicationRecord
 
   def leftover
-    sum = ActionController::Base.helpers.number_with_precision self.transactions.sum(:amount), precision: 0, delimiter: ' '
-    "#{sum} #{self.currency.name}"
+    transactions = Transaction.where(account: self).group(:type_id)
+    replace_in  = Replace.all_i.where(counter_account: self).sum :amount
+    balance = transactions.sum(:amount).reduce(0) do |sum, (key,val)| 
+      if Income.type_ids.key? key
+        sum += val
+      elsif Expense.type_ids.key?(key) || Replace.type_ids.key?(key)
+        sum -= val
+      end
+      sum
+    end
+    balance + replace_in
   end
 
+
   def to_s
-    self.name + ' (' + self.currency + ')'
+    "#{self.name}, #{self.currency.name}"
   end
 
   def self.searched_by_child

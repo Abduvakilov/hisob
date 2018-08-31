@@ -10,8 +10,6 @@ module Table
 	  	sortable_fields + belongs
 	  end
 
-	  private
-
 	  def belongs(suffix=nil)
 	    reflect_on_all_associations(:belongs_to).map { |x| x.name.to_s + suffix.to_s }
 	  end
@@ -28,24 +26,26 @@ module Table
 	    end
 	  end
 
-	  private
-
-	  def searched_by_childs
+	  def searched_by_child
 	    nil      # This should be implemented to search among belongs_to
 	  end
+
+	  private
 
 	  def searched_fields
 	    permitted_params + belong_search_fields - belongs('_id')
 	  end
 
-	  def belong_search_fields 
-	    belongs.reduce([]) { |memo, x| 
-	      if fields = x.classify.constantize.searched_by_child and fields.is_a? Array
-	        fields.each do |field|
+	  def belong_search_fields
+	  	belong_classes = reflect_on_all_associations(:belongs_to).map &:klass
+	    belong_classes.reduce([]) { |memo, x| 
+	      case x.searched_by_child
+	      when Array
+	        x.searched_by_child.each do |field|
 	          memo.push "#{x}.#{field}"
 	        end
-	      elsif fields.is_a? String
-	          memo.push "#{x}.#{fields}"
+				when String, Symbol
+          memo.push "#{x}.#{fields}"
 	      end
 	      memo
 	    }
@@ -63,8 +63,6 @@ module Table
 
 
 	module Sort
-
-	  private
 
 	  def sortable_fields
 	    permitted_params - belongs('_id')

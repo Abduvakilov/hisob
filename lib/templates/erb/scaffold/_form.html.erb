@@ -1,23 +1,18 @@
 <%# frozen_string_literal: true %>
-<%%= simple_form_for(@<%= singular_table_name %>) do |f| %>
+<%%= simple_form_for @<%= singular_table_name %> do |f| %>
   <%%= f.error_notification %>
   <%%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-  <%- attributes.each do |attribute| -%>
-    <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
-  <%- end -%>
+    <%- controller.model.shown_fields.each do |field| %>
+      <%- if controller.model.belongs.include?(field) %>
+        <%%= f.association <%=field%> %>
+      <% else %>
+        <%%= f.input <%=field%> %>
+      <% end %>
+    <% end %>
   </div>
 
-  <div class="d-sm-flex">
-    <%%= link_to "Ortga", <%= plural_table_name %>_path, class: "d-none d-sm-flex mr-sm-auto btn btn-outline-secondary" %>
-    <%%= f.button :submit, class: "btn-primary mx-1" %>
-    <%% if local_assigns[:create_and_new] %>
-      <%%= f.button :submit, create_and_new, name: :create_and_new, class: "btn-outline-info"  %>
-    <%% end %>
-    <%% if local_assigns[:show] %>
-      <%% link_to "Ko‘rsat", @<%= singular_table_name %> %>
-    <%% end %>
-  </div>
-
+  <%%= render 'layouts/form_buttons', f: f %>
+  
 <%% end %>

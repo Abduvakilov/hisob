@@ -1,15 +1,16 @@
 class AccountInput < SimpleForm::Inputs::CollectionSelectInput
   def selected_account
-    if selected_id = input_options[:selected]
-      Account.find(selected_id)
-    end
+    Account.find input_options[:selected] if input_options[:selected]
   end
+
   def hint(wrapper_options=nil)
-    text = "Qoldiq: <b id='leftover'>%s</b>".html_safe
-    if selected_account
-      text % selected_account.leftover
-    else
-      text % '...'
-    end
+    'Qoldiq: '.html_safe+ content_tag(:b,
+      options[:leftover] || '...',
+      id: 'leftover', 'data-target': 'account.leftover')
   end
+
+  def anchor(wrapper_options=nil)
+    selected_account&.name
+  end
+
 end

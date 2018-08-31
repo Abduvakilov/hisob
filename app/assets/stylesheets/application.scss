@@ -1,33 +1,27 @@
 @import 'table';
-@import 'bootstrap';
-@import 'bootstrap-datepicker.css';
+@import 'nav';
+
+body {
+  background-color: $light;
+}
+
 .currency {
   text-align: right;
 }
-.currency, .float {
+.currency.col-md, .float.col-md {
   max-width: 200px;
 }
-.datepicker {
-  .active.day {
-    @extend .bg-primary;
-  }
-  .active.day, .active.day:hover {
-    background: none;
-  }
-  .today.day {
-    @extend .text-warning;
-  }
-  .today.day, .today.day:hover {
-    background: none;
-  }
+
+.alert, .hide {
+  max-height: 10em;
+  overflow-y: hidden;
+  transition: 0.5s ease-out;
 }
-.alert {
-  transition: 0.5s ease-in;
-}
-a.anchor_input {
-  display: inline-block;
-  padding: 0rem 1rem 0rem 0.75rem;
-  line-height: 1.5;
+
+.hide.alert {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .more-state {
