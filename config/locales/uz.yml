@@ -36,6 +36,10 @@ uz:
       #   <<: *transaction
 
   helpers:
+    select:
+      prompt:
+        default: 'Tanlang: '
+        specific: '%{model}ni tanlang: '
     submit:
       create: "%{model}ni yarat"
       submit: "%{model}ni saqla"

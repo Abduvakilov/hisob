@@ -10,6 +10,7 @@
 
 class Company < ApplicationRecord
   has_many :products
+  has_many :departments
 
   def to_s
   	self.name

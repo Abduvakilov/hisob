@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_08_090834) do
+ActiveRecord::Schema.define(version: 2018_09_04_090820) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(version: 2018_08_08_090834) do
     t.integer "precision", default: 2
   end
 
+  create_table "departments", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_departments_on_company_id"
+  end
+
   create_table "districts", force: :cascade do |t|
     t.string "name"
     t.boolean "is_active"
@@ -72,6 +80,19 @@ ActiveRecord::Schema.define(version: 2018_08_08_090834) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["district_id"], name: "index_districts_on_district_id"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name"
+    t.date "birthday"
+    t.integer "department_id"
+    t.text "notes"
+    t.boolean "gender"
+    t.date "hire_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_employees_on_department_id"
   end
 
   create_table "price_category", force: :cascade do |t|
@@ -102,6 +123,17 @@ ActiveRecord::Schema.define(version: 2018_08_08_090834) do
     t.integer "category_id"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["company_id"], name: "index_products_on_company_id"
+  end
+
+  create_table "salaries", force: :cascade do |t|
+    t.integer "employee_id"
+    t.integer "department_id"
+    t.date "from_date"
+    t.integer "salary", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_salaries_on_department_id"
+    t.index ["employee_id"], name: "index_salaries_on_employee_id"
   end
 
   create_table "transactions", force: :cascade do |t|

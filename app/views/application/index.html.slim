@@ -1,22 +1,24 @@
 - @col = 9
 - records = controller.objects || instance_variable_get("@#{controller_name}")
 - model_name = records.model.model_name
-.row.mb-2
-	.col-auto
-		- if lookup_context.exists?('add_buttons', controller_name, true)
-			= render "#{controller_name}/add_buttons"
-		- else
-			a.btn.btn-outline-success.mr-2 href=public_send("new_#{model_name.singular}_path") = "+ #{model_name.human}"  
-	.col-md.mt-2.mt-md-0
-		form action=controller_path method='get'
+
+form action=controller_path method='get'
+	.row.mb-2
+		.col-auto
+			- if lookup_context.exists?('add_buttons', controller_name, true)
+				= render 'add_buttons'
+			- else
+				a.btn.btn-outline-success.mr-2 href=public_send("new_#{model_name.singular}_path") = "+ #{model_name.human}"  
+		.col-md.mt-2.mt-md-0
 			- %I[ sort dir type_id date account_id currency_id ].each do |field|
 				= hidden_field_tag field, params[field], id: nil if params[field].present?
 			.input-group
-				input.form-control type='text' name='search' value=params[:search]
+				input.form-control type='search' name='search' value=params[:search]
 				.input-group-append
 					button.btn.btn-outline-primary type='submit' = t('views.search')
-= yield :second_row
-== render 'layouts/table', records: records
+	= yield :second_row
+= render 'table', records: records
+
 - if lookup_context.exists?('aside', controller_name, true)
 	= content_for :aside
-		= render "#{controller_name}/aside"
+		= render 'aside'

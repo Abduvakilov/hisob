@@ -10,9 +10,9 @@
 #  counter_account_id :integer
 #  rate             :float
 class Replace < Transaction
-  
+
 	validates_presence_of :counter_account
-	validates :counter_party, :coefficient, :rate, absence: true
+	validates_absence_of :counter_party, :coefficient, :rate
 
 	enum type_id: @@all_types[:replace]
 

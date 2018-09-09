@@ -1,8 +1,8 @@
-import { form, submit } from './form';
+import currency from './form';
 import './alert';
-import { library, dom } from '@fortawesome/fontawesome-svg-core';
-import { faMoneyBillAlt, faCaretSquareLeft, faMoneyCheckAlt, faAppleAlt, faDollarSign, faMapMarkedAlt, faShapes } from '@fortawesome/free-solid-svg-icons';
-library.add(faMoneyBillAlt, faCaretSquareLeft, faMoneyCheckAlt, faAppleAlt, faDollarSign, faMapMarkedAlt, faShapes);
+import './icons';
+import { dom } from '@fortawesome/fontawesome-svg-core';
+
 document.addEventListener('turbolinks:load', function() {
 
 
@@ -14,10 +14,9 @@ document.addEventListener('turbolinks:load', function() {
 		})
 	}
 
-	form();
-
+	currency();
 
 	dom.i2svg();
-
+	
 
 });

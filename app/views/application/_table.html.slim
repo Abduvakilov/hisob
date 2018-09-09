@@ -1,0 +1,20 @@
+table.table.table-hover.table-light.table-responsive
+	thead
+		tr
+			- records.model.shown_fields.each do |column|
+				== th_sortable records.model, column
+	tbody
+		- records.each do |t|
+			tr data-url=polymorphic_path(t)
+				- records.model.shown_fields.each do |column|
+					- if respond_to? "table_#{column}"
+						td == public_send("table_#{column}", t)
+					- else
+						- case val = t.send(column)
+						- when true
+							td = icon 'check'
+						- when false
+							td = icon 'times'
+						- else
+							td = val
+== paginate records

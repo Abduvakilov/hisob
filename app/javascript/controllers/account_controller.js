@@ -10,7 +10,7 @@ export default class extends Controller {
 	}
 
 	set leftover(json) {
-		this.leftoverTarget.innerText = json['leftover']+' '+json['currency']['code'];
+		this.leftoverTarget.innerText = json['leftover'].toLocaleString('ru-RU')+' '+json['currency']['code'];
 	}
 
   show(e) {

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee: one
+  from_date: 2018-09-04
+  salary: 
+
+two:
+  employee: two
+  from_date: 2018-09-04
+  salary: 

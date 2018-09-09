@@ -1,23 +1,15 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :update, :destroy]
 
-  def index
-    super
-  #   @transactions = Transaction.where nil
-  #   @transactions = @transactions.includes(account: :currency)
-  #   @transactions.order(params[:sort] => params[:dir]) if params[:sort].present? && Transaction.permitted_params.include?(params[:sort])
-  #   # @transactions = @transactions.filter params
-  #   @transactions = @transactions.page( params[:page] ).per OBJECTS_PER_PAGE
-  end
-
   def create
-    model = Transaction.models[params[:transaction][:type_id].to_i/10] || Income
-    @transaction = model.new(transaction_params)
+    type = (Transaction.all_types.keys.map(&:to_s) & params.keys)[0]
+    model = type.to_s.classify.constantize
+    @transaction = model.new(transaction_params(type))
     if @transaction.save
       flash[:success] = t('views.flash.success.create', model: Transaction.model_name.human)
       if params[:create_and_new]
         redirect_to new_transaction_path(type: @transaction.type)
-      else        
+      else
         redirect_to transactions_path
       end
     else
@@ -26,14 +18,15 @@ class TransactionsController < ApplicationController
   end
 
   def update
-    if @transaction.update(transaction_params)
+    type = (Transaction.all_types.keys.map(&:to_s) & params.keys)[0]
+    if @transaction.update(transaction_params(type))
       redirect_to transactions_path, flash: {
         success: t('views.flash.success.update', model: Transaction.model_name.human) }
     else
       render :show
     end
   end
- 
+
   def destroy
     if @transaction.destroy
       redirect_to transactions_path, flash: {
@@ -59,10 +52,10 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.modeled_find(params[:id])
   end
 
-  def transaction_params
-    tp = params.require(:transaction).permit Transaction.permitted_params
+  def transaction_params(type)
+    tp = params.require(type).permit Transaction.permitted_params
     tp[:type_id] = tp[:type_id].to_i
-    tp[:date] = Date.strptime(tp[:date], '%d.%m.%y').strftime
+    tp[:date] = Date.strptime(tp[:date], '%d.%m.%y').strftime rescue tp[:date]
     return tp
   end
 end

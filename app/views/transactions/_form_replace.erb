@@ -1,6 +1,6 @@
 <% path = @transaction.persisted? ? transaction_path(@transaction) : transactions_path %>
-<%= simple_form_for @transaction, as: :transaction, url: path,
-    # html: { 'data-controller': 'transaction' },
+<%= simple_form_for @transaction, url: path,
+    html: { 'data-controller': 'replace' },
     defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
 
   <%= f.error_notification %>
@@ -8,8 +8,8 @@
   <%= f.input :type_id, as: :hidden, input_html: {value: 20} %>
 
   <div class="form-row">
-    <%= f.input :date, as: :date_picker,
-      input_html: {value: (@transaction.date || Date.today).strftime('%d.%m.%y')} %>
+    <%= f.input :date, as: :datepicker,
+      input_html: {'data-flatpickr-default-date': (@transaction.date || Date.today).strftime('%d.%m.%y')} %>
     <%= f.input :amount, as: :currency %>
   </div>
 
@@ -32,10 +32,10 @@
     %>
   </div>
   
-  <%= more_wrapped do %>
+  <%= more_wrapped 'replace' do %>
     <div class="form-row">
       <%= f.input :notes %>
     </div>
   <% end %>
-  <%= render 'layouts/form_buttons', f: f %>
+  <%= render 'application/form_buttons', f: f %>
 <% end %>

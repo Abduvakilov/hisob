@@ -1,6 +1,5 @@
-import Cleave from 'cleave.js'
-function form() {
-    "use strict";
+import Cleave from 'cleave.js';
+export default function currency() {
 
     if (!document.getElementsByClassName('currency').length) {
         return;
@@ -17,11 +16,10 @@ function form() {
     });
 
     document.getElementsByTagName('FORM')[0].addEventListener('submit', () => {
-        currency.element.value = currency.getRawValue()
+        currency.element.value = currency.getRawValue();
     });
 }
 
-function submit(i) {
-    i.form.submit();
+window.toggleOpen = (e) => {
+    e.currentTarget.parentElement.classList.toggle('collapsed');
 }
-export { form, submit }; 

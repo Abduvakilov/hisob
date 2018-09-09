@@ -47,7 +47,7 @@ module TableHelper
   COLORS = [ :success, :danger, :secondary ]
 
   def filter_link(field_name, value, checked, text)
-    content_tag :label, onclick: 'submit(this)',
+    content_tag :label, onclick: 'this.form.submit()',
         class: "list-group-item list-group-item-action#{' active' if checked}" do
               (radio_button_tag field_name, value, checked, id: nil) +
               text

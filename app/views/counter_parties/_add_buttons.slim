@@ -1,0 +1,11 @@
+a.btn.btn-outline-success href=new_counter_party_path = "+ #{CounterParty.model_name.human}"
+
+= content_for :second_row
+	.form-row.ml-auto.mb-2.align-items-center.d-flex.justify-content-end
+		- %I[ is_supplier is_customer ].each do |field|
+			.col-2: .custom-control.custom-checkbox
+				input.custom-control-input id=field name=field type='checkbox' onclick='this.form.submit()' checked=(params[field].present?)
+				label.custom-control-label for=field = t field
+		.col-3
+			- if @sorted
+				a.btn.text-dark.border href=counter_parties_path = t 'views.clear_sort'

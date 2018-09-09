@@ -1,8 +1,8 @@
 setTimeout(function() {
-  let alerts = document.getElementsByClassName('alert')
-  for (let i = 0; i < alerts.length; i++) {
-    alerts[i].classList.remove('alert-error','alert-danger','alert-success');
-    alerts[i].classList.add('border','rounded-0');
+  let alert = document.getElementsByClassName('alert')[0];
+  if (alert) {
+	  alert.classList.remove('alert-error','alert-danger','alert-success');
+	  alert.classList.add('border','rounded-0');
   }
 }, 4000);
 

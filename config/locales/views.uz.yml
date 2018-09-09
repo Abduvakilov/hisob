@@ -1,7 +1,8 @@
 uz:
   views:
     search: Qidir
-    more: Boshqa
+    more: Boshqalari
+    less: Kamroq
     clear_sort: × Saralashni bekor qil
     pagination:
       first: Boshi

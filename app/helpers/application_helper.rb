@@ -1,9 +1,11 @@
 module ApplicationHelper
 
-  def more_wrapped(&block)
-    raw('<input type="checkbox" class="more-state" id="more"/><label for="more" class="more-trigger mb-4">' +
-      t('views.more') + '</label><div class="more-wrap">' +
-      capture(&block) + '</div>')
+  def more_wrapped(name='', options={}, &block)
+    name = name+'[more]'
+    check_box_tag(name,nil,false, class: 'more-state', **options) +
+    tag.div(capture(&block), class: 'more-wrap') +
+    label_tag(name, t('views.more'), class: 'more-trigger mb-4') +
+    label_tag(name, t('views.less'), class: 'less-trigger mb-4')
   end
 
   def title_of_page

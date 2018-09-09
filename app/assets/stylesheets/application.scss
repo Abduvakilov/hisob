@@ -1,5 +1,6 @@
 @import 'table';
 @import 'nav';
+@import 'form';
 
 body {
   background-color: $light;
@@ -33,10 +34,16 @@ body {
 .more-state:checked ~ .more-wrap {
   display: inherit;
 }
-.more-state:checked ~ label {
+.more-state:checked ~ .more-trigger {
   display: none;
 }
-.more-trigger {
+.more-state:checked ~ .less-trigger{
+  display: block;
+}
+.less-trigger{
+  display: none;
+}
+.more-trigger, .less-trigger {
   color: #007bff;
   &:hover {
     text-decoration: underline;

@@ -1,0 +1,18 @@
+<% content_for :title do 'Hisob' end %>
+<ul><% @accounts.each do |account| %>
+	<li><%=account%>: <%=account.leftover%></li>
+<%end%></ul>
+<ul>
+	<% [[companies_path, 'building', Company],
+			[accounts_path, 'money-check-alt', Account],
+			[departments_path, 'briefcase', Department],
+			[employees_path, 'people-carry', Employee],
+      [currencies_path, 'dollar-sign', Currency],
+      [districts_path, 'map-marked-alt', District]    
+	].each do |el| %>
+	<li>
+		<%= link_to el[0] do %>
+		    <%=icon el[1]+' fa-fw'%> <%=el[2].model_name.human %>
+		<% end %>
+	</li>
+<% end %>

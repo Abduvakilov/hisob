@@ -1,5 +1,5 @@
 <% path = @transaction.persisted? ? transaction_path(@transaction) : transactions_path %>
-<%= simple_form_for @transaction, as: :transaction, url: path,
+<%= simple_form_for @transaction, url: path,
     html: { 'data-controller': 'transaction'},
     defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
 
@@ -8,8 +8,10 @@
   <div class="form-row">
     <%= f.input :type_id, label: "Pul aylanmasi turi",
         collection: @transaction.class.type_ids,
-        selected: @transaction.type_id_before_type_cast %>
-    <%= f.input :date, as: :date_picker,
+        selected: @transaction.type_id_before_type_cast,
+        input_html: {'data-action': 'change->transaction#updateCounterParties',
+                     'data-target': 'transaction.type'} %>
+    <%= f.input :date, as: :datepicker,
       input_html: { value: (@transaction.date || Date.today).strftime('%d.%m.%y')} %>
   </div>
 
@@ -20,13 +22,25 @@
   %> <!-- TODO: Selected should be user default-->
 
   <div class="form-row">
-    <%= f.association :counter_party %>
+    <%= f.input :counter_party do %>
+      <%= f.select :counter_party_id,
+          CounterParty.all.map { |cp|
+            [cp, cp.id, {'sup': ('' if cp.is_supplier),
+                         'cus': ('' if cp.is_customer)}] },
+          {},
+          data: {
+            custom_track: '',
+            controller: 'counter-parties',
+            target: 'transaction.counterParties',
+            counter_parties_placeholder: t('helpers.select.prompt.default')
+          } %>
+    <% end %>
     <%= f.input :amount, as: :currency, input_html: {
       value: number_to_currency(@transaction.amount,
       precision: @transaction.account&.currency&.precision) || 0
     }%>
   </div>
-  <%= more_wrapped do %>
+  <%= more_wrapped @transaction.class.name.downcase do %>
     <div class="form-row">
       <%= f.input :coefficient %>
     </div>
@@ -34,5 +48,5 @@
       <%= f.input :notes %>
     </div>
   <% end %>
-  <%= render 'layouts/form_buttons', f: f %>
+  <%= render 'form_buttons', f: f %>
 <% end %>
