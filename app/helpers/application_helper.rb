@@ -2,10 +2,12 @@ module ApplicationHelper
 
   def more_wrapped(name='', options={}, &block)
     name = name+'[more]'
-    check_box_tag(name,nil,false, class: 'more-state', **options) +
+    toggle_text = options[:toggle_text]
+    check_box_tag(name,nil,options[:checked], class: "more-state#{' show' if options[:show_check_box]}", **options) +
+    label_tag(name, toggle_text || t('views.more'),
+      class: "more-trigger#{' show' if toggle_text}") +
     tag.div(capture(&block), class: 'more-wrap') +
-    label_tag(name, t('views.more'), class: 'more-trigger mb-4') +
-    label_tag(name, t('views.less'), class: 'less-trigger mb-4')
+    (label_tag(name, t('views.less'), class: 'less-trigger mb-4') unless toggle_text)
   end
 
   def title_of_page
@@ -17,8 +19,18 @@ module ApplicationHelper
       t(_action_name, scope: 'views.title.action', model: model_name)
   end
 
+  def bootstrap_alert(key)
+    case key
+    when 'alert', 'error'
+      'danger'
+    when 'notice'
+      'success'
+    else key
+    end
+  end
+
   def model_name(count=1)
-    controller.model.model_name.human(count: count)
+    controller.model&.model_name&.human(count: count)
   end
 
   def controller_path(object=nil)

@@ -8,6 +8,7 @@ export default class extends Controller {
 	initialize() { //don't use connect, disconnect with 'new Selectr'. otherwise you get endless loop
 		this.selectr = new Selectr(this.element, {
 			pagination: 25,
+			defaultSelected: false,
 			placeholder: this.data.get('placeholder') || 'Tanlang: '
 		});
 		this.destroyBeforeCache();
@@ -30,7 +31,6 @@ export default class extends Controller {
 	setFromStorage() {
 		let savedValue = localStorage[this.element.name]
 		if (savedValue) this.selectr.setValue(savedValue);
-		console.log(this.selectr.getValue())
 	}
 
 }

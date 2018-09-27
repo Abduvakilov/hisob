@@ -1,7 +1,7 @@
 <% path = @transaction.persisted? ? transaction_path(@transaction) : transactions_path %>
 <%= simple_form_for @transaction, url: path,
     html: { 'data-controller': 'transaction'},
-    defaults: { wrapper_html: { class: 'col-md' } } do |f| %>
+    defaults: { wrapper_html: { class: 'col-sm' } } do |f| %>
 
   <%= f.error_notification %>
 
@@ -35,18 +35,21 @@
             counter_parties_placeholder: t('helpers.select.prompt.default')
           } %>
     <% end %>
-    <%= f.input :amount, as: :currency, input_html: {
+    <%= f.input :amount, as: :currency, wrapper_class: 'w-sm-200', input_html: {
       value: number_to_currency(@transaction.amount,
       precision: @transaction.account&.currency&.precision) || 0
     }%>
   </div>
   <%= more_wrapped @transaction.class.name.downcase do %>
     <div class="form-row">
-      <%= f.input :coefficient %>
+      <%= f.input :coefficient, wrapper_class: 'w-sm-200' %>
     </div>
     <div class="form-row">
       <%= f.input :notes %>
     </div>
   <% end %>
+  <% content_for :confirmation_body do
+    t('views.confirmation.discard.transaction.body', amount: tag.b(format_transaction_amount(f.object)), model: f.object.model_name.human)
+    end %>
   <%= render 'form_buttons', f: f %>
 <% end %>

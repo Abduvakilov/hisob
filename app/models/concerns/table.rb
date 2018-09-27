@@ -3,9 +3,9 @@ module Table
 	module Fields
 
 	  def permitted_params
-	    column_names - ['id', 'created_at', 'updated_at']
+	    column_names - ['id', 'created_at', 'updated_at', 'discarded_at']
 	  end
-	  
+
 	  def shown_fields
 	  	sortable_fields + belongs
 	  end
@@ -19,7 +19,7 @@ module Table
 	module Search
 
 	  def search(query)
-	    if searched_fields && query
+	    if searched_fields && !query.blank?
 	      where multiple_like_query(searched_fields), q: "%#{query}%"
 	    else
 	      all
@@ -38,14 +38,14 @@ module Table
 
 	  def belong_search_fields
 	  	belong_classes = reflect_on_all_associations(:belongs_to).map &:klass
-	    belong_classes.reduce([]) { |memo, x| 
+	    belong_classes.reduce([]) { |memo, x|
 	      case x.searched_by_child
 	      when Array
 	        x.searched_by_child.each do |field|
 	          memo.push "#{x}.#{field}"
 	        end
 				when String, Symbol
-          memo.push "#{x}.#{fields}"
+          memo.push "#{x}.#{x.searched_by_child}"
 	      end
 	      memo
 	    }
@@ -70,5 +70,5 @@ module Table
 
 	end
 
-	
+
 end

@@ -10,7 +10,7 @@
 #  counter_account_id :integer
 #  rate             :float
 class Expense < Transaction
-  
+
 	validates_presence_of :counter_party
   validate :sufficient_balance, if: -> { [amount, account].all? &:present? }
 
@@ -21,7 +21,7 @@ class Expense < Transaction
   def sufficient_balance
     if self.amount > self.account.leftover
       errors.add :amount, :is_more_than_account_leftover
-    end 
+    end
   end
 
 end

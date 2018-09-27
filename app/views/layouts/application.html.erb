@@ -5,7 +5,7 @@
 	<%= csrf_meta_tags %>
 	<%= csp_meta_tag %>
 
-	<%= javascript_pack_tag 'application' %>
+	<%= javascript_pack_tag 'application', defer: true %>
 	<%= stylesheet_pack_tag 'application' %>
 	<%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 	<%# javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -18,7 +18,7 @@
 	<div class="main-content">
 
 		<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %>" role="alert">
+		<div class="alert alert-<%= bootstrap_alert key %>" role="alert">
 			<%= value %>
 			<button type="button" class="close" onclick="dismiss(event)" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
@@ -31,11 +31,11 @@
 			<h1><%= title %></h1>		
 			<div class="row">
 
-				<div class="col-sm-<%=col=@col||8%>">
+				<div class="col-md-<%=col=@col||8%>">
 					<%= yield %>		
 				</div>
 
-				<aside class="col-sm-<%=12-col%>">
+				<aside class="col-md-<%=12-col%> mt-2 mt-md-0">
 					<%= yield :aside %>		
 				</aside>
 

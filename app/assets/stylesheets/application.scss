@@ -5,27 +5,27 @@
 body {
   background-color: $light;
 }
-
-.currency {
-  text-align: right;
-}
-.currency.col-md, .float.col-md {
+.w-sm-200 {
   max-width: 200px;
+  @include media-breakpoint-down(sm) {
+    max-width: 100%;
+  }
 }
 
-.alert, .hide {
+.alert {
   max-height: 10em;
   overflow-y: hidden;
-  transition: 0.5s ease-out;
+  transition: 0.5s linear;
 }
 
 .hide.alert {
   max-height: 0;
   padding-top: 0;
   padding-bottom: 0;
+  margin: 0;
 }
 
-.more-state {
+.more-state:not(.show) {
   display: none;
 }
 .more-wrap {
@@ -34,16 +34,16 @@ body {
 .more-state:checked ~ .more-wrap {
   display: inherit;
 }
-.more-state:checked ~ .more-trigger {
+.more-state:checked ~ .more-trigger:not(.show) {
   display: none;
 }
 .more-state:checked ~ .less-trigger{
   display: block;
 }
-.less-trigger{
+.less-trigger {
   display: none;
 }
-.more-trigger, .less-trigger {
+.more-trigger:not(.show), .less-trigger {
   color: #007bff;
   &:hover {
     text-decoration: underline;

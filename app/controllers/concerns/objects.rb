@@ -9,12 +9,12 @@ module Objects
   end
 
   def model
-  	controller_name.classify.constantize
+  	controller_name.classify.constantize rescue nil
   end
 
 
   private
-  
+
   def objects=(value)
   	instance_variable_set("@#{controller_name}", value)
   end

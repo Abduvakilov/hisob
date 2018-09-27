@@ -8,32 +8,69 @@ uz:
       #   blank: bo‘sh bo‘lishi mumkin emas
       #   not_a_number: raqam bo‘lishi kerak
     models:
-      category: Toifa
+      category:
+        one: Toifa
+        other: Toifalar
       account: Hisob
       transaction: 
         one: Pul aylanmasi
         other: Pul aylanmalari
-      counter_party: Ikkinchi tomon
+      counter_party:
+        one: Ikkinchi tomon
+        other: Ta'minotchi, mijoz va boshqalar
       income: Kirim
       expense: Chiqim
       replace: Ko‘chirish
-    attributes:
-      user:
-        first_name: Ismi
-      transaction: &transaction
-        account: Hisob
-        date: Sana
-        amount: Qiymat
-        coefficient: Koeffitsient
-        notes: Qaydlar
-        counter_party: "Ikkinchi tomon"
-        type_id: Turi
-      # income:
-      #   <<: *transaction
-      # expense:
-      #   <<: *transaction
-      # replace:
-      #   <<: *transaction
+      product:
+        one: Mahsulot
+        other: Mahsulotlar
+      salary:
+        one: Oylik
+        other: Oyliklar
+      company: Shirkat
+      department:
+        one: Bo‘lim
+        other: Bo‘limlar
+      employee:
+        one: Xodim
+        other: Xodimlar
+      currency:
+        one: Valyuta
+        other: Valyutalar
+      district:
+        one: Tuman
+        other: Tumanlar
+
+
+  attributes:
+    name: Nomi
+    is_active: Faol
+    description: Tavsif
+    notes: Qaydlar
+    is_active: Faol
+    category: Toifa
+    type: Turi
+    transaction: Pul aylanmasi
+    account: Hisob
+    date: Sana
+    amount: Qiymat
+    coefficient: Koeffitsient
+    counter_party: Ikkinchi tomon
+    type_id: Turi
+    parent_category: Yuqori toifasi
+    is_for_sale: Sotiladigan
+    company: Shirkat
+    company_name: Shirkat nomi
+    phone: Telefoni
+    email: Epochta
+    is_supplier: Ta’minotchi
+    is_customer: Mijoz
+    district: Tuman
+    is_bank_account: Bankdagi hisob
+    bank_account_number: Bank hisobraqami
+    currency: Valyutasi
+    parent_district: Yuqori tuman
+
 
   helpers:
     select:
@@ -42,6 +79,8 @@ uz:
         specific: '%{model}ni tanlang: '
     submit:
       create: "%{model}ni yarat"
+      create_and_new: "Yarat va yangisiga"
       submit: "%{model}ni saqla"
       update: "%{model}ni tahrirla"
+      discard: "Bekor qil"
 

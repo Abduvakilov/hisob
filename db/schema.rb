@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_04_090820) do
+ActiveRecord::Schema.define(version: 2018_09_26_183300) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.integer "bank_account_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["company_id"], name: "index_accounts_on_company_id"
     t.index ["currency_id"], name: "index_accounts_on_currency_id"
+    t.index ["discarded_at"], name: "index_accounts_on_discarded_at"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -31,6 +33,8 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.integer "type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_categories_on_discarded_at"
     t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
   end
 
@@ -38,6 +42,8 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_companies_on_discarded_at"
   end
 
   create_table "counter_parties", force: :cascade do |t|
@@ -49,11 +55,12 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.integer "category_id"
     t.boolean "is_supplier"
     t.boolean "is_customer"
-    t.boolean "is_active"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["category_id"], name: "index_counter_parties_on_category_id"
+    t.index ["discarded_at"], name: "index_counter_parties_on_discarded_at"
     t.index ["district_id"], name: "index_counter_parties_on_district_id"
   end
 
@@ -63,6 +70,8 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "precision", default: 2
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_currencies_on_discarded_at"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -70,15 +79,18 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.integer "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["company_id"], name: "index_departments_on_company_id"
+    t.index ["discarded_at"], name: "index_departments_on_discarded_at"
   end
 
   create_table "districts", force: :cascade do |t|
     t.string "name"
-    t.boolean "is_active"
     t.integer "district_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_districts_on_discarded_at"
     t.index ["district_id"], name: "index_districts_on_district_id"
   end
 
@@ -92,12 +104,17 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.date "hire_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["department_id"], name: "index_employees_on_department_id"
+    t.index ["discarded_at"], name: "index_employees_on_discarded_at"
+    t.index [nil], name: "index_employees_on_login", unique: true
   end
 
   create_table "price_category", force: :cascade do |t|
     t.string "name"
     t.text "description"
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_price_category_on_discarded_at"
   end
 
   create_table "product_price_histories", force: :cascade do |t|
@@ -108,7 +125,9 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.datetime "updated_at", null: false
     t.integer "currency_id"
     t.integer "price_category_id"
+    t.datetime "discarded_at"
     t.index ["currency_id"], name: "index_product_price_histories_on_currency_id"
+    t.index ["discarded_at"], name: "index_product_price_histories_on_discarded_at"
     t.index ["price_category_id"], name: "index_product_price_histories_on_price_category_id"
     t.index ["product_id"], name: "index_product_price_histories_on_product_id"
   end
@@ -117,12 +136,13 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.string "name"
     t.integer "company_id"
     t.boolean "is_for_sale", default: false
-    t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category_id"
+    t.datetime "discarded_at"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["company_id"], name: "index_products_on_company_id"
+    t.index ["discarded_at"], name: "index_products_on_discarded_at"
   end
 
   create_table "salaries", force: :cascade do |t|
@@ -132,7 +152,9 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.integer "salary", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["department_id"], name: "index_salaries_on_department_id"
+    t.index ["discarded_at"], name: "index_salaries_on_discarded_at"
     t.index ["employee_id"], name: "index_salaries_on_employee_id"
   end
 
@@ -150,8 +172,28 @@ ActiveRecord::Schema.define(version: 2018_09_04_090820) do
     t.string "reference_type"
     t.integer "counter_account_id"
     t.float "rate"
+    t.datetime "discarded_at"
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["counter_party_id"], name: "index_transactions_on_counter_party_id"
+    t.index ["discarded_at"], name: "index_transactions_on_discarded_at"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.integer "employee_id"
+    t.datetime "discarded_at"
+    t.string "login", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.index ["discarded_at"], name: "index_users_on_discarded_at"
+    t.index ["employee_id"], name: "index_users_on_employee_id"
   end
 
 end

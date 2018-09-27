@@ -14,5 +14,6 @@ class ApplicationRecord < ActiveRecord::Base
     to_s
   end
 
+  include Discard::Model
 
 end

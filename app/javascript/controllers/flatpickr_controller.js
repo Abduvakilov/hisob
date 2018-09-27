@@ -12,4 +12,10 @@ export default class extends Flatpickr {
     };
   }
 
+  connect() {
+  	super.connect();
+  	this.fp.setDate(this.element.getAttribute('value'))
+  }
+
+
 }

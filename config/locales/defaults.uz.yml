@@ -57,6 +57,8 @@ uz:
     - :month
     - :year
   datetime:
+    formats:
+      short: "%d.%m.%y, %H:%M"
     distance_in_words:
       about_x_hours:
         few: chamasi %{count} soat

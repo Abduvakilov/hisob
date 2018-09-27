@@ -3,11 +3,12 @@ module BaseActions
   include Objects
 
   included do
-    before_action :set_object, only: [:show, :destroy, :update]
+    before_action :set_object, only: [:show, :discard, :update]
+    before_action :authenticate_user!
   end
 
   def index
-    self.objects  = model.ordered.search(params[:search]).page(params[:page]).per OBJECTS_PER_PAGE
+    self.objects  = model.kept.ordered.search(params[:search]).page(params[:page]).per OBJECTS_PER_PAGE
     self.objects.order_values.prepend "#{params[:sort]} #{params[:dir]}" if params[:sort].present? && model.permitted_params.include?(params[:sort])
     filter_params = params.permit filter_fields
     @sorted       = filter_params.present?
@@ -18,7 +19,7 @@ module BaseActions
   end
 
   def new
-  	self.object = model.new 
+  	self.object = model.new
   end
 
   def create
@@ -48,10 +49,10 @@ module BaseActions
     end
   end
 
-  def destroy
-    @account.destroy
+  def discard
+    self.object.discard
+    flash[:success] = t('views.flash.success.discard', model: model.model_name.human)
     respond_to do |format|
-      flash[:success] = t('views.flash.success.destroy', model: model.model_name.human)
       format.html { redirect_to action: :index }
       format.json { head :no_content }
     end
@@ -66,7 +67,7 @@ module BaseActions
   OBJECTS_PER_PAGE = 20  # todo user settings
 
   def set_object
-    self.object = model.find(params[:id])
+    self.object = model.kept.find(params[:id])
   end
 
   def model_params

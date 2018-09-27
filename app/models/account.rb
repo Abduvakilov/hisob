@@ -6,9 +6,9 @@
 class Account < ApplicationRecord
 
   def leftover
-    transactions = Transaction.where(account: self).group(:type_id)
-    replace_in  = Replace.all_i.where(counter_account: self).sum :amount
-    balance = transactions.sum(:amount).reduce(0) do |sum, (key,val)| 
+    transactions = Transaction.kept.where(account: self).group(:type_id)
+    replace_in  = Replace.kept.all_i.where(counter_account: self).sum :amount
+    balance = transactions.sum(:amount).reduce(0) do |sum, (key,val)|
       if Income.type_ids.key? key
         sum += val
       elsif Expense.type_ids.key?(key) || Replace.type_ids.key?(key)

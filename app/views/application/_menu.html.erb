@@ -1,21 +1,32 @@
-<nav class="nav-left collapsed">
-  <a href="javascript:void(0)" class="btn-expand" onclick="toggleOpen(event)"><%= icon 'list'%></a>
-  <ul class="navbar-menu">
-    <li>
-      <% [[transactions_path, 'money-bill-alt', Transaction],
-          [products_path, 'apple-alt', Product],
-          [counter_parties_path, 'user-friends', CounterParty],
-          [categories_path, 'shapes', Category]
-      ].each do |el| %>
-        <%= link_to el[0], title: el[2].model_name.human do %>
-          <%=icon el[1]%>
-        	<span class="nav-label">
-            <%=el[2].model_name.human %>
+<nav class="nav">
+  <% [[transactions_path, 'money-bill-alt', Transaction],
+      [products_path, 'apple-alt', Product],
+      [counter_parties_path, 'user-friends', CounterParty],
+      [categories_path, 'shapes', Category]
+  ].each do |el| %>
+    <%= link_to el[0], title: el[2].model_name.human do %>
+      <%=icon el[1]%>
+    	<span class="nav-label">
+        <%=el[2].model_name.human %>
+      </span>
+    <% end %>
+  <% end %>
+  <%= link_to root_path, title: 'Bosh sahifaga (Hisob)' do %><%=icon 'home'%>
+    <span class="nav-label">Home</span><% end %>
+
+  <div class="bottom">
+    <% if user_signed_in? %>
+      <%= form_with url: destroy_user_session_path, method: :post do |f| %>
+        <%= f.button do %>
+          <%=icon 'sign-out-alt'%>
+          <span class="nav-label">
+            <%= t 'views.logout' %>
           </span>
-        <% end %>
-      <% end %>
-      <%= link_to root_path, title: 'Bosh sahifaga (Hisob)' do %><%=icon 'home'%>
-        <span class="nav-label">Home</span><% end %>
-    </li>
-  </ul>
+        <%end%>
+      <%end%>
+    <%end%>
+
+    <a href="javascript:void(0)" class="btn-expand" onclick="toggleOpen(event)"><%= icon 'list'%></a>
+
+  </div>
 </nav>

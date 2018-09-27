@@ -12,7 +12,7 @@
 class Income < Transaction
 
 	validates_presence_of :counter_party
-	
+
 
 	enum type_id: all_types[:income]
 

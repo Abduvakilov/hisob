@@ -1,21 +1,83 @@
-.nav-left {
+@include media-breakpoint-up(md) {
+  .nav {
+    flex-direction: column;
+    bottom: 0;
+    position: fixed;
+    width: 175px;
+    &:not(.open) {
+      width: 60px;
+    }
+  }
+
+  .nav {
+    margin:0; padding:0;
+    a, button {
+      border-width: 0 0 1px;
+      display: block;
+      padding: .5rem 1rem;
+      width: 100%;
+    }
+    a svg, button svg {
+      margin-right: 6px;
+    }
+  }
+
+  .main-content {
+    margin-left: 200px;
+    :not(.open) + & {
+      margin-left: 60px;
+    }
+  }
+
+  .bottom {
+    margin-top: auto;
+  }
+
+}
+@include media-breakpoint-down(sm) {
+  .nav {
+    right: 0;
+    margin: 0 auto;
+    // max-width: map-get($container-max-widths, sm);
+    padding: 0 15px;
+    height: 59px;
+    a, button {
+      padding: 18px;
+      border-width: 0 0 0 1px;
+    }
+    a, .bottom {
+      flex: 1 1 auto;
+    }
+    .bottom button {
+      width: 100%;
+    }
+    a svg, button svg {
+      margin-right: auto; margin-left: auto;
+      display: block;
+    }
+  }
+
+  .nav-label, .btn-expand {
+    display: none;
+  }
+
+}
+
+.nav {
   background-color: $dark;
-  bottom: 0px;
-  left: 0px;
-  position: fixed;
   top: 0px;
-  width: 200px;
+  left: 0px;
   z-index: 8;
   white-space: nowrap;
   overflow: hidden;
   transition: width 0.4s ease-in-out;
 }
 
-.nav-left.collapsed {
-  width: 60px;
+.nav button {
+  background-color: $dark;
 }
 
-.nav-left.collapsed svg {
+.nav:not(.open) svg {
   font-size: 1.5em;
 }
 
@@ -24,66 +86,26 @@
   transition: opacity 0.4s ease;
 }
 
-.nav-left.collapsed .nav-label {
+.nav:not(.open) .nav-label {
   opacity: 0;
 }
 
-.btn-expand {
-    position: absolute;
-    display: block;
-    left: 0px;
-    bottom:0;
-    width: 100%;
-    padding: 8px 0;
-    border-top: solid 1px #666;
-    color: grey;
-    font-size: 20px;
-    text-align: center;
-}
-
-.btn-expand:hover,
-.btn-expand:focus {
-    background-color: #222;
-    color: white;
-}
-
-.btn-expand:active {
-    background-color: #111;
-}
-
-.navbar-menu,
-.navbar-menu li {
-  margin:0; padding:0;
-  list-style: none;
-}
-
-.navbar-menu li a {
-  display: block;
-  padding: 10px 18px;
+.nav a, .nav button {
+  border-style: solid;
+  border-color: #444;
   text-align: left;
-  border-bottom: solid 1px #444;
   color: #ccc;
 }
-
-.navbar-menu li a:hover {
+.nav a:hover, .nav button:hover {
   background-color: #000;
   text-decoration: none;
   color: white;
 }
 
-.navbar-menu li a svg {
-  margin-right: 6px;
+.nav a svg, .nav button svg {
   transition: 0.4s ease-in-out;
   font-size: 1.3em;
   text-align: center;
   width: 1.25em!important;
-  vertical-align: middle!important;
-}
-
-.main-content {
-  margin-left: 200px;
-}
-
-.collapsed + .main-content {
-  margin-left: 60px;
+  vertical-align: middle;
 }

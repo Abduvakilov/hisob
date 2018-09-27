@@ -1,5 +1,14 @@
 uz:
   views:
+    confirmation:
+      discard:
+        title: "%{model}ni bekor qilish"
+        body: "%{date}da yaratilgan %{model}ni bekor qilmoqchimisiz?"
+        action: "Ha, %{model}ni bekor qil"
+        transaction:
+          body: "%{amount} %{model}ni bekor qilmoqchimisiz?"
+
+    back: Ortga
     search: Qidir
     more: Boshqalari
     less: Kamroq
@@ -12,9 +21,12 @@ uz:
       success:
         create: "%{model} mufaffaqqiyatli yaratildi"
         update: "%{model} mufaffaqqiyatli tahrirlandi"
+        discard: "%{model} muvaffaqqiyatli bekor qilindi"
         destroy: "%{model} muvaffaqqiyatli o‘chirib tashlandi"
 
     title:
+      sessions:
+        new: Kirish
       action:
         new: Yangi %{model}
         show: '%{model}ni o‘zgartirish'

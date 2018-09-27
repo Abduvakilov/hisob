@@ -1,0 +1,16 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+uz:
+  devise:
+    failure:
+      already_authenticated: "You are already signed in."
+      invalid: "%{authentication_keys} yoki parol noto‘g‘ri."
+      locked: "Your account is locked."
+      last_attempt: "You have one more attempt before your account is locked."
+      not_found_in_database: "%{authentication_keys} yoki parol noto‘g‘ri."
+      timeout: "Sizning sessiyangiz tugadi, Iltimos qaytadan kiring."
+      unauthenticated: "Birinchi tizimga kiring."
+    sessions:
+      signed_in: "Muvaffaqqiyatli kirildi."
+      signed_out: "Muvaffaqqiyatli chiqildi."
+      already_signed_out: "Muvaffaqqiyatli chiqildi."

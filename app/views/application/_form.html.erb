@@ -2,15 +2,13 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <% controller.model.shown_fields.each do |field| %>
-      <% if controller.model.belongs.include?(field) %>
-        <%= f.association field %>
-      <% else %>
-        <%= f.input field %>
-      <% end %>
+  <% controller.model.shown_fields.each do |field| %>
+    <% if controller.model.belongs.include?(field) %>
+      <%= f.association field %>
+    <% else %>
+      <%= f.input field %>
     <% end %>
-  </div>
+  <% end %>
 
   <%= render 'form_buttons', f: f %>
   
