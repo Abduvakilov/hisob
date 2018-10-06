@@ -9,7 +9,11 @@ module Objects
   end
 
   def model
-  	controller_name.classify.constantize rescue nil
+  	begin
+      controller_name.classify.constantize
+    rescue NameError
+      nil
+    end
   end
 
 

@@ -2,8 +2,16 @@ class User < ApplicationRecord
   belongs_to :employee
   validates :login, uniqueness: true
 
+  def to_s
+    employee
+  end
+
+  def self.shown_fields
+    %w[ employee login ]
+  end
+
   def self.permitted_params
-     self.shown_fields + %I[password password_confirmation]
+     %w[ employee_id login password password_confirmation ]
   end
 
   def password_required?

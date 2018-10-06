@@ -1,0 +1,23 @@
+<%= simple_form_for @user, defaults: { wrapper_html: { class: 'col-sm' } } do |f| %>
+
+	<%= f.error_notification %>
+
+	<div class="form-row">
+		<%= f.association :employee, input_html: {'data-controller': 'selectr'},
+			collection: Employee.kept.left_outer_joins(:user).where( users: { employee_id: [nil, f.object.employee_id] }) %>
+	</div>
+
+	<div class="form-row">
+		<%= f.input :login %>
+	</div>
+
+	<div class="form-row">
+		<%= f.input :password %>
+	</div>
+
+	<div class="form-row">
+		<%= f.input :password_confirmation %>
+	</div>
+
+  <%= render 'form_buttons', f: f %>
+<% end %>

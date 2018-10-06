@@ -8,6 +8,7 @@ uz:
         transaction:
           body: "%{amount} %{model}ni bekor qilmoqchimisiz?"
 
+    logout: Chiqish
     back: Ortga
     search: Qidir
     more: Boshqalari
@@ -27,9 +28,13 @@ uz:
     title:
       sessions:
         new: Kirish
+      home_page:
+        long: Bosh Sahifa (Hisob)
+        short: Bosh Sahifa
       action:
         new: Yangi %{model}
         show: '%{model}ni o‘zgartirish'
+
   date:
     today: Bugun
     yesterday: Kecha

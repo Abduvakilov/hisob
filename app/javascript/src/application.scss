@@ -1,3 +1,4 @@
+$body-bg: #f8f9fa;
 $grid-breakpoints: (
   xs: 0,
   sm: 480px,
@@ -5,11 +6,16 @@ $grid-breakpoints: (
   // lg: 1024px
 );
 $container-max-widths: (
-  sm: 660px,
+  sm: 630px,
   // md: 816px,
   md: 1260px,
   // lg: 1260px,
   // xl: 1250px
+);
+
+$table-bg: #fdfdfe;
+$sizes: (
+  60: 60%
 );
 @import '~bootstrap/scss/bootstrap';
 @import '../../assets/stylesheets/application.scss';

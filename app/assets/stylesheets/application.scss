@@ -2,9 +2,6 @@
 @import 'nav';
 @import 'form';
 
-body {
-  background-color: $light;
-}
 .w-sm-200 {
   max-width: 200px;
   @include media-breakpoint-down(sm) {

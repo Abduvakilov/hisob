@@ -9,7 +9,7 @@
     <%= f.input :type_id, label: "Pul aylanmasi turi",
         collection: @transaction.class.type_ids,
         selected: @transaction.type_id_before_type_cast,
-        input_html: {'data-action': 'change->transaction#updateCounterParties',
+        input_html: {'data-action': 'change->transaction#update',
                      'data-target': 'transaction.type'} %>
     <%= f.input :date, as: :datepicker,
       input_html: { value: (@transaction.date || Date.today).strftime('%d.%m.%y')} %>
@@ -24,7 +24,7 @@
   <div class="form-row">
     <%= f.input :counter_party do %>
       <%= f.select :counter_party_id,
-          CounterParty.all.map { |cp|
+          CounterParty.kept.map { |cp|
             [cp, cp.id, {'sup': ('' if cp.is_supplier),
                          'cus': ('' if cp.is_customer)}] },
           {},
@@ -35,14 +35,24 @@
             counter_parties_placeholder: t('helpers.select.prompt.default')
           } %>
     <% end %>
-    <%= f.input :amount, as: :currency, wrapper_class: 'w-sm-200', input_html: {
+    <%= f.input :amount, as: :currency, wrapper_class: 'form-group w-sm-200', input_html: {
       value: number_to_currency(@transaction.amount,
       precision: @transaction.account&.currency&.precision) || 0
     }%>
   </div>
+
+  <div class="form-row" data-target="transaction.conversionHidden">
+    <%= f.input :rate, as: :currency, wrapper_class: 'form-group w-sm-200',
+      input_html: {
+        value: number_to_currency(@transaction.rate,
+          precision: @transaction.account&.currency&.precision) || 0
+    }%>
+    <%= f.association :asked_currency, wrapper_class: 'form-group w-sm-200' %>
+  </div>
+
   <%= more_wrapped @transaction.class.name.downcase do %>
     <div class="form-row">
-      <%= f.input :coefficient, wrapper_class: 'w-sm-200' %>
+      <%= f.input :coefficient, wrapper_class: 'form-group w-sm-200' %>
     </div>
     <div class="form-row">
       <%= f.input :notes %>

@@ -58,4 +58,5 @@ class Transaction < ApplicationRecord
   belongs_to :counter_party, optional: true
   belongs_to :counter_account, class_name: 'Account', optional: true
   belongs_to :account
+  belongs_to :asked_currency, class_name: 'Currency'
 end

@@ -18,6 +18,11 @@
 #
 
 class Product < ApplicationRecord
+
+  def to_s
+    name
+  end
+
   def price=(value)
     self.product_price_histories.create price: value
   end
@@ -26,9 +31,10 @@ class Product < ApplicationRecord
     self.product_price_histories.order('created_at DESC').limit(1).first.price
   end
 
+  has_many :sales_items
   has_many :product_price_histories
-  belongs_to :company
-  belongs_to :category
+  belongs_to :company, optional: true
+  belongs_to :category, optional: true
 
- 
+
 end

@@ -4,8 +4,8 @@
 	  <%= link_to icon('chevron-left')+' '+t('views.back'), controller_path, class: " btn btn-outline-secondary" %>
 	</div>
   
-  <%= f.button :button, type: :submit, class: "btn-primary mx-1" do %>
-  	<%= icon 'plus' %> <%= t 'helpers.submit.create', model: f.object.model_name.human %>
+  <%= f.button :button, type: :submit, name: :save, class: "btn-primary mx-1" do %>
+  	<%= icon 'plus' %> <%= f.object.persisted? ? t('helpers.submit.update', model: f.object.model_name.human) : t('helpers.submit.create', model: f.object.model_name.human) %>
 	<%end%>
   
   <% if f.object.persisted? %>

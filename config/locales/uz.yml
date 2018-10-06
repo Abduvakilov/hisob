@@ -21,6 +21,9 @@ uz:
       income: Kirim
       expense: Chiqim
       replace: Ko‘chirish
+      sale:
+        one: Sotuv
+        other: Sotuvlar
       product:
         one: Mahsulot
         other: Mahsulotlar
@@ -58,6 +61,10 @@ uz:
     counter_party: Ikkinchi tomon
     type_id: Turi
     parent_category: Yuqori toifasi
+    product: Mahsulot
+    price: Narx
+    discount: Chegirma
+    customer: Mijoz
     is_for_sale: Sotiladigan
     company: Shirkat
     company_name: Shirkat nomi
@@ -74,9 +81,8 @@ uz:
 
   helpers:
     select:
-      prompt:
-        default: 'Tanlang: '
-        specific: '%{model}ni tanlang: '
+      prompt: 'Tanlang: '
+      specific_prompt: '%{model}ni tanlang: '
     submit:
       create: "%{model}ni yarat"
       create_and_new: "Yarat va yangisiga"

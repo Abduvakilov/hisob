@@ -13,6 +13,11 @@ module Table
 	  def belongs(suffix=nil)
 	    reflect_on_all_associations(:belongs_to).map { |x| x.name.to_s + suffix.to_s }
 	  end
+
+	  def belongs_class(field_name)
+	    reflect_on_all_associations(:belongs_to).find{ |a| a.name == field_name.to_sym }.klass
+	  end
+
 	end
 
 

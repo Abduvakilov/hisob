@@ -1,0 +1,98 @@
+<% content_for :custom_yield do %>
+<%= simple_form_for @sale, defaults: { wrapper_html: { class: 'col-sm' } },
+	html: {  'data-controller': 'table' } do |f| %>
+<div class="row">
+<div class="col-md-8">
+  <%= f.error_notification %>
+
+  <div class="form-row">
+	  <%= f.input :date, as: :datepicker,
+      input_html: { value: (@sale.date || Date.today).strftime('%d.%m.%y')} %>
+	  <%= f.association :customer, collection: CounterParty.kept.where(is_customer: true) %>
+  </div>
+
+  <div>
+  <table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th></th>
+      <th scope="col" class="font-weight-normal">#</th>
+      <th scope="col"><%= SalesItem.human_attribute_name :product %></th>
+      <th scope="col"><%= SalesItem.human_attribute_name :price %></th>
+      <th scope="col"><%= SalesItem.human_attribute_name :amount %></th>
+    </tr>
+  </thead>
+
+  <% @sale.sales_items.build -%>
+  <tbody>
+	  <%=	f.simple_fields_for :sales_items do | si | %>
+  	<tr data-controller="row">
+  		<td class="text-danger text-center">
+  			<%= si.check_box :_destroy, class: 'd-none' if si.object.persisted? %>
+  			<%= si.label :_destroy, 'data-action': 'click->row#remove',
+  				'data-target': 'row.minus' do %>
+  				<%=icon 'minus'%>
+				<%end-%>
+			</td>
+  		<th class="font-weight-normal" scope="row" data-target="row.no">1</th>
+  		<%= si.input :product_id, wrapper: :table_row, wrapper_html: {class: nil},
+  			collection: Product.kept.where(is_for_sale: true),
+  			prompt: '', input_html: {'data-action': 'change->row#copy', id: nil} %>
+  		<%= si.input :price, as: :integer, wrapper: :table_row,
+  			wrapper_html: {class: nil}, required: true, input_html: {
+  				autocomplete: 'off', id: nil, min: 0, data: {
+  				target: 'table.price',
+  				action: 'input->row#copy input->table#update'
+			}} %>
+  		<%= si.input :amount, as: :integer, wrapper: :table_row,
+				wrapper_html: {class: nil}, required: true, input_html: {
+					autocomplete: 'off', id: nil, min: 0, data: {
+  				target: 'table.amount',
+  				action: 'input->row#copy input->table#update'
+  		}} %>
+  	</tr>
+		<%end-%>
+  </tbody>
+
+	<tfoot>
+		<tr>
+			<td colspan="4"></td>
+			<td data-target="table.totalAmount">0</td>
+		</tr>
+	</tfoot>
+	</table>
+
+	</div>
+
+  <%= render 'form_buttons', f: f %>
+
+</div>
+<aside class="col-md-4">
+
+	<br>
+	<table class="table table-sm w-auto">
+		<tbody>
+			<tr>
+				<th class="font-weight-normal" scope="row"><%= t 'views.total' %></th>
+				<td class="w-50 text-right" data-target="table.total">0</td>
+			</tr>
+			<tr>
+				<th scope="row"><%= t 'views.discount' %></th>
+				<td class="w-60"><%= f.text_field :discount, autocomplete: 'off',
+					id: nil, class: 'text-right', data: {
+						controller: 'currency',
+						target: 'table.discount',
+						action: 'input->table#update'
+				} %></td>
+			</tr>
+			<tr>
+				<th class="font-weight-normal" scope="row"><%= t 'views.to_be_paid' %></th>
+				<td class="w-50 text-right" data-target="table.toBePaid">0</td>
+			</tr>
+		</tbody>
+	</table>
+
+</aside>
+</div>
+<%end-%>
+<%end-%>

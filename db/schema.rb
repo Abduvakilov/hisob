@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_26_183300) do
+ActiveRecord::Schema.define(version: 2018_10_02_130421) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(version: 2018_09_26_183300) do
     t.datetime "discarded_at"
     t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["discarded_at"], name: "index_employees_on_discarded_at"
-    t.index [nil], name: "index_employees_on_login", unique: true
   end
 
   create_table "price_category", force: :cascade do |t|
@@ -158,6 +157,30 @@ ActiveRecord::Schema.define(version: 2018_09_26_183300) do
     t.index ["employee_id"], name: "index_salaries_on_employee_id"
   end
 
+  create_table "sales", force: :cascade do |t|
+    t.integer "customer_id"
+    t.date "date", null: false
+    t.float "discount"
+    t.integer "created_by_id"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_sales_on_created_by_id"
+    t.index ["customer_id"], name: "index_sales_on_customer_id"
+    t.index ["discarded_at"], name: "index_sales_on_discarded_at"
+  end
+
+  create_table "sales_items", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "amount", null: false
+    t.float "price", null: false
+    t.integer "sale_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_sales_items_on_product_id"
+    t.index ["sale_id"], name: "index_sales_items_on_sale_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.text "notes"
     t.float "amount"
@@ -173,7 +196,9 @@ ActiveRecord::Schema.define(version: 2018_09_26_183300) do
     t.integer "counter_account_id"
     t.float "rate"
     t.datetime "discarded_at"
+    t.integer "asked_currency_id"
     t.index ["account_id"], name: "index_transactions_on_account_id"
+    t.index ["asked_currency_id"], name: "index_transactions_on_asked_currency_id"
     t.index ["counter_party_id"], name: "index_transactions_on_counter_party_id"
     t.index ["discarded_at"], name: "index_transactions_on_discarded_at"
   end
@@ -181,6 +206,8 @@ ActiveRecord::Schema.define(version: 2018_09_26_183300) do
   create_table "users", force: :cascade do |t|
     t.integer "employee_id"
     t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "login", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
@@ -194,6 +221,7 @@ ActiveRecord::Schema.define(version: 2018_09_26_183300) do
     t.datetime "locked_at"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["employee_id"], name: "index_users_on_employee_id"
+    t.index ["login"], name: "index_users_on_login", unique: true
   end
 
 end

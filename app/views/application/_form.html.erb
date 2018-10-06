@@ -2,9 +2,10 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <% controller.model.shown_fields.each do |field| %>
-    <% if controller.model.belongs.include?(field) %>
-      <%= f.association field %>
+  <% model = controller.model
+  model.shown_fields.each_with_index do |field, i| %>
+    <% if model.belongs.include?(field) %>
+      <%= f.association field, collection: model.belongs_class(field).kept %>
     <% else %>
       <%= f.input field %>
     <% end %>
