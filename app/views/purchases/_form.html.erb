@@ -1,15 +1,15 @@
 <% content_for :custom_yield do %>
-<%= simple_form_for @sale, defaults: { wrapper_html: { class: 'col-sm' } },
+<%= simple_form_for @purchase, defaults: { wrapper_html: { class: 'col-sm' } },
 	html: {  'data-controller': 'table' } do |f| %>
 <div class="row">
 <div class="col-md-8">
   <%= f.error_notification %>
 
   <div class="form-row">
-	  <%= f.input :date, as: :datepicker, required: true,
-      input_html: { value: (@sale.date || Date.today).strftime('%d.%m.%y')} %>
-	  <%= f.association :customer, collection: CounterParty.kept.where(is_customer: true) %>
-	  <%= f.association :currency, collection: Currency.kept, selected: @sale.currency_id || 1 %> <%# TODO customer default%>
+	  <%= f.input :date, as: :datepicker, input_html: {
+	  	value: (@purchase.date || Date.today).strftime('%d.%m.%y'), required: ''} %>
+	  <%= f.association :supplier, collection: CounterParty.kept.where(is_supplier: true) %>
+	  <%= f.association :currency, collection: Currency.kept, selected: @purchase.currency_id || 1 %> <%# TODO Supplier default%>
   </div>
 
   <table class="table table-bordered table-sm">
@@ -17,15 +17,15 @@
     <tr>
       <th></th>
       <th scope="col" class="font-weight-normal">#</th>
-      <th scope="col" class="font-weight-normal"><%= SaleItem.human_attribute_name :product %></th>
-      <th scope="col" class="font-weight-normal"><%= SaleItem.human_attribute_name :price %></th>
-      <th scope="col" class="font-weight-normal"><%= SaleItem.human_attribute_name :amount %></th>
+      <th scope="col" class="font-weight-normal"><%= PurchaseItem.human_attribute_name :product %></th>
+      <th scope="col" class="font-weight-normal"><%= PurchaseItem.human_attribute_name :price %></th>
+      <th scope="col" class="font-weight-normal"><%= PurchaseItem.human_attribute_name :amount %></th>
     </tr>
   </thead>
 
-  <% @sale.sale_items.build -%>
+  <% @purchase.purchase_items.build -%>
   <tbody>
-	  <%=	f.fields_for :sale_items do | si | %>
+	  <%=	f.fields_for :purchase_items do | si | %>
   	<tr data-controller="row">
   		<td class="text-danger text-center" data-save>
   			<%= si.check_box :_destroy, class: 'd-none' if si.object.persisted? %>
@@ -36,11 +36,11 @@
 			</td>
   		<th class="font-weight-normal" scope="row" data-target="row.no">1</th>
   		<%= si.input :product_id, wrapper: :table_row, wrapper_html: {class: nil},
-  			collection: Product.kept.where(is_for_sale: true), required: true,
+  			collection: Product.kept, required: true,
   			prompt: '', input_html: {'data-action': 'change->row#copy', id: nil} %>
   		<%= si.input :price, wrapper: :table_row, as: :string,
   			wrapper_html: {class: nil}, required: true, input_html: {
-  				value: currency_precise_number(si.object.price, @sale.currency),
+  				value: currency_precise_number(si.object.price, @purchase.currency),
   				autocomplete: 'off', id: nil, min: 0, data: {
   				target: 'table.price',
   				controller: 'currency',
@@ -59,7 +59,7 @@
 	<tfoot>
 		<tr>
 			<td colspan="4"></td>
-			<td data-target="table.totalAmount"><%= @sale.total_amount %></td>
+			<td data-target="table.totalAmount"><%= @purchase.total_amount %></td>
 		</tr>
 	</tfoot>
 	</table>
@@ -75,13 +75,13 @@
 			<tr>
 				<th scope="row"><%= t 'views.total' %></th>
 				<td class="w-50 text-right" data-target="table.total">
-					<%= currency_precise_number @sale.total, @sale.currency %>
+					<%= currency_precise_number @purchase.total, @purchase.currency %>
 				</td>
 			</tr>
 			<tr>
 				<th scope="row" class="font-weight-normal"><%= t 'views.discount' %></th>
 				<td class="w-60"><%= f.text_field :discount, autocomplete: 'off',
-					value: currency_precise_number(@sale.discount, @sale.currency),
+					value: currency_precise_number(@purchase.discount, @purchase.currency),
 					id: nil, class: 'text-right', data: {
 						controller: 'currency',
 						target: 'table.discount',
@@ -91,7 +91,7 @@
 			<tr>
 				<th scope="row"><%= t 'views.to_be_paid' %></th>
 				<td class="w-50 text-right" data-target="table.toBePaid">
-					<%= currency_precise_number @sale.to_be_paid, @sale.currency %>
+					<%= currency_precise_number @purchase.to_be_paid, @purchase.currency %>
 				</td>
 			</tr>
 		</tbody>

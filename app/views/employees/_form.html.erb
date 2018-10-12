@@ -14,10 +14,13 @@
 
 	<div class="form-row">
 		<%= f.input :birthday, as: :datepicker, input_html: {'data-flatpickr-date-format': 'd.m.Y'} %>
-	  <%= f.input :gender, as: :radio_buttons,
-  		wrapper: :vertical_collection_inline,
-  		collection: [[t(:female), :female], [t(:male), :male]] %>
+		<%= f.association :company %>
 	</div>
+
+	<%= f.input :gender, as: :radio_buttons,
+  		wrapper: :vertical_collection_inline,
+  		collection: %w[ male female ].map { | gender |
+  								[Employee.human_attribute_name("gender.#{gender}"), gender]}%>
 
   <div class="form-row">
 		<%= f.input :notes %>  	

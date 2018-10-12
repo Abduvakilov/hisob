@@ -18,7 +18,7 @@
 #  index_product_price_histories_on_product_id         (product_id)
 #
 
-class ProductPriceHistory < ApplicationRecord
+class ProductPriceHistory < ActiveRecord::Base
   belongs_to :product
   belongs_to :category
 end

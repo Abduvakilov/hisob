@@ -1,0 +1,56 @@
+<%= simple_form_for @production, defaults: { wrapper_html: { class: 'col-sm' } },
+	html: {  'data-controller': 'table' } do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-row">
+	  <%= f.input :date, as: :datepicker, input_html: {
+	  	value: (@production.date || Date.today).strftime('%d.%m.%y'), required: ''} %>
+  	<%= f.input :company, input_html: { value: current_user.employee&.company.name, disabled: true} %>
+  </div>
+
+  <table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th></th>
+      <th scope="col" class="font-weight-normal">#</th>
+      <th scope="col" class="font-weight-normal"><%= ProductionItem.human_attribute_name :product %></th>
+      <th scope="col" class="font-weight-normal"><%= ProductionItem.human_attribute_name :amount %></th>
+    </tr>
+  </thead>
+
+  <% @production.production_items.build -%>
+  <tbody>
+	  <%=	f.fields_for :production_items do | si | %>
+  	<tr data-controller="row">
+  		<td class="text-danger text-center" data-save>
+  			<%= si.check_box :_destroy, class: 'd-none' if si.object.persisted? %>
+  			<%= si.label :_destroy, 'data-action': 'click->row#remove click->table#update',
+  				'data-target': 'row.minus' do %>
+  				<%=icon 'minus'%>
+				<%end-%>
+			</td>
+  		<th class="font-weight-normal" scope="row" data-target="row.no">1</th>
+  		<%= si.input :product_id, wrapper: :table_row, wrapper_html: {class: nil},
+  			collection: Product.kept.where(company_id: 1),
+  			prompt: '', input_html: {'data-action': 'change->row#copy', id: nil} %>
+  		<%= si.input :amount, wrapper: :table_row,
+				wrapper_html: {class: nil}, input_html: {
+					autocomplete: 'off', id: nil, min: 0, data: {
+  				target: 'table.amount',
+  				action: 'input->row#copy input->table#update'
+  		}} %>
+  	</tr>
+		<%end-%>
+  </tbody>
+
+	<tfoot>
+		<tr>
+			<td colspan="3"></td>
+			<td data-target="table.totalAmount"><%= @production.total_amount %></td>
+		</tr>
+	</tfoot>
+	</table>
+
+  <%= render 'form_buttons', f: f %>
+
+<%end-%>

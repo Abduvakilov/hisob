@@ -8,7 +8,7 @@ export default class extends Controller {
         numeral: true,
         numeralThousandsGroupStyle: 'thousand',
         numeralDecimalMark: ',',
-        delimiter: ' ',
+        delimiter: ' ' || this.data.get('delimiter'),
         numeralDecimalScale: 4,
         numeralIntegerScale: 15,
         numeralPositiveOnly: true

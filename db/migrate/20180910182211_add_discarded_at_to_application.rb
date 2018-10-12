@@ -15,9 +15,9 @@ class AddDiscardedAtToApplication < ActiveRecord::Migration[5.2]
   end
 
   def self.down
-    # TABLES.each do |table|
-    #   remove_column table, :discarded_at, :datetime
-    # end
+    TABLES.each do |table|
+      remove_column table, :discarded_at, :datetime
+    end
   end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_02_130421) do
+ActiveRecord::Schema.define(version: 2018_10_10_105501) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -65,11 +65,11 @@ ActiveRecord::Schema.define(version: 2018_10_02_130421) do
   end
 
   create_table "currencies", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
+    t.string "name", null: false
+    t.string "code", null: false
+    t.integer "precision", default: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "precision", default: 2
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_currencies_on_discarded_at"
   end
@@ -95,16 +95,18 @@ ActiveRecord::Schema.define(version: 2018_10_02_130421) do
   end
 
   create_table "employees", force: :cascade do |t|
-    t.string "first_name", null: false
+    t.string "first_name"
     t.string "last_name"
     t.date "birthday"
     t.integer "department_id"
+    t.integer "company_id"
     t.text "notes"
     t.boolean "gender"
     t.date "hire_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
+    t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["discarded_at"], name: "index_employees_on_discarded_at"
   end
@@ -131,6 +133,22 @@ ActiveRecord::Schema.define(version: 2018_10_02_130421) do
     t.index ["product_id"], name: "index_product_price_histories_on_product_id"
   end
 
+  create_table "production_items", force: :cascade do |t|
+    t.integer "production_id", null: false
+    t.integer "product_id", null: false
+    t.integer "amount", null: false
+    t.index ["product_id"], name: "index_production_items_on_product_id"
+    t.index ["production_id"], name: "index_production_items_on_production_id"
+  end
+
+  create_table "productions", force: :cascade do |t|
+    t.date "date", null: false
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_productions_on_discarded_at"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.integer "company_id"
@@ -142,6 +160,30 @@ ActiveRecord::Schema.define(version: 2018_10_02_130421) do
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["company_id"], name: "index_products_on_company_id"
     t.index ["discarded_at"], name: "index_products_on_discarded_at"
+  end
+
+  create_table "purchase_items", force: :cascade do |t|
+    t.integer "purchase_id", null: false
+    t.integer "product_id", null: false
+    t.integer "amount", null: false
+    t.float "price", null: false
+    t.index ["product_id"], name: "index_purchase_items_on_product_id"
+    t.index ["purchase_id"], name: "index_purchase_items_on_purchase_id"
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer "currency_id"
+    t.date "date", null: false
+    t.integer "supplier_id"
+    t.float "discount"
+    t.integer "created_by_id"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_purchases_on_created_by_id"
+    t.index ["currency_id"], name: "index_purchases_on_currency_id"
+    t.index ["discarded_at"], name: "index_purchases_on_discarded_at"
+    t.index ["supplier_id"], name: "index_purchases_on_supplier_id"
   end
 
   create_table "salaries", force: :cascade do |t|
@@ -157,7 +199,17 @@ ActiveRecord::Schema.define(version: 2018_10_02_130421) do
     t.index ["employee_id"], name: "index_salaries_on_employee_id"
   end
 
+  create_table "sale_items", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "amount", null: false
+    t.float "price", null: false
+    t.integer "sale_id"
+    t.index ["product_id"], name: "index_sale_items_on_product_id"
+    t.index ["sale_id"], name: "index_sale_items_on_sale_id"
+  end
+
   create_table "sales", force: :cascade do |t|
+    t.integer "currency_id", null: false
     t.integer "customer_id"
     t.date "date", null: false
     t.float "discount"
@@ -166,19 +218,9 @@ ActiveRecord::Schema.define(version: 2018_10_02_130421) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["created_by_id"], name: "index_sales_on_created_by_id"
+    t.index ["currency_id"], name: "index_sales_on_currency_id"
     t.index ["customer_id"], name: "index_sales_on_customer_id"
     t.index ["discarded_at"], name: "index_sales_on_discarded_at"
-  end
-
-  create_table "sales_items", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "amount", null: false
-    t.float "price", null: false
-    t.integer "sale_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_sales_items_on_product_id"
-    t.index ["sale_id"], name: "index_sales_items_on_sale_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -206,6 +248,7 @@ ActiveRecord::Schema.define(version: 2018_10_02_130421) do
   create_table "users", force: :cascade do |t|
     t.integer "employee_id"
     t.datetime "discarded_at"
+    t.boolean "is_admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "login", default: "", null: false

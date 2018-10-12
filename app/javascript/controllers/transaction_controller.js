@@ -5,8 +5,7 @@ export default class extends PersistencyController {
 
   static customerOrSupplier = {
   	0: 'customer',
-  	1: 'supplier',
-  	10: 'supplier', 11: 'supplier',
+  	10: 'supplier',
   	12: 'employee'
   }
 
@@ -26,7 +25,7 @@ export default class extends PersistencyController {
   }
 
   showConversionFields() {
-    if (this.typeTarget.value == 1 || this.typeTarget.value == 11 )
+    if (this.typeTarget.value == 11)
       this.conversionHiddenTarget.classList.remove('d-none');
     else
       this.conversionHiddenTarget.classList.add('d-none');

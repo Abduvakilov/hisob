@@ -1,12 +1,12 @@
 module TableHelper
 
-  def th_sortable(app_model, column)
-    if app_model.sortable_fields.include? column
+  def th_sortable(_model, column)
+    if _model.sortable_fields.include? column
       dir = column == params[:sort] && params[:dir] == "asc" ? "desc" : "asc"
       tag_attributes = " data-url='#{controller_path queries.merge(sort: column, dir: dir)}'
       class='sortable #{column}-column" + (column == params[:sort] ? " current #{params[:dir]}'" : "'")
     end
-    "<th#{tag_attributes}>#{app_model.human_attribute_name column}</th>"
+    "<th#{tag_attributes}>#{_model.human_attribute_name column}</th>"
   end
 
   def queries
@@ -14,8 +14,12 @@ module TableHelper
   end
 
   def table_amount(object)
-    content_tag :span, format_transaction_amount(object),
+    content_tag :span, currency_precise_number(object.amount, object.account.currency, unit: true),
       class: "text-#{COLORS[object.type_id_before_type_cast/10]}"
+  end
+
+  def table_leftover(object)
+    currency_precise_number(object.leftover, object.currency, unit: true)
   end
 
   def table_counter_party(object)
@@ -24,6 +28,16 @@ module TableHelper
     else
       object.counter_account
     end
+  end
+
+  %w[ total discount to_be_paid ].each do | field |
+    define_method("table_#{field}") { | object |
+      currency_precise_number(object.send(field), object.currency, unit: true)
+    }
+  end
+
+  def table_gender(object)
+    Employee.human_attribute_name("gender.#{object.gender}")
   end
 
   def date_filter_links(field_name, selected)

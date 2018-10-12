@@ -179,14 +179,14 @@ uz:
       format:
         delimiter: " "
         format: "%n %u"
-        precision: 0
+        precision: 2
         separator: ","
         significant: false
         strip_insignificant_zeros: false
-        unit: so'm.
+        unit: so‘m
     format:
       delimiter: " "
-      precision: 3
+      precision: 2
       separator: ","
       significant: false
       strip_insignificant_zeros: false
@@ -221,7 +221,7 @@ uz:
             other: trillion
           unit: ''
       format:
-        delimiter: ''
+        delimiter: ' '
         precision: 1
         significant: false
         strip_insignificant_zeros: false
@@ -242,7 +242,7 @@ uz:
         delimiter: ''
     precision:
       format:
-        delimiter: ''
+        delimiter: ' ' 
   support:
     array:
       last_word_connector: " va "

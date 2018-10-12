@@ -3,6 +3,7 @@ uz:
     errors:
       messages:
         is_more_than_account_leftover: hisobdagi qoldiqdan ortiq
+        currencies_does_not_match: valyutalari bir emas
       #   required: kiritishi kerak
       #   less_than: "%{count} dan kam bo‘lishi kerak"
       #   blank: bo‘sh bo‘lishi mumkin emas
@@ -24,6 +25,10 @@ uz:
       sale:
         one: Sotuv
         other: Sotuvlar
+      production: Ishlab chiqarish
+      purchase:
+        one: Ta’minot
+        other: Ta’minotlar
       product:
         one: Mahsulot
         other: Mahsulotlar
@@ -44,6 +49,14 @@ uz:
         one: Tuman
         other: Tumanlar
 
+    attributes:
+      product:
+        company: Ishlab chiqaruvchi
+      sales_item:
+        amount: Miqdori
+      gender:
+        male: Erkak
+        female: Ayol
 
   attributes:
     name: Nomi
@@ -55,6 +68,9 @@ uz:
     type: Turi
     transaction: Pul aylanmasi
     account: Hisob
+    counter_account: Hisob
+    rate: Kurs
+    asked_currency: So‘ralgan Valyuta
     date: Sana
     amount: Qiymat
     coefficient: Koeffitsient
@@ -62,7 +78,7 @@ uz:
     type_id: Turi
     parent_category: Yuqori toifasi
     product: Mahsulot
-    price: Narx
+    price: Narxi
     discount: Chegirma
     customer: Mijoz
     is_for_sale: Sotiladigan
@@ -77,6 +93,12 @@ uz:
     bank_account_number: Bank hisobraqami
     currency: Valyutasi
     parent_district: Yuqori tuman
+    total: Jami
+    total_amount: Jami miqdori
+    to_be_paid: To‘lanishga
+    gender: Jinsi
+    leftover: Qoldiq
+
 
 
   helpers:
@@ -89,4 +111,3 @@ uz:
       submit: "%{model}ni saqla"
       update: "%{model}ni tahrirla"
       discard: "Bekor qil"
-

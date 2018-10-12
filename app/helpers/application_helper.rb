@@ -13,8 +13,8 @@ module ApplicationHelper
   def title_of_page
     return model_name(2) if action_name == 'index'
     _action_name = 'new' if action_name == 'create'
-  	_action_name = 'show' if action_name == 'update' else _action_name ||= action_name
-
+  	_action_name = 'show' if action_name == 'update'
+    _action_name ||= action_name
 		t _action_name, scope: [:views, :title, controller_name], default:
       t(_action_name, scope: 'views.title.action', model: model_name)
   end
@@ -37,11 +37,18 @@ module ApplicationHelper
     public_send "#{controller_name}_path", object
   end
 
-  def format_transaction_amount(transaction, amount=nil)
-    number_to_currency( amount || transaction.amount,
-      precision: transaction.account.currency.precision,
-      unit: transaction.account.currency.code) if transaction.account
+  def currency_precise_number(number, currency, options={})
+    return nil if number.nil? || currency.nil?
+    raise ArgumentError, 'Argument is not a Currency object' unless currency.is_a? Currency
+
+    unit = options[:unit] ? currency.name : ''
+    number_to_currency(number, precision: currency.precision, unit: unit)
   end
+
+  # def format_transaction_amount(transaction, amount=nil)
+  #   currency_precise_number( amount || transaction.amount, transaction.account.currency,
+  #     unit: true)
+  # end
 
   def icon(fa_symbol_name, text='')
     content_tag(:i, '', class: 'fas fa-'+fa_symbol_name)+text

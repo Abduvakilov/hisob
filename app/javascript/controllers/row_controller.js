@@ -9,7 +9,7 @@ export default class extends Controller {
 			this.data.set('notFilled', 1);
 			this.minusTarget.classList.add('d-none')
 			this.noTarget.innerText = ''
-			this.copyInputNames(this.element);
+			if(this.allRows.length!==1) this.copyInputNames(this.element);
 		} else {
 			this.noTarget.innerText = this.no
 		}
@@ -20,10 +20,8 @@ export default class extends Controller {
 			this.replaceInputNames(this.element);
 			let value = e.target.value;
 			e.target.value = '';
-			console.log(this.element)
 			let clone = this.element.cloneNode(true)
 			this.element.after(clone);
-			console.log(clone)
 			this.minusTarget.classList.remove('d-none');
 			this.data.delete('notFilled');
 			this.number();
@@ -31,33 +29,42 @@ export default class extends Controller {
 		}
 	}
 
+	SELECTOR = ':not([data-save]) > input, :not([data-save]) > select'
+
 	copyInputNames(parent) {
-		Array.from(parent.querySelectorAll('input, select')).forEach( e => {
+		Array.from(parent.querySelectorAll(this.SELECTOR)).forEach( e => {
+			if (e.hasAttribute('required')) e.setAttribute('data-required', '');
 			e.setAttribute('data-name', e.name.replace(this._id-1, this._id));
-			e.removeAttribute('name');
+			['name', 'required', 'aria-required'].forEach(a=>e.removeAttribute(a));
 		})
 	}
 
 	replaceInputNames(parent) {
-		Array.from(parent.querySelectorAll('input, select')).forEach( e => {
-			e.name = e.getAttribute('data-name');
-			e.removeAttribute('data-name');
+		Array.from(parent.querySelectorAll(this.SELECTOR)).forEach( e => {
+			if (e.hasAttribute('data-required')) {
+				e.setAttribute('required', '');
+			}
+			if (!e.name) e.name = e.getAttribute('data-name');
+			['data-name', 'data-required'].forEach(a=>e.removeAttribute(a));
 		})
 	}
 
 	remove() {
-		if (this.minusTarget.previousSibling) {
-			this.element.classList.add('d-none');
-		} else {
+		this.element.classList.add('d-none');
+		this.numberAll();
+		this.copyInputNames(this.element)
+		if (!this.minusTarget.previousElementSibling) {
 			this.element.remove();
 		}
-		this.numberAll();
 	}
 
 	numberAll() {
-		for(let i=0; i<this.allRows.length; i++) {
-			this.application.getControllerForElementAndIdentifier(this.allRows[i], 'row').number();
+		let items =  this.allRows
+		for(let i=0; i<items.length; i++) {
+			this.application.getControllerForElementAndIdentifier(items[i], 'row').number();
 		}
+		if (items.length==1)
+			this.replaceInputNames(items[0]);
 	}
 
 	number() {

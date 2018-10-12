@@ -31,6 +31,7 @@ export default class extends Controller {
 	setFromStorage() {
 		let savedValue = localStorage[this.element.name]
 		if (savedValue) this.selectr.setValue(savedValue);
+		else this.selectr.setValue('');
 	}
 
 }

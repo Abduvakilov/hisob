@@ -9,5 +9,5 @@
 currency = Currency.create! name: "so‘m", code: "UZS", precision: 0 unless Currency.any?
 company = Company.create! name: "Our Company" unless Company.any?
 account = Account.create! name: "Primary Account", company: company, currency: currency unless Account.any?
-employee = Employee.create! first_name: 'User' unless Employee.any?
-user = User.create! employee: employee, login: 'user', password: 'password', password_confirmation: 'password' unless User.any?
+employee = Employee.create! first_name: 'User', company: company unless Employee.any?
+user = User.create! employee: employee, login: 'user', password: 'password', password_confirmation: 'password', is_admin: true unless User.any?

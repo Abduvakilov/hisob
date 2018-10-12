@@ -5,16 +5,16 @@ export default class extends Controller {
 
 	static accountDetails = [];
 
-  connect() {
+  // connect() {
 
-  }
+  // }
 
 	get accounts(){
 		return this.constructor.accountDetails;
 	}
 
 	set leftover(json) {
-		this.leftoverTarget.innerText = json['leftover'].toLocaleString('ru-RU')+' '+json['currency']['code'];
+		this.leftoverTarget.innerText = json['leftover'].toLocaleString('ru-RU')+' '+json['currency']['name'];
 	}
 
   show() {
@@ -25,7 +25,7 @@ export default class extends Controller {
   }
 
   updateLeftover(e) {
-    this.show();
+    if (this.hasHiddenTarget) this.show();
 		if (this.accounts.some(el => el['id'] == e.target.value)){  // if fetched before
 			this.leftover = this.accounts.find(el => el['id'] == e.target.value);
 			return;

@@ -16,8 +16,9 @@
   </div>
 
   <%= f.association :account, as: :account, selected: (@transaction.account_id ||= 1),
+    collection: Account.kept,
     wrapper: :hidden_account,
-    leftover: format_transaction_amount(@transaction, @transaction.account.leftover),
+    leftover: currency_precise_number(@transaction.account.leftover, @transaction.account.currency, unit: true),
     leftover_data_target: 'account.leftover'
   %> <!-- TODO: Selected should be user default-->
 
@@ -36,18 +37,16 @@
           } %>
     <% end %>
     <%= f.input :amount, as: :currency, wrapper_class: 'form-group w-sm-200', input_html: {
-      value: number_to_currency(@transaction.amount,
-      precision: @transaction.account&.currency&.precision) || 0
+      value: currency_precise_number(@transaction.amount, @transaction.account&.currency)
     }%>
   </div>
 
   <div class="form-row" data-target="transaction.conversionHidden">
+    <%= f.association :asked_currency, wrapper_class: 'form-group w-sm-200', required: false %>
     <%= f.input :rate, as: :currency, wrapper_class: 'form-group w-sm-200',
       input_html: {
-        value: number_to_currency(@transaction.rate,
-          precision: @transaction.account&.currency&.precision) || 0
+        value: currency_precise_number(@transaction.rate, @transaction.account.currency)
     }%>
-    <%= f.association :asked_currency, wrapper_class: 'form-group w-sm-200' %>
   </div>
 
   <%= more_wrapped @transaction.class.name.downcase do %>
@@ -59,7 +58,7 @@
     </div>
   <% end %>
   <% content_for :confirmation_body do
-    t('views.confirmation.discard.transaction.body', amount: tag.b(format_transaction_amount(f.object)), model: f.object.model_name.human)
+    t('views.confirmation.discard.transaction.body', amount: tag.b(currency_precise_number(f.object.amount, f.object.account.currency, unit: true)), model: f.object.model_name.human)
     end %>
   <%= render 'form_buttons', f: f %>
 <% end %>

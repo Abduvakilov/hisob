@@ -6,8 +6,7 @@ export default class extends Controller {
 
 	update() {
 		this.updateAmount();
-		this.updateTotals();
-		this.updateToBePaid();
+		if (this.hasTotalTarget) this.updateTotals();
 	}
 
 	updateAmount() {
@@ -15,25 +14,28 @@ export default class extends Controller {
 	}
 
 	get totalAmount() {
-		return this.amountTargets.reduce( ( sum, e ) => sum + Number(e.value), 0);
+		return this.amountTargets.reduce( ( sum, e ) => {
+			return sum + (this.isDestroyed(e) ? 0 : Number(e.value))
+		}, 0);
 	}
 
 	updateTotals() {
-		this.totalTarget.innerText = this.total;
+		this.totalTarget.innerText = this.total.toLocaleString('ru-RU');
+		this.toBePaidTarget.innerText = (this.total - this.currencyRawValue(this.discountTarget)).toLocaleString('ru-RU');
+	}
+
+	currencyRawValue(e) {
+		return this.application.getControllerForElementAndIdentifier(e, 'currency').cleave.getRawValue();
 	}
 
 	get total() {
 		return this.priceTargets.reduce( (sum, e, i) => {
-			return sum + (Number(e.value) * Number(this.amountTargets[i].value));
+			return sum + ( this.isDestroyed(e) ? 0 : this.currencyRawValue(e) * this.amountTargets[i].value);
 		}, 0)
 	}
 
-	updateToBePaid() {
-		this.toBePaidTarget.innerText = this.total - this.discountValue;
-	}
-
-	get discountValue() {
-		return this.application.getControllerForElementAndIdentifier(this.discountTarget, 'currency').cleave.getRawValue();
+	isDestroyed(e) {
+		return e.parentElement.parentElement.classList.contains('d-none');
 	}
 
 }

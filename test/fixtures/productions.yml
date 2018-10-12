@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2018-10-10
+  discarded_at: 2018-10-10 15:55:01
+
+two:
+  date: 2018-10-10
+  discarded_at: 2018-10-10 15:55:01

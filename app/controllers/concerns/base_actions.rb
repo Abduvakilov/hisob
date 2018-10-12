@@ -50,11 +50,12 @@ module BaseActions
   end
 
   def discard
-    self.object.discard
-    flash[:success] = t('views.flash.success.discard', model: model.model_name.human)
-    respond_to do |format|
-      format.html { redirect_to action: :index }
-      format.json { head :no_content }
+    if self.object.discard
+      flash[:success] = t('views.flash.success.discard', model: model.model_name.human)
+      respond_to do |format|
+        format.html { redirect_to action: :index }
+        format.json { head :no_content }
+      end
     end
   end
 

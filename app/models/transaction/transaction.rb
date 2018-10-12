@@ -24,6 +24,9 @@ class Transaction < ApplicationRecord
 
   enum type_id: @@all_types.values.inject(&:merge)
 
+  validates_presence_of :rate, :asked_currency, if: :Konversiyaga?
+  validates_absence_of :rate, :asked_currency, unless: :Konversiyaga?
+
   def self.all_i
     where(type_id: type_ids.values)
   end
@@ -53,10 +56,9 @@ class Transaction < ApplicationRecord
     super - ['type_id']
   end
 
-
-  # belongs_to :reference, optional: true
+  # belongs_to :reference, optional: true # TODO
   belongs_to :counter_party, optional: true
   belongs_to :counter_account, class_name: 'Account', optional: true
   belongs_to :account
-  belongs_to :asked_currency, class_name: 'Currency'
+  belongs_to :asked_currency, class_name: 'Currency', optional: true
 end

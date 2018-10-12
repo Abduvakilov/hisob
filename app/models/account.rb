@@ -19,6 +19,9 @@ class Account < ApplicationRecord
     balance + replace_in
   end
 
+  def self.shown_fields
+    %w[ name leftover company is_bank_account bank_account_number ]
+  end
 
   def to_s
     "#{self.name}, #{self.currency.name}"
