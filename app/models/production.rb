@@ -1,8 +1,23 @@
 class Production < ApplicationRecord
   def total_amount
-    production_items.where.not(id: nil).reduce(0) do | sum, item |
-      sum + item.amount
+    production_items.reduce(0) do | sum, item |
+      sum + (item.id.nil? ? 0 : item.amount)
     end
+  end
+
+  def products
+    production_items.includes(:product).uniq(&:product).join(', ')
+    # Buggy
+    # first_item = true
+    # production_items.reduce('') do | text, item |
+    #   unless text.include?(item.product)
+    #     if first_item
+    #       first_item = false
+    #       return item.product.to_s
+    #     end
+    #     return "#{text}, #{item.product}"
+    #   end
+    # end
   end
 
   has_many :production_items, inverse_of: :production
@@ -11,7 +26,7 @@ class Production < ApplicationRecord
   validates_associated :production_items
 
   def self.shown_fields
-    %w[ date total_amount ]
+    %w[ date total_amount products ]
   end
 
   def self.permitted_params

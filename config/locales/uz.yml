@@ -88,6 +88,7 @@ uz:
     email: Epochta
     is_supplier: Ta’minotchi
     is_customer: Mijoz
+    department: Bo‘lim
     district: Tuman
     is_bank_account: Bankdagi hisob
     bank_account_number: Bank hisobraqami
@@ -98,6 +99,15 @@ uz:
     to_be_paid: To‘lanishga
     gender: Jinsi
     leftover: Qoldiq
+    products: Mahsulotlar
+    remember_me: Eslab qol
+    hire_date: Ishga qabul qilingan
+    first_name: Ismi
+    last_name: Familyasi
+    birthday: Tug‘ilgan kuni
+    supplier: Ta’minotchi
+    code: Kodi
+    precision: Nisbat qismi raqamlari soni (aniqligi)
 
 
 

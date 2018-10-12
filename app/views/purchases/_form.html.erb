@@ -35,7 +35,7 @@
 				<%end-%>
 			</td>
   		<th class="font-weight-normal" scope="row" data-target="row.no">1</th>
-  		<%= si.input :product_id, wrapper: :table_row, wrapper_html: {class: nil},
+  		<%= si.association :product, wrapper: :table_row, wrapper_html: {class: nil},
   			required: true,
   			prompt: '', input_html: {'data-action': 'change->row#copy', id: nil} %>
   		<%= si.input :price, wrapper: :table_row, as: :string,

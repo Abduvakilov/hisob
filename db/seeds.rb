@@ -6,8 +6,24 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-currency = Currency.create! name: "so‘m", code: "UZS", precision: 0 unless Currency.any?
+unless Currency.any?
+  currency = Currency.create! name: "so‘m", code: "UZS", precision: 0
+  currency2 = Currency.create! name: "$", code: "USD", precision: 2
+end
 company = Company.create! name: "Our Company" unless Company.any?
-account = Account.create! name: "Primary Account", company: company, currency: currency unless Account.any?
-employee = Employee.create! first_name: 'User', company: company unless Employee.any?
-user = User.create! employee: employee, login: 'user', password: 'password', password_confirmation: 'password', is_admin: true unless User.any?
+department = Department.create! name: "Management", company: company unless Department.any?
+unless Account.any?
+  account = Account.create! name: "Primary Account", company: company, currency: currency
+  account2 = Account.create! name: "Secondary Account", company: company, currency: currency2
+end
+district = District.create! name: "Toshkent" unless District.any?
+unless CounterParty.any?
+  customer = CounterParty.create! name: 'KinoMarket', company_name: 'KinoMarket MCHJ', phone: '998889988', email: 'kino@market.uz', is_customer: true, district: district
+  supplier = CounterParty.create! name: 'MebelMaks', company_name: 'MebelMaks MCHJ', phone: '907770123', email: 'mebelzor@rambler.uz', is_supplier: true, district: district
+end
+unless Product.any?
+  product = Product.create! name: 'Stul'
+  product2 = Product.create! name: 'Oyna', company: company, is_for_sale: true
+end
+employee = Employee.create! first_name: 'Asad', last_name: 'Sa’dullayev', birthday: 25.years.ago, hire_date: 3.years.ago, gender: :male, company: company, department: department unless Employee.any?
+user = User.create! employee: employee, login: 'admin', password: 'password', password_confirmation: 'password', is_admin: true unless User.any?

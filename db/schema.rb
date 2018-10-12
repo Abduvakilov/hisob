@@ -231,7 +231,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_105501) do
     t.datetime "updated_at", null: false
     t.integer "type_id"
     t.integer "counter_party_id"
-    t.float "coefficient", default: 100.0
+    t.float "coefficient"
     t.integer "account_id"
     t.integer "reference_id"
     t.string "reference_type"

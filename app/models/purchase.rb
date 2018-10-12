@@ -16,6 +16,10 @@ class Purchase < ApplicationRecord
     total - discount.to_f
   end
 
+  def products
+    purchase_items.includes(:product).uniq(&:product).join(', ')
+  end
+
   belongs_to :currency
   belongs_to :supplier, class_name: 'CounterParty'
   belongs_to :user, foreign_key: :created_by_id, optional: true # TODO
@@ -26,7 +30,7 @@ class Purchase < ApplicationRecord
 
 
   def self.shown_fields
-    %w[ date supplier total_amount to_be_paid ]
+    %w[ date supplier total_amount to_be_paid products ]
   end
 
   def self.permitted_params

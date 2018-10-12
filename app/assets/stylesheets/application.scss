@@ -2,6 +2,11 @@
 @import 'nav';
 @import 'form';
 
+a.card,
+a.card:hover {
+  color: $dark;
+}
+
 .w-sm-200 {
   max-width: 200px;
   @include media-breakpoint-down(sm) {

@@ -1,18 +1,22 @@
 <% content_for :title do 'Hisob' end %>
-<ul><% @accounts.each do |account| %>
-	<li><%=account%>: <%=account.leftover%></li>
-<%end%></ul>
-<ul>
-	<% [[companies_path, 'building', Company],
-      [categories_path, 'shapes', Category]
+<div class="row">
+	<% [[employees_path, 'people-carry', Employee],
 			[departments_path, 'briefcase', Department],
-			[employees_path, 'people-carry', Employee],
-      [currencies_path, 'dollar-sign', Currency],
-      [districts_path, 'map-marked-alt', District]    
+	    [companies_path, 'building', Company],
+	    [currencies_path, 'dollar-sign', Currency],
+	    [categories_path, 'shapes', Category],
+	    [districts_path, 'map-marked-alt', District]    
 	].each do |el| %>
-	<li>
-		<%= link_to el[0] do %>
-		    <%=icon el[1]+' fa-fw'%> <%=el[2].model_name.human %>
-		<% end %>
-	</li>
-<% end %>
+	<div class="col-md-4 col-sm-6 py-sm-2">
+	<%= link_to el[0], class: 'card text-center' do %>
+		
+		
+	    <div class="card-img-top mt-3"><%=icon el[1]+' fa-fw fa-3x'%></div>
+	    <div class="card-body">
+	    	<h5 class="card-title"><%=el[2].model_name.human%></h5>
+	    </div>
+
+	<%end-%>
+	</div>
+	<% end %>
+</div>
