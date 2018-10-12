@@ -10,15 +10,7 @@
     <%= f.input :bank_account_number %>
   </div>
 
-  <div class="d-sm-flex">
-    <%= link_to "Ortga", accounts_path, class: "d-none d-sm-flex mr-sm-auto btn btn-outline-secondary" %>
-    <%= f.button :submit, class: "btn-primary mx-1" %>
-    <% if local_assigns[:create_and_new] %>
-      <%= f.button :submit, create_and_new, name: :create_and_new, class: "btn-outline-info"  %>
-    <% end %>
-    <% if local_assigns[:show] %>
-      <% link_to "Ko‘rsat", @account %>
-    <% end %>
+  <%= render 'form_buttons', f: f %>
   </div>
 
 <% end %>

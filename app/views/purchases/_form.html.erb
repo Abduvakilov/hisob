@@ -9,7 +9,7 @@
 	  <%= f.input :date, as: :datepicker, input_html: {
 	  	value: (@purchase.date || Date.today).strftime('%d.%m.%y'), required: ''} %>
 	  <%= f.association :supplier, collection: CounterParty.kept.where(is_supplier: true) %>
-	  <%= f.association :currency, collection: Currency.kept, selected: @purchase.currency_id || 1 %> <%# TODO Supplier default%>
+	  <%= f.association :currency, selected: @purchase.currency_id || 1 %> <%# TODO Supplier default%>
   </div>
 
   <table class="table table-bordered table-sm">
@@ -36,7 +36,7 @@
 			</td>
   		<th class="font-weight-normal" scope="row" data-target="row.no">1</th>
   		<%= si.input :product_id, wrapper: :table_row, wrapper_html: {class: nil},
-  			collection: Product.kept, required: true,
+  			required: true,
   			prompt: '', input_html: {'data-action': 'change->row#copy', id: nil} %>
   		<%= si.input :price, wrapper: :table_row, as: :string,
   			wrapper_html: {class: nil}, required: true, input_html: {

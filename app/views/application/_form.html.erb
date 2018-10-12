@@ -5,7 +5,7 @@
   <% model = controller.model
   model.shown_fields.each_with_index do |field, i| %>
     <% if model.belongs.include?(field) %>
-      <%= f.association field, collection: model.belongs_class(field).kept %>
+      <%= f.association field %>
     <% else %>
       <%= f.input field %>
     <% end %>

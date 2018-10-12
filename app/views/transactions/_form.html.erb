@@ -16,7 +16,6 @@
   </div>
 
   <%= f.association :account, as: :account, selected: (@transaction.account_id ||= 1),
-    collection: Account.kept,
     wrapper: :hidden_account,
     leftover: currency_precise_number(@transaction.account.leftover, @transaction.account.currency, unit: true),
     leftover_data_target: 'account.leftover'

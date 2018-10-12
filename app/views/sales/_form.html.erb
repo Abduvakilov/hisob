@@ -9,7 +9,7 @@
 	  <%= f.input :date, as: :datepicker, required: true,
       input_html: { value: (@sale.date || Date.today).strftime('%d.%m.%y')} %>
 	  <%= f.association :customer, collection: CounterParty.kept.where(is_customer: true) %>
-	  <%= f.association :currency, collection: Currency.kept, selected: @sale.currency_id || 1 %> <%# TODO customer default%>
+	  <%= f.association :currency, selected: @sale.currency_id || 1 %> <%# TODO customer default%>
   </div>
 
   <table class="table table-bordered table-sm">
