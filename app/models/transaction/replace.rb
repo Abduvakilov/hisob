@@ -12,7 +12,7 @@
 class Replace < Transaction
 
 	validates_presence_of :counter_account
-	# validates_absence_of :counter_party, :coefficient, :rate, :asked_currency
+	validates_absence_of :counter_party, :coefficient, :rate, :asked_currency
 
   validate :account_currencies_match
   validate :different_accounts
