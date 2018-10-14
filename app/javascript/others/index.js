@@ -6,11 +6,11 @@ document.addEventListener('turbolinks:load', function() {
 
 	dom.i2svg();
 
-	let linkEventHandler = e => Turbolinks.visit(e.currentTarget.getAttribute('data-url');
+	let linkEventHandler = e => Turbolinks.visit(e.currentTarget.getAttribute('data-url'));
 
 	let linkedEls = document.querySelectorAll('[data-url]');
 	for (let i = 0; i < linkedEls.length; i++) {
-		let events = linkedEls[i].tagName == 'TR' ? ['dblclick', 'touchstart'] : ['click'];
+		let events = linkedEls[i].tagName === 'TR' ? ['dblclick', 'touchstart'] : ['click'];
 		events.forEach(e => linkedEls[i].addEventListener(e, linkEventHandler))
 	}
 

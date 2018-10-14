@@ -36,7 +36,7 @@ export default class extends Controller {
 				e.value = localStorage[e.name];
 		  	Promise.resolve().then(() => {
 					e.dispatchEvent(new Event('change'));
-				})
+				});
 				if (!this.modelName) {
 					this.modelName = e.name.split('[')[0];
 				}

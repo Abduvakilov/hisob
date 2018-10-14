@@ -2,13 +2,13 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
 
-	static targets = [ 'no', 'minus' ]
+	static targets = [ 'no', 'minus' ];
 
 	connect() {
 		if (!this.isFilled) {
 			this.data.set('notFilled', 1);
-			this.minusTarget.classList.add('d-none')
-			this.noTarget.innerText = ''
+			this.minusTarget.classList.add('d-none');
+			this.noTarget.innerText = '';
 			if(this.allRows.length!==1) this.copyInputNames(this.element);
 		} else {
 			this.noTarget.innerText = this.no
@@ -20,7 +20,7 @@ export default class extends Controller {
 			this.replaceInputNames(this.element);
 			let value = e.target.value;
 			e.target.value = '';
-			let clone = this.element.cloneNode(true)
+			let clone = this.element.cloneNode(true);
 			this.element.after(clone);
 			this.minusTarget.classList.remove('d-none');
 			this.data.delete('notFilled');
@@ -29,7 +29,7 @@ export default class extends Controller {
 		}
 	}
 
-	SELECTOR = ':not([data-save]) > input, :not([data-save]) > select'
+	SELECTOR = ':not([data-save]) > input, :not([data-save]) > select';
 
 	copyInputNames(parent) {
 		Array.from(parent.querySelectorAll(this.SELECTOR)).forEach( e => {
@@ -52,18 +52,18 @@ export default class extends Controller {
 	remove() {
 		this.element.classList.add('d-none');
 		this.numberAll();
-		this.copyInputNames(this.element)
+		this.copyInputNames(this.element);
 		if (!this.minusTarget.previousElementSibling) {
 			this.element.remove();
 		}
 	}
 
 	numberAll() {
-		let items =  this.allRows
+		let items = this.allRows;
 		for(let i=0; i<items.length; i++) {
 			this.application.getControllerForElementAndIdentifier(items[i], 'row').number();
 		}
-		if (items.length==1)
+		if (items.length===1)
 			this.replaceInputNames(items[0]);
 	}
 

@@ -5,10 +5,6 @@ export default class extends Controller {
 
 	static accountDetails = [];
 
-  // connect() {
-
-  // }
-
 	get accounts(){
 		return this.constructor.accountDetails;
 	}
@@ -33,8 +29,8 @@ export default class extends Controller {
     fetch( `/accounts/${e.target.value}.json` )
       .then( res => res.json() )
       .then( json => {
-      	this.accounts.push(json)
-        this.leftover = json
+      	this.accounts.push(json);
+        this.leftover = json;
       });
   }
 

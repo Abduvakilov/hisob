@@ -9,28 +9,24 @@ export default class extends Controller {
 	handleClick() {
 		if (!this.modal) this.render();
 		this.modal.addEventListener('click', e => {
-			if (!this.modal.children[0].children[0].contains(e.target)) {
-				window.dismissModal()
-			}
-		})
+			if (!this.modal.children[0].children[0].contains(e.target))
+				window.dismissModal();
+		});
 		this.dismissOnEsc();
 		this.show()
 	}
 
 	dismissOnEsc() {
 		document.addEventListener('keydown', e => {
-			if ( e.keyCode === 27 ) { // ESC
-				window.dismissModal()
-	    }
+			if ( e.key === 'Escape' )
+				window.dismissModal();
 		})
 	}
 
 	show() {
 		Array.from(this.modal.children).forEach( e => {
 			e.style.display = 'block';
-			setTimeout(()=> {
-				e.classList.add('show');
-			}, 0);
+			setTimeout(()=>{e.classList.add('show')}, 0);
 		})
 	}
 

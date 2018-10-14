@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
 
-	static targets = [ 'price', 'amount', 'totalAmount', 'total', 'discount', 'toBePaid' ]
+	static targets = [ 'price', 'amount', 'totalAmount', 'total', 'discount', 'toBePaid' ];
 
 	update() {
 		this.updateAmount();

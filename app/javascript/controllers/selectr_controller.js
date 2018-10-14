@@ -1,7 +1,6 @@
-import { Controller } from "stimulus"
+import { Controller } from "stimulus";
 import Selectr from 'mobius1-selectr/src/selectr';
-import PersistencyController from './persistency_controller.js'
-import 'mobius1-selectr/src/selectr.css'
+import 'mobius1-selectr/src/selectr.css';
 
 export default class extends Controller {
 
@@ -29,7 +28,7 @@ export default class extends Controller {
 	}
 
 	setFromStorage() {
-		let savedValue = localStorage[this.element.name]
+		let savedValue = localStorage[this.element.name];
 		if (savedValue) this.selectr.setValue(savedValue);
 		else this.selectr.setValue('');
 	}
