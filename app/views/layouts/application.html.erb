@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title><%= title = yield(:title).presence || title_of_page %></title>
-	<%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
 	<%= csp_meta_tag %>
 
 	<%= javascript_pack_tag 'application', defer: true %>

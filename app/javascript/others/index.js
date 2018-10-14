@@ -6,19 +6,19 @@ document.addEventListener('turbolinks:load', function() {
 
 	dom.i2svg();
 
+	let linkEventHandler = e => Turbolinks.visit(e.currentTarget.getAttribute('data-url');
+
 	let linkedEls = document.querySelectorAll('[data-url]');
 	for (let i = 0; i < linkedEls.length; i++) {
-		let event = linkedEls[i].tagName == 'TR' ? 'dblclick' : 'click';
-		linkedEls[i].addEventListener(event, e => {
-			Turbolinks.visit(e.currentTarget.getAttribute('data-url'));
-		})
+		let events = linkedEls[i].tagName == 'TR' ? ['dblclick', 'touchstart'] : ['click'];
+		events.forEach(e => linkedEls[i].addEventListener(e, linkEventHandler))
 	}
 
 });
 
 window.toggleOpen = (e) => {
     e.currentTarget.parentElement.parentElement.classList.toggle('open');
-}
+};
 
 window.dismissModal = () => {
     let modal = document.getElementsByClassName('modal')[0];
@@ -29,4 +29,4 @@ window.dismissModal = () => {
             e.style.display = 'none';
         }, 150);
     });
-}
+};
