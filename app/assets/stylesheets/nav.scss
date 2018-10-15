@@ -4,7 +4,6 @@
     bottom: 0;
     position: fixed;
     width: 175px;
-    overflow-y: scroll;
     &:not(.open) {
       width: 60px;
     }
@@ -41,12 +40,12 @@
     display: block;
     right: 0;
     padding: 0 15px;
-    height: 59px;
-    overflow-x: scroll;
+    // height: auto;
+    overflow-x: auto;
     a, button {
       padding: 18px;
       border-width: 0 0 0 1px;
-      width: auto;
+      // width: auto;
       display: inline-block;
     }
     a, .bottom {
@@ -68,12 +67,16 @@
 
 .nav {
   background-color: $dark;
-  top: 0px;
-  left: 0px;
+  top: 0px; left: 0px;
   z-index: 8;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   transition: width 0.4s ease-in-out;
 }
 
