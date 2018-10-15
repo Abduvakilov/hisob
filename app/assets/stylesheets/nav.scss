@@ -36,24 +36,25 @@
 }
 @include media-breakpoint-down(sm) {
   .nav {
+    // margin: 0 auto;
+    display: block;
     right: 0;
-    margin: 0 auto;
-    // max-width: map-get($container-max-widths, sm);
     padding: 0 15px;
     height: 59px;
     a, button {
       padding: 18px;
       border-width: 0 0 0 1px;
+      width: auto;
+      display: inline-block;
     }
-    a, .bottom {
-      flex: 1 1 auto;
-    }
+    // a, .bottom {
+    //   flex: 1 1 auto;
+    // }
     .bottom button {
       width: 100%;
     }
     a svg, button svg {
       margin-right: auto; margin-left: auto;
-      display: block;
     }
   }
 
@@ -69,7 +70,9 @@
   left: 0px;
   z-index: 8;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
   transition: width 0.4s ease-in-out;
 }
 

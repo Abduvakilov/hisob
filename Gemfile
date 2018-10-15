@@ -77,3 +77,7 @@ gem 'slim'#, require: 'slim/logic_less'
 gem 'webpacker'
 gem 'discard'
 gem 'devise'
+
+group :deployment do
+  gem 'mysql2'
+end

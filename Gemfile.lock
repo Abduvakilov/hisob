@@ -136,6 +136,7 @@ GEM
     msgpack (1.2.4)
     msgpack (1.2.4-x64-mingw32)
     multi_json (1.13.1)
+    mysql2 (0.5.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (5.0.2)
@@ -252,6 +253,7 @@ DEPENDENCIES
   jbuilder
   kaminari
   listen
+  mysql2
   puma
   rails
   selenium-webdriver

@@ -6,12 +6,12 @@ document.addEventListener('turbolinks:load', function() {
 
 	dom.i2svg();
 
-	let linkEventHandler = e => Turbolinks.visit(e.currentTarget.getAttribute('data-url'));
-
+    window.touch = "ontouchstart" in document.documentElement;
+    let linkEventHandler = e => Turbolinks.visit(e.currentTarget.getAttribute('data-url'));
 	let linkedEls = document.querySelectorAll('[data-url]');
 	for (let i = 0; i < linkedEls.length; i++) {
-		let events = linkedEls[i].tagName === 'TR' ? ['dblclick', 'touchstart'] : ['click'];
-		events.forEach(e => linkedEls[i].addEventListener(e, linkEventHandler))
+		let event = (linkedEls[i].tagName === 'TR' && !window.touch) ? 'dblclick' : 'click';
+		linkedEls[i].addEventListener(event, linkEventHandler);
 	}
 
 });
