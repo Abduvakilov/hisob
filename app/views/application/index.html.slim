@@ -4,12 +4,12 @@
 
 form action=controller_path method='get'
 	.row.mb-2
-		.col-auto
-			- if lookup_context.exists?('add_buttons', controller_name, true)
-				= render 'add_buttons'
-			- else
+		- if lookup_context.exists?('add_buttons', controller_name, true)
+			= render 'add_buttons'
+		- else
+			.col-auto
 				a.btn.btn-outline-success.mr-2 href=public_send("new_#{model_name.singular}_path") = "+ #{model_name.human}"  
-		.col-md.mt-2.mt-md-0
+		.col
 			- %I[ sort dir type_id date account_id currency_id ].each do |field|
 				= hidden_field_tag field, params[field], id: nil if params[field].present?
 			.input-group
