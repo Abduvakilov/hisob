@@ -1,6 +1,5 @@
 #  amount             :float
-#  coefficient        :float      default(100.0)
-#  date               :date
+#  datetime           :date
 #  notes              :text
 #  reference_type     :string
 #  account_id         :integer
@@ -9,10 +8,12 @@
 #  type_id            :integer
 #  counter_account_id :integer
 class Transaction < ApplicationRecord
-  scope :ordered, -> { order('date desc, created_at desc') }
+  extend Filter
 
   validates :amount, numericality: { greater_than: 0 }
-  validates_presence_of :type_id, :date
+  validates_presence_of :type_id, :datetime
+  validates_presence_of :accepted_as_currency, if: :accepted_as_amount?
+  validates_presence_of :accepted_as_amount, if: :accepted_as_currency_id?
 
   cattr_reader :all_types
   @@all_types = {
@@ -31,6 +32,10 @@ class Transaction < ApplicationRecord
     where(type_id: type_ids.values)
   end
 
+  def self.kept_i
+    kept.where(type_id: type_ids.values)
+  end
+
   def self.models
     @@models ||= all_types.keys.map { |key| key.to_s.classify.constantize }
   end
@@ -41,11 +46,11 @@ class Transaction < ApplicationRecord
   end
 
   def type
-      all_types.keys[ type_id_before_type_cast / 10 ]
+    all_types.keys[ type_id_before_type_cast / 10 ]
   end
 
   def self.shown_fields
-    %w[date type_id amount account counter_party notes coefficient]
+    %w[datetime type_id amount account counter_party_or_account notes accepted_as_amount accepted_as_currency]
   end
 
   def self.searched_fields
@@ -57,8 +62,10 @@ class Transaction < ApplicationRecord
   end
 
   # belongs_to :reference, optional: true # TODO
+  belongs_to :contract, optional: true
   belongs_to :counter_party, optional: true
   belongs_to :counter_account, class_name: 'Account', optional: true
   belongs_to :account
+  belongs_to :accepted_as_currency, class_name: 'Currency', optional: true
   belongs_to :asked_currency, class_name: 'Currency', optional: true
 end

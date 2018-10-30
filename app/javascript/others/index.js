@@ -1,10 +1,7 @@
-import { dom } from '@fortawesome/fontawesome-svg-core';
 import './icons';
 import './alert';
 
 document.addEventListener('turbolinks:load', function() {
-
-	dom.i2svg();
 
     window.touch = "ontouchstart" in document.documentElement;
     let linkEventHandler = e => Turbolinks.visit(e.currentTarget.getAttribute('data-url'));

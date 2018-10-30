@@ -1,0 +1,5 @@
+<%= tag.tr 'data-url': url_for(only_path: true, controller: record['model'].pluralize, action: :show, id: record['id']) do %>
+	<td><%=t record['model'] + '.one', scope: 'activerecord.models' %></td>
+	<td><%=Date.strptime(record['date']).to_s %></td>
+	<td><%=number_to_currency record['amount'], unit: record['currency_name'], precision: record['currency_precision'] %></td>
+<%end-%>

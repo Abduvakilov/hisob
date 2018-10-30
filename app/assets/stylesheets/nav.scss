@@ -1,5 +1,5 @@
 @include media-breakpoint-up(md) {
-  .nav {
+  #menu {
     flex-direction: column;
     bottom: 0;
     position: fixed;
@@ -9,7 +9,7 @@
     }
   }
 
-  .nav {
+  #menu {
     margin:0; padding:0;
     a, button {
       border-width: 0 0 1px;
@@ -35,13 +35,12 @@
 
 }
 @include media-breakpoint-down(sm) {
-  .nav {
+  #menu {
     // margin: 0 auto;
     display: block;
     right: 0;
     padding: 0 15px;
     // height: auto;
-    overflow-x: auto;
     a, button {
       padding: 18px;
       border-width: 0 0 0 1px;
@@ -65,7 +64,8 @@
 
 }
 
-.nav {
+#menu {
+  overflow-x: auto;
   background-color: $dark;
   top: 0px; left: 0px;
   z-index: 8;
@@ -80,7 +80,7 @@
   transition: width 0.4s ease-in-out;
 }
 
-.nav button {
+#menu button {
   background-color: $dark;
 }
 
@@ -97,19 +97,19 @@
   opacity: 0;
 }
 
-.nav a, .nav button {
+#menu a, #menu button {
   border-style: solid;
   border-color: #444;
   text-align: left;
   color: #ccc;
 }
-.nav a:hover, .nav button:hover {
+#menu a:hover, #menu button:hover {
   background-color: #000;
   text-decoration: none;
   color: white;
 }
 
-.nav a svg, .nav button svg {
+#menu a svg, #menu button svg {
   transition: 0.4s ease-in-out;
   font-size: 1.3em;
   text-align: center;

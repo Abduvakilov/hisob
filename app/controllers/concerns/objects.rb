@@ -16,6 +16,17 @@ module Objects
     end
   end
 
+  def filter_fields
+    model.permitted_params
+  end
+
+  def path(object=nil)
+    if object.is_a?(model) && object.persisted?
+      send "#{controller_name.singularize}_path", object
+    else
+      send "#{controller_name}_path", object
+    end
+  end
 
   private
 

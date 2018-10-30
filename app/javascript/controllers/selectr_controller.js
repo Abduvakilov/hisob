@@ -11,8 +11,10 @@ export default class extends Controller {
 			placeholder: this.data.get('placeholder') || 'Tanlang: '
 		});
 		this.destroyBeforeCache();
-		this.saveOnChange();
-		this.setFromStorage();
+		if(this.element.id.startsWith('new')) {
+			this.saveOnChange();
+			this.setFromStorage();
+		}
 	}
 
 	destroyBeforeCache() {

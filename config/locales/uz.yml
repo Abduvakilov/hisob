@@ -2,7 +2,7 @@ uz:
   activerecord:
     errors:
       messages:
-        is_more_than_account_leftover: hisobdagi qoldiqdan ortiq
+        is_more_than_account_balance: hisobdagi qoldiqdan ortiq
         currencies_does_not_match: valyutalari bir emas
       #   required: kiritishi kerak
       #   less_than: "%{count} dan kam bo‘lishi kerak"
@@ -12,16 +12,24 @@ uz:
       category:
         one: Toifa
         other: Toifalar
-      account: Hisob
+      account:
+        one: Hisob
+        other: Hisoblar
       transaction: 
         one: Pul aylanmasi
         other: Pul aylanmalari
       counter_party:
         one: Ikkinchi tomon
         other: Ta'minotchi, mijoz va boshqalar
-      income: Kirim
-      expense: Chiqim
-      replace: Ko‘chirish
+      income:
+        one: Kirim
+        other: Kirim
+      expense:
+        one: Chiqim
+        other: Chiqim
+      replace:
+        one: Ko‘chirish
+        other: Ko‘chirish
       sale:
         one: Sotuv
         other: Sotuvlar
@@ -48,6 +56,9 @@ uz:
       district:
         one: Tuman
         other: Tumanlar
+      unit:
+        one: Birlik
+        other: Birliklar
 
     attributes:
       product:
@@ -59,7 +70,11 @@ uz:
         female: Ayol
 
   attributes:
+    date: Sana
+    datetime: Sana
     name: Nomi
+    short_name: Qisqa nomi
+    long_name: To‘liq nomi
     is_active: Faol
     description: Tavsif
     notes: Qaydlar
@@ -71,10 +86,11 @@ uz:
     counter_account: Hisob
     rate: Kurs
     asked_currency: So‘ralgan Valyuta
-    date: Sana
-    amount: Qiymat
+    amount: Miqdori
     coefficient: Koeffitsient
     counter_party: Ikkinchi tomon
+    counter_party_or_account: Ikkinchi tomon
+    primary_person: Asosiy odami
     type_id: Turi
     parent_category: Yuqori toifasi
     product: Mahsulot
@@ -99,6 +115,7 @@ uz:
     to_be_paid: To‘lanishga
     gender: Jinsi
     leftover: Qoldiq
+    balance: Qoldiq
     products: Mahsulotlar
     remember_me: Eslab qol
     hire_date: Ishga qabul qilingan
@@ -108,7 +125,11 @@ uz:
     supplier: Ta’minotchi
     code: Kodi
     precision: Nisbat qismi raqamlari soni (aniqligi)
-
+    start_date: Sanadan
+    end_date: Sanagacha
+    unit: Birligi
+    base_unit: Asos birligi
+    include_base_unit: Asos birligi ham ishlatilsin
 
 
   helpers:
@@ -121,3 +142,20 @@ uz:
       submit: "%{model}ni saqla"
       update: "%{model}ni tahrirla"
       discard: "Bekor qil"
+      create_report: Hisobotni yarat
+
+  periods:
+    today: Bugun
+    yesterday: Kecha
+    this_week: Shu hafta
+    prev_week: O‘tgan hafta
+    this_month: Shu oy
+    prev_month: O‘tgan oy
+
+  frequnecies:
+    daily: Kunlik
+    weekly: Haftalik
+    monthly: Oylik
+    yearly: Yillik
+
+  main_contract: Asosiy Shartnoma

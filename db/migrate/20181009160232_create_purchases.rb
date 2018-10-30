@@ -1,12 +1,11 @@
 class CreatePurchases < ActiveRecord::Migration[5.2]
   def change
     create_table :purchases do |t|
-      t.references :currency
-      t.date :date, null: false
-      t.references :supplier, index: true, foreign_key: { to_table: :counter_parties }
-      t.float :discount
-      t.references :created_by, foreign_key: { to_table: :users }
-      t.datetime :discarded_at, index: true
+      t.datetime   :datetime, null: false
+      t.references :contract, null: false, foreign_key: true
+      t.float      :discount
+      t.datetime   :discarded_at, index: true
+      t.text       :notes
 
       t.timestamps
     end
@@ -14,8 +13,8 @@ class CreatePurchases < ActiveRecord::Migration[5.2]
     create_table :purchase_items do |t|
       t.references :purchase, null: false, index: true
       t.references :product, null: false, index: true
-      t.integer :amount, null: false
-      t.float :price, null: false
+      t.integer    :amount, null: false
+      t.float      :price, null: false
     end
   end
 end

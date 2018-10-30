@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ 'leftover', 'hidden' ];
+  static targets = [ 'balance', 'hidden' ];
 
 	static accountDetails = [];
 
@@ -9,8 +9,8 @@ export default class extends Controller {
 		return this.constructor.accountDetails;
 	}
 
-	set leftover(json) {
-		this.leftoverTarget.innerText = json['leftover'].toLocaleString('ru-RU')+' '+json['currency']['name'];
+	set balance(json) {
+		this.balanceTarget.innerText = json['balance'].toLocaleString('ru-RU')+' '+json['currency']['name'];
 	}
 
   show() {
@@ -20,17 +20,17 @@ export default class extends Controller {
     }
   }
 
-  updateLeftover(e) {
+  updateBalance(e) {
     if (this.hasHiddenTarget) this.show();
 		if (this.accounts.some(el => el['id'] == e.target.value)){  // if fetched before
-			this.leftover = this.accounts.find(el => el['id'] == e.target.value);
+			this.balance = this.accounts.find(el => el['id'] == e.target.value);
 			return;
 		}
     fetch( `/accounts/${e.target.value}.json` )
       .then( res => res.json() )
       .then( json => {
       	this.accounts.push(json);
-        this.leftover = json;
+        this.balance = json;
       });
   }
 

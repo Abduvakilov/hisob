@@ -47,9 +47,13 @@
   position: relative;
   height: $input-height-sm;
 
+  label{margin:0;}
+
   input, select {
+    // height: $input-height-sm;
     position: absolute;
-    top:0; left:0; bottom:0; right:0;
+    top:0; left:0; bottom:0;
+    width: 100%;
     // width: 100%;
     border-radius: 0 !important;
     border: none;

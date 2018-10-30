@@ -5,8 +5,8 @@ class AccountInput < SimpleForm::Inputs::CollectionSelectInput
 
   def hint(wrapper_options=nil)
     'Qoldiq: '.html_safe+ content_tag(:b,
-      options[:leftover] || '...',
-      id: 'leftover', 'data-target': 'account.leftover')
+      options[:balance] || '...',
+      id: 'balance', 'data-target': 'account.balance')
   end
 
   def anchor(wrapper_options=nil)

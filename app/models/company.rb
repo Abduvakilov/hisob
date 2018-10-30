@@ -13,7 +13,7 @@ class Company < ApplicationRecord
   has_many :departments
 
   def to_s
-  	self.name
+  	short_name
   end
 
 end

@@ -5,9 +5,9 @@
 #  currency_id         :integer
 class Account < ApplicationRecord
 
-  def leftover
-    transactions = Transaction.kept.where(account: self).group(:type_id)
-    replace_in  = Replace.kept.all_i.where(counter_account: self).sum :amount
+  def balance
+    transactions = Transaction.kept_i.where(account: self).group :type_id
+    replace_in  = Replace.kept_i.where(counter_account: self).sum :amount
     balance = transactions.sum(:amount).reduce(0) do |sum, (key,val)|
       if Income.type_ids.key? key
         sum += val
@@ -20,7 +20,7 @@ class Account < ApplicationRecord
   end
 
   def self.shown_fields
-    %w[ name leftover company is_bank_account bank_account_number ]
+    %w[ name balance company is_bank_account bank_account_number ]
   end
 
   def to_s

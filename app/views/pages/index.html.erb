@@ -4,12 +4,12 @@
 			[departments_path, 'briefcase', Department],
 	    [companies_path, 'building', Company],
 	    [currencies_path, 'dollar-sign', Currency],
+	    [units_path, 'weight-hanging', Unit],
 	    [categories_path, 'shapes', Category],
 	    [districts_path, 'map-marked-alt', District]    
 	].each do |el| %>
 	<div class="col-md-4 col-sm-6 py-sm-2">
 	<%= link_to el[0], class: 'card text-center' do %>
-		
 		
 	    <div class="card-img-top mt-3"><%=icon el[1]+' fa-fw fa-3x'%></div>
 	    <div class="card-body">

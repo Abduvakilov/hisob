@@ -1,6 +1,14 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :update, :destroy]
 
+  def index
+    self.objects  = model.kept.ordered.search(params[:search]).page(params[:page]).per OBJECTS_PER_PAGE
+    self.objects.order_values.prepend "#{params[:sort]} #{params[:dir]}" if params[:sort].present? && model.permitted_params.include?(params[:sort])
+    filter_params = params.permit filter_fields
+    @sorted       = filter_params.present?
+    self.objects  = objects.filter_with(filter_params).includes(model.belongs) # TODO include shown fields of belongs
+  end
+
   def create
     type = (Transaction.all_types.keys.map(&:to_s) & params.keys)[0]
     model = type.to_s.classify.constantize
@@ -55,7 +63,6 @@ class TransactionsController < ApplicationController
   def transaction_params(type)
     tp = params.require(type).permit Transaction.permitted_params
     tp[:type_id] = tp[:type_id].to_i
-    tp[:date] = Date.strptime(tp[:date], '%d.%m.%y').strftime rescue tp[:date]
     return tp
   end
 end

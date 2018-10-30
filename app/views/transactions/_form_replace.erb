@@ -8,8 +8,10 @@
   <%= f.input :type_id, as: :hidden, input_html: {value: 20} %>
 
   <div class="form-row">
-    <%= f.input :date, as: :datepicker,
-      input_html: {'data-flatpickr-default-date': (@transaction.date || Date.today).strftime('%d.%m.%y')} %>
+    <%= f.input :datetime, as: :datepicker, input_html: { data: {
+      flatpickr_default_date: DateTime.now,
+      flatpickr_enable_time: true,
+      flatpickr_alt_format: t('datetime.formats.default')} } %>
     <%= f.input :amount, as: :currency %>
   </div>
 
@@ -19,18 +21,18 @@
       collection: Account.kept,
       selected: (@transaction.account_id ||= 1),
       wrapper_html: { 'data-controller': 'account' },
-      input_html: { 'data-action': 'change->account#updateLeftover',
+      input_html: { 'data-action': 'change->account#updateBalance',
                   'data-target': 'account.input' },
-      leftover: currency_precise_number(@transaction.account.leftover, @transaction.account.currency, unit: true),
-      leftover_data_target: 'account.leftover'
+      balance: currency_precise_number(@transaction.account.balance, @transaction.account.currency, unit: true),
+      balance_data_target: 'account.balance'
     %> <!-- TODO: Selected should be user default-->
     <%= f.association :counter_account, as: :account, label: "Hisobga",
-      collection: (Account.kept - [@transaction.account]),
+      collection: Account.kept,
       wrapper_html: { 'data-controller': 'account' },
-      input_html: { 'data-action': 'change->account#updateLeftover',
+      input_html: { 'data-action': 'change->account#updateBalance',
                   'data-target': 'account.input' },
-      leftover: currency_precise_number(@transaction.counter_account&.leftover, @transaction.counter_account&.currency, unit: true),
-      leftover_data_target: 'account.leftover'
+      balance: currency_precise_number(@transaction.counter_account&.balance, @transaction.counter_account&.currency, unit: true),
+      balance_data_target: 'account.balance'
     %>
   </div>
   
@@ -39,5 +41,5 @@
       <%= f.input :notes %>
     </div>
   <% end %>
-  <%= render 'application/form_buttons', f: f %>
+  <%= render 'common/form_buttons', f: f %>
 <% end %>

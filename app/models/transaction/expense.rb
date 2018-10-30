@@ -1,6 +1,6 @@
 #  amount           :float
 #  coefficient      :float            default(100.0)
-#  date             :date
+#  datetime         :datetime
 #  notes            :text
 #  reference_type   :string
 #  account_id       :integer
@@ -19,8 +19,8 @@ class Expense < Transaction
   private
 
   def sufficient_balance
-    if self.amount > self.account.leftover
-      errors.add :amount, :is_more_than_account_leftover
+    if amount - amount_was.to_f > account.balance
+      errors.add :amount, :is_more_than_account_balance
     end
   end
 

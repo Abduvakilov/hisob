@@ -10,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_10_105501) do
+ActiveRecord::Schema.define(version: 2018_10_28_112052) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.integer "company_id"
     t.integer "currency_id"
-    t.boolean "is_bank_account"
+    t.boolean "enable_overdraft"
     t.integer "bank_account_number"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
@@ -27,10 +28,9 @@ ActiveRecord::Schema.define(version: 2018_10_10_105501) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
+    t.string "name", null: false
     t.integer "parent_category_id"
-    t.integer "type_id"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
@@ -39,44 +39,68 @@ ActiveRecord::Schema.define(version: 2018_10_10_105501) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.string "name"
+    t.string "short_name"
+    t.string "long_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_companies_on_discarded_at"
   end
 
+  create_table "contracts", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "counter_party_id"
+    t.integer "category_id"
+    t.integer "currency_id"
+    t.date "start_date"
+    t.date "due_date"
+    t.datetime "discarded_at"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_contracts_on_category_id"
+    t.index ["counter_party_id"], name: "index_contracts_on_counter_party_id"
+    t.index ["currency_id"], name: "index_contracts_on_currency_id"
+    t.index ["discarded_at"], name: "index_contracts_on_discarded_at"
+  end
+
   create_table "counter_parties", force: :cascade do |t|
-    t.string "name"
+    t.string "short_name"
     t.string "company_name"
+    t.string "primary_person"
     t.string "phone"
     t.string "email"
     t.integer "district_id"
     t.integer "category_id"
     t.boolean "is_supplier"
     t.boolean "is_customer"
-    t.text "description"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.index ["category_id"], name: "index_counter_parties_on_category_id"
     t.index ["discarded_at"], name: "index_counter_parties_on_discarded_at"
     t.index ["district_id"], name: "index_counter_parties_on_district_id"
+    t.index ["is_customer"], name: "index_counter_parties_on_is_customer"
+    t.index ["is_supplier"], name: "index_counter_parties_on_is_supplier"
   end
 
   create_table "currencies", force: :cascade do |t|
     t.string "name", null: false
     t.string "code", null: false
     t.integer "precision", default: 2
+    t.boolean "is_main"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_currencies_on_discarded_at"
+    t.index ["is_main"], name: "index_currencies_on_is_main"
   end
 
   create_table "departments", force: :cascade do |t|
     t.string "name", null: false
     t.integer "company_id"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
@@ -85,24 +109,25 @@ ActiveRecord::Schema.define(version: 2018_10_10_105501) do
   end
 
   create_table "districts", force: :cascade do |t|
-    t.string "name"
-    t.integer "district_id"
+    t.string "name", null: false
+    t.integer "parent_district_id"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_districts_on_discarded_at"
-    t.index ["district_id"], name: "index_districts_on_district_id"
+    t.index ["parent_district_id"], name: "index_districts_on_parent_district_id"
   end
 
   create_table "employees", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.date "birthday"
+    t.date "hire_date"
     t.integer "department_id"
     t.integer "company_id"
     t.text "notes"
     t.boolean "gender"
-    t.date "hire_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
@@ -111,26 +136,20 @@ ActiveRecord::Schema.define(version: 2018_10_10_105501) do
     t.index ["discarded_at"], name: "index_employees_on_discarded_at"
   end
 
-  create_table "price_category", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_price_category_on_discarded_at"
-  end
-
-  create_table "product_price_histories", force: :cascade do |t|
-    t.datetime "date"
+  create_table "price_histories", force: :cascade do |t|
+    t.date "date", null: false
     t.float "price"
     t.integer "product_id"
+    t.integer "category_id"
+    t.integer "currency_id"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "currency_id"
-    t.integer "price_category_id"
     t.datetime "discarded_at"
-    t.index ["currency_id"], name: "index_product_price_histories_on_currency_id"
-    t.index ["discarded_at"], name: "index_product_price_histories_on_discarded_at"
-    t.index ["price_category_id"], name: "index_product_price_histories_on_price_category_id"
-    t.index ["product_id"], name: "index_product_price_histories_on_product_id"
+    t.index ["category_id"], name: "index_price_histories_on_category_id"
+    t.index ["currency_id"], name: "index_price_histories_on_currency_id"
+    t.index ["discarded_at"], name: "index_price_histories_on_discarded_at"
+    t.index ["product_id"], name: "index_price_histories_on_product_id"
   end
 
   create_table "production_items", force: :cascade do |t|
@@ -144,22 +163,28 @@ ActiveRecord::Schema.define(version: 2018_10_10_105501) do
   create_table "productions", force: :cascade do |t|
     t.date "date", null: false
     t.datetime "discarded_at"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_productions_on_discarded_at"
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.integer "company_id"
-    t.boolean "is_for_sale", default: false
+    t.integer "category_id"
+    t.boolean "is_for_sale"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "category_id"
     t.datetime "discarded_at"
+    t.boolean "include_base_unit"
+    t.integer "unit_id"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["company_id"], name: "index_products_on_company_id"
     t.index ["discarded_at"], name: "index_products_on_discarded_at"
+    t.index ["is_for_sale"], name: "index_products_on_is_for_sale"
+    t.index ["unit_id"], name: "index_products_on_unit_id"
   end
 
   create_table "purchase_items", force: :cascade do |t|
@@ -172,28 +197,28 @@ ActiveRecord::Schema.define(version: 2018_10_10_105501) do
   end
 
   create_table "purchases", force: :cascade do |t|
-    t.integer "currency_id"
-    t.date "date", null: false
-    t.integer "supplier_id"
+    t.datetime "datetime", null: false
+    t.integer "contract_id", null: false
     t.float "discount"
-    t.integer "created_by_id"
     t.datetime "discarded_at"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["created_by_id"], name: "index_purchases_on_created_by_id"
-    t.index ["currency_id"], name: "index_purchases_on_currency_id"
+    t.index ["contract_id"], name: "index_purchases_on_contract_id"
     t.index ["discarded_at"], name: "index_purchases_on_discarded_at"
-    t.index ["supplier_id"], name: "index_purchases_on_supplier_id"
   end
 
   create_table "salaries", force: :cascade do |t|
+    t.date "from_date"
+    t.float "salary", null: false
     t.integer "employee_id"
     t.integer "department_id"
-    t.date "from_date"
-    t.integer "salary", null: false
+    t.integer "currency_id"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
+    t.index ["currency_id"], name: "index_salaries_on_currency_id"
     t.index ["department_id"], name: "index_salaries_on_department_id"
     t.index ["discarded_at"], name: "index_salaries_on_discarded_at"
     t.index ["employee_id"], name: "index_salaries_on_employee_id"
@@ -209,46 +234,60 @@ ActiveRecord::Schema.define(version: 2018_10_10_105501) do
   end
 
   create_table "sales", force: :cascade do |t|
-    t.integer "currency_id", null: false
-    t.integer "customer_id"
-    t.date "date", null: false
+    t.integer "contract_id", null: false
+    t.datetime "datetime", null: false
     t.float "discount"
-    t.integer "created_by_id"
     t.datetime "discarded_at"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["created_by_id"], name: "index_sales_on_created_by_id"
-    t.index ["currency_id"], name: "index_sales_on_currency_id"
-    t.index ["customer_id"], name: "index_sales_on_customer_id"
+    t.index ["contract_id"], name: "index_sales_on_contract_id"
     t.index ["discarded_at"], name: "index_sales_on_discarded_at"
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.text "notes"
-    t.float "amount"
-    t.date "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "type_id"
+    t.datetime "datetime", null: false
+    t.float "amount", null: false
+    t.integer "type_id", null: false
     t.integer "counter_party_id"
-    t.float "coefficient"
+    t.integer "contract_id"
+    t.float "accepted_as_amount"
+    t.integer "accepted_as_currency_id"
     t.integer "account_id"
-    t.integer "reference_id"
-    t.string "reference_type"
     t.integer "counter_account_id"
     t.float "rate"
-    t.datetime "discarded_at"
     t.integer "asked_currency_id"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["accepted_as_currency_id"], name: "index_transactions_on_accepted_as_currency_id"
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["asked_currency_id"], name: "index_transactions_on_asked_currency_id"
+    t.index ["contract_id"], name: "index_transactions_on_contract_id"
+    t.index ["counter_account_id"], name: "index_transactions_on_counter_account_id"
     t.index ["counter_party_id"], name: "index_transactions_on_counter_party_id"
     t.index ["discarded_at"], name: "index_transactions_on_discarded_at"
+    t.index ["type_id"], name: "index_transactions_on_type_id"
+  end
+
+  create_table "units", force: :cascade do |t|
+    t.string "short_name", null: false
+    t.string "long_name", null: false
+    t.integer "base_unit_id"
+    t.float "ratio_to_base_unit"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["base_unit_id"], name: "index_units_on_base_unit_id"
+    t.index ["discarded_at"], name: "index_units_on_discarded_at"
   end
 
   create_table "users", force: :cascade do |t|
     t.integer "employee_id"
     t.datetime "discarded_at"
     t.boolean "is_admin"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "login", default: "", null: false

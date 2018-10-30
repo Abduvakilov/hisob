@@ -3,19 +3,22 @@ module BaseActions
   include Objects
 
   included do
-    before_action :set_object, only: [:show, :discard, :update]
+    before_action :set_object, only: %I[show report discard update]
     before_action :authenticate_user!
   end
 
   def index
     self.objects  = model.kept.ordered.search(params[:search]).page(params[:page]).per OBJECTS_PER_PAGE
     self.objects.order_values.prepend "#{params[:sort]} #{params[:dir]}" if params[:sort].present? && model.permitted_params.include?(params[:sort])
-    filter_params = params.permit filter_fields
-    @sorted       = filter_params.present?
-    self.objects  = objects.filter_with(filter_params).includes(model.belongs) # TODO include shown fields of belongs
+    # filter_params = params.permit filter_fields
+    # @sorted       = filter_params.present?
+    # self.objects  = objects.filter_with(filter_params).includes(model.belongs) # TODO include shown fields of belongs
   end
 
   def show
+  end
+
+  def report
   end
 
   def new
@@ -57,10 +60,6 @@ module BaseActions
         format.json { head :no_content }
       end
     end
-  end
-
-  def filter_fields
-    model.permitted_params
   end
 
   private

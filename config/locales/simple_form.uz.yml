@@ -18,6 +18,8 @@ uz:
         coefficient: Koeffitsient
         notes: Qaydlar
         counter_party: Ikkinchi tomon
+
+    placeholders:
       # user:
       #   new:
       #     email: 'E-mail to sign in.'

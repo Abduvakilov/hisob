@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  counter_party: one
+  currency: one
+
+two:
+  counter_party: two
+  currency: two

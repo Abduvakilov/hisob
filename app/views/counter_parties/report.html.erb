@@ -1,0 +1,13 @@
+<% @col = 10 -%>
+<%= render 'subhead' %>
+<h5><%= t 'views.report.balance' %>:
+	<%= @counter_party.balances.map { |currency_id,balance|
+		raw color_pay_receive(balance, Currency.find(currency_id), unit:true, tag: :small)
+	}.join(', ').html_safe -%>
+</h5>
+
+<h5><%= t 'views.report.summary' %>:</h5>
+<%= render 'report/summary_form' %>
+
+<h5><%= t 'views.report.all_flows' %>:</h5>
+<%= render 'report/all_flows_form' %>

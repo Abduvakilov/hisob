@@ -13,7 +13,7 @@ export default class extends SelectrController {
 			let dataToAdd = this.constructor.data
 											.filter(e => e[customerOrSupplier]);
 			this.selectr.add(dataToAdd);
-			if (value) this.selectr.setValue(value);
+			this.selectr.setValue(value||'');
 		}
 	}
 

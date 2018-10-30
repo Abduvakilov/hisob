@@ -33,12 +33,14 @@ uz:
         short: Bosh Sahifa
       action:
         new: Yangi %{model}
-        show: '%{model}ni o‘zgartirish'
 
-  date:
-    today: Bugun
-    yesterday: Kecha
-    this_week: Shu hafta
-    prev_week: O‘tgan hafta
-    this_month: Shu oy
-    prev_month: O‘tgan oy
+    tab_titles:
+      show: Ma‘lumotlar
+      report: Hisobotlar
+
+    report:
+      balance: Qoldiq
+      summary: Yig‘ma Hisobot
+      all_flows: Barcha aylanmalar
+      all_flows_with_dates: "%{subject} bo‘yicha, %{start_date} dan %{end_date} gacha"
+

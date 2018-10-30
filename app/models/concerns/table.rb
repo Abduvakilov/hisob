@@ -10,6 +10,10 @@ module Table
 	  	sortable_fields + belongs
 	  end
 
+	  def form_fields
+	  	sortable_fields + belongs
+	  end
+
 	  def belongs(suffix=nil)
 	    reflect_on_all_associations(:belongs_to).map { |x| x.name.to_s + suffix.to_s }
 	  end

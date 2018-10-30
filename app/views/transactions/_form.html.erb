@@ -5,21 +5,22 @@
 
   <%= f.error_notification %>
 
+  <%= f.association :account, as: :account, selected: (@transaction.account_id ||= 1),
+    wrapper: :hidden_account,
+    balance: currency_precise_number(@transaction.account.balance, @transaction.account.currency, unit: true),
+    balance_data_target: 'account.balance'
+  %> <!-- TODO: Selected should be user default-->
+
   <div class="form-row">
     <%= f.input :type_id, label: "Pul aylanmasi turi",
         collection: @transaction.class.type_ids,
         selected: @transaction.type_id_before_type_cast,
         input_html: {'data-action': 'change->transaction#update',
                      'data-target': 'transaction.type'} %>
-    <%= f.input :date, as: :datepicker,
-      input_html: { value: (@transaction.date || Date.today).strftime('%d.%m.%y')} %>
+    <%= f.input :datetime, as: :datepicker, input_html: {required: true},
+      wrapper_html: { 'data-flatpickr-enable-time': true,
+        'data-flatpickr-alt-format': t('datetime.formats.default')} %>
   </div>
-
-  <%= f.association :account, as: :account, selected: (@transaction.account_id ||= 1),
-    wrapper: :hidden_account,
-    leftover: currency_precise_number(@transaction.account.leftover, @transaction.account.currency, unit: true),
-    leftover_data_target: 'account.leftover'
-  %> <!-- TODO: Selected should be user default-->
 
   <div class="form-row">
     <%= f.input :counter_party do %>
@@ -50,7 +51,8 @@
 
   <%= more_wrapped @transaction.class.name.downcase do %>
     <div class="form-row">
-      <%= f.input :coefficient, wrapper_class: 'form-group w-sm-200' %>
+      <%= f.input :accepted_as_amount %>
+      <%= f.association :accepted_as_currency %>
     </div>
     <div class="form-row">
       <%= f.input :notes %>
@@ -59,5 +61,5 @@
   <% content_for :confirmation_body do
     t('views.confirmation.discard.transaction.body', amount: tag.b(currency_precise_number(f.object.amount, f.object.account.currency, unit: true)), model: f.object.model_name.human)
     end %>
-  <%= render 'form_buttons', f: f %>
+  <%= render 'common/form_buttons', f: f %>
 <% end %>

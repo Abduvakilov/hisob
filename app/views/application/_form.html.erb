@@ -1,9 +1,9 @@
-<%= simple_form_for controller.object do |f| %>
+<%= simple_form_for controller.object, url: controller.path(controller.object) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <% model = controller.model
-  model.shown_fields.each_with_index do |field, i| %>
+  model.form_fields.each_with_index do |field, i| %>
     <% if model.belongs.include?(field) %>
       <%= f.association field %>
     <% else %>
@@ -11,6 +11,6 @@
     <% end %>
   <% end %>
 
-  <%= render 'form_buttons', f: f %>
+  <%= render 'common/form_buttons', f: f %>
   
 <% end %>

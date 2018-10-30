@@ -1,0 +1,19 @@
+- content_for :title do CounterParty.model_name.human end
+= render 'counter_parties/subhead'
+a.btn.btn-outline-success.mb-2 href=new_counter_party_contract_path = "+ #{model_name}"
+table.table.table-hover.table-responsive
+	thead
+		tr
+			- @contracts.model.shown_fields.each do |column|
+				== th_sortable @contracts.model, column
+	tbody
+		- @contracts.each do |t|
+			tr data-url=counter_party_contract_path(id: t)
+				- @contracts.model.shown_fields.each do |column|
+					- if respond_to? "table_#{column}"
+						td == public_send("table_#{column}", t)
+					- else
+						td = t.send(column)
+		- if @contracts.blank?
+			tr
+				td colspan=@contracts.model.shown_fields.count = t 'views.no_records_found'

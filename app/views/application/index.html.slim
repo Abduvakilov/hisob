@@ -8,7 +8,7 @@ form action=controller_path method='get'
 			= render 'add_buttons'
 		- else
 			.col-auto
-				a.btn.btn-outline-success.mr-2 href=public_send("new_#{model_name.singular}_path") = "+ #{model_name.human}"  
+				a.btn.btn-outline-success.mr-2 href=public_send("new_#{model_name.singular}_path") = "+ #{model_name.human}"
 		.col
 			- %I[ sort dir type_id date account_id currency_id ].each do |field|
 				= hidden_field_tag field, params[field], id: nil if params[field].present?
@@ -17,7 +17,7 @@ form action=controller_path method='get'
 				.input-group-append
 					button.btn.btn-outline-primary type='submit' = t('views.search')
 	= yield :second_row
-= render 'table', records: records
+= render 'common/table', records: records
 
 - if lookup_context.exists?('aside', controller_name, true)
 	= content_for :aside

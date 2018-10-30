@@ -8,7 +8,7 @@ class ApplicationRecord < ActiveRecord::Base
   extend Table::Search
   extend Table::Sort
 
-	extend Filter
+	# extend Filter
 
   def to_str
     to_s

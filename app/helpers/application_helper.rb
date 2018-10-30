@@ -15,8 +15,7 @@ module ApplicationHelper
     _action_name = 'new' if action_name == 'create'
   	_action_name = 'show' if action_name == 'update'
     _action_name ||= action_name
-		t _action_name, scope: [:views, :title, controller_name], default:
-      t(_action_name, scope: 'views.title.action', model: model_name)
+		t _action_name, scope: [:views, :title, controller_name], default: model_name
   end
 
   def bootstrap_alert(key)
@@ -31,10 +30,6 @@ module ApplicationHelper
 
   def model_name(count=1)
     controller.model&.model_name&.human(count: count)
-  end
-
-  def controller_path(object=nil)
-    public_send "#{controller_name}_path", object
   end
 
   def currency_precise_number(number, currency, options={})
@@ -52,6 +47,12 @@ module ApplicationHelper
 
   def icon(fa_symbol_name, text='')
     content_tag(:i, '', class: 'fas fa-'+fa_symbol_name)+text
+  end
+
+  def color_pay_receive(number, currency, options={})
+    formatted_number = currency_precise_number(number, currency, **options)
+    raw content_tag(options[:tag]||:span, formatted_number||number,
+      class: (number>0 ? 'text-success' :(number<0 ? 'text-danger' : 'text-muted'))).html_safe
   end
 
 end

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="uz">
 <head>
 	<title><%= title = yield(:title).presence || title_of_page %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,16 +8,18 @@
 
 	<%= javascript_pack_tag 'application', defer: true %>
 	<%= stylesheet_pack_tag 'application' %>
-
+	<% if head = yield(:head).presence -%>
+		<%= head %>
+	<%end-%>
 </head>
 
 <body>
 
-	<%= render 'application/menu' %>
+	<%= render 'common/menu' %>
 
 	<div class="main-content">
 
-		<%= render 'application/flash' %>
+		<%= render 'common/flash' %>
 
 		<div class="container mb-3">
 
@@ -32,9 +34,12 @@
 						<%= yield %>		
 					</div>
 
+					<% if aside = yield(:aside).presence -%>
 					<aside class="col-md-<%=12-col%> mt-2 mt-md-0">
-						<%= yield :aside %>		
+						<%= aside %>		
 					</aside>
+					<%end-%>
+
 				</div>
 			<%end-%>
 

@@ -6,10 +6,13 @@
   <%= f.error_notification %>
 
   <div class="form-row">
-	  <%= f.input :date, as: :datepicker, required: true,
-      input_html: { value: (@sale.date || Date.today).strftime('%d.%m.%y')} %>
-	  <%= f.association :customer, collection: CounterParty.kept.where(is_customer: true) %>
-	  <%= f.association :currency, selected: @sale.currency_id || 1 %> <%# TODO customer default%>
+	  <%= f.input :datetime, as: :datepicker, input_html: {required: true},
+	  	wrapper_html: { 'data-flatpickr-enable-time': true,
+	  		'data-flatpickr-alt-format': t('datetime.formats.default')} %>
+		<%= f.input :counter_party, selected: false,
+	  	collection: CounterParty.kept.includes(:contracts).where(is_customer: true).map { |cp| [cp, cp.id, ({multi: ''} if cp.contracts.count)] },
+	  	input_html: {'data-controller': 'selectr'} %>
+	  <%= f.association :contract, wrapper_html: {class: 'col-sm d-none'} %> <%# TODO customer default%>
   </div>
 
   <table class="table table-bordered table-sm">
@@ -20,38 +23,41 @@
       <th scope="col" class="font-weight-normal"><%= SaleItem.human_attribute_name :product %></th>
       <th scope="col" class="font-weight-normal"><%= SaleItem.human_attribute_name :price %></th>
       <th scope="col" class="font-weight-normal"><%= SaleItem.human_attribute_name :amount %></th>
+      <th scope="col" class="font-weight-normal"><%= SaleItem.human_attribute_name :unit %></th>
     </tr>
   </thead>
 
   <% @sale.sale_items.build -%>
   <tbody>
-	  <%=	f.fields_for :sale_items do | si | %>
-  	<tr data-controller="row">
+	  <%=	f.fields_for :sale_items do | fa | %>
+  	<tr data-controller="row unit">
   		<td class="text-danger text-center" data-save>
-  			<%= si.check_box :_destroy, class: 'd-none' if si.object.persisted? %>
-  			<%= si.label :_destroy, 'data-action': 'click->row#remove click->table#update',
+  			<%= fa.check_box :_destroy, class: 'd-none' if fa.object.persisted? %>
+  			<%= fa.label :_destroy, 'data-action': 'click->row#remove click->table#update',
   				'data-target': 'row.minus' do %>
   				<%=icon 'minus'%>
 				<%end-%>
 			</td>
   		<th class="font-weight-normal" scope="row" data-target="row.no">1</th>
-  		<%= si.input :product_id, wrapper: :table_row, wrapper_html: {class: nil},
-  			collection: Product.kept.where(is_for_sale: true), required: true,
-  			prompt: '', input_html: {'data-action': 'change->row#copy', id: nil} %>
-  		<%= si.input :price, wrapper: :table_row, as: :string,
+  		<%= fa.input :product_id, wrapper: :table_row, wrapper_html: {class: nil},
+  			collection: Product.kept.where(is_for_sale: true).map { |p|
+	  		[p, p.id, {'unit': p.unit}]}, required: true,
+				input_html: {'data-action': 'change->row#copy change->unit#updateUnit', id: nil} %>
+  		<%= fa.input :price, wrapper: :table_row, as: :string,
   			wrapper_html: {class: nil}, required: true, input_html: {
-  				value: currency_precise_number(si.object.price, @sale.currency),
+  				value: currency_precise_number(fa.object.price, @sale.currency),
   				autocomplete: 'off', id: nil, min: 0, data: {
   				target: 'table.price',
   				controller: 'currency',
   				action: 'input->row#copy input->table#update'
 			}} %>
-  		<%= si.input :amount, wrapper: :table_row,
+  		<%= fa.input :amount, wrapper: :table_row,
 				wrapper_html: {class: nil}, required: true, input_html: {
 					autocomplete: 'off', id: nil, min: 0, data: {
   				target: 'table.amount',
   				action: 'input->row#copy input->table#update'
   		}} %>
+  		<td data-target="unit.unit"><%=fa.object.product&.unit%></td>
   	</tr>
 		<%end-%>
   </tbody>
@@ -64,12 +70,15 @@
 	</tfoot>
 	</table>
 
-  <%= render 'form_buttons', f: f %>
-
 </div>
+
+<div class="col-md-8 order-3 order-md-2">  
+  <%= render 'common/form_buttons', f: f %>
+</div>
+
 <aside class="col-md-4">
 
-	<br>
+	<br class="d-none d-md-block">
 	<table class="table table-sm w-auto">
 		<tbody>
 			<tr>

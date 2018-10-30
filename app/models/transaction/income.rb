@@ -1,6 +1,6 @@
 #  amount           :float
 #  coefficient      :float            default(100.0)
-#  date             :date
+#  datetime         :datetime
 #  notes            :text
 #  reference_type   :string
 #  account_id       :integer

@@ -11,7 +11,7 @@
       onchange: 'this.form.submit()', id: nil %>
 
   <h6 class='mt-sm-2 mb-sm-1'>Sana:</h6>
-  <%= date_filter_links :date, params[:date] %>
+  <%= date_filter_links :datetime, params[:datetime] %>
 
   <h6 class='mt-sm-2 mb-sm-1'>Valyuta:</h6>
   <%= filter_links :currency_id, Currency.kept, params[:currency_id] %>

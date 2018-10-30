@@ -1,19 +1,20 @@
 {
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.4",
-    "@fortawesome/free-solid-svg-icons": "^5.3.1",
-    "@rails/webpacker": "^3.5",
+    "@fortawesome/fontawesome-svg-core": "^1",
+    "@fortawesome/free-solid-svg-icons": "^5",
+    "@rails/webpacker": "^3",
     "bootstrap": "^4.1",
+    "chartist": "^0.11",
     "cleave.js": "^1.4",
-    "flatpickr": "^4.5",
-    "mobius1-selectr": "^2.4.2",
+    "flatpickr": "^4",
+    "mobius1-selectr": "^2",
     "rails-ujs": "^5.2",
-    "stimulus-flatpickr": "^0.3",
+    "stimulus-flatpickr": "^1.0.0",
     "turbolinks": "^5.2"
   },
   "devDependencies": {
-    "webpack-bundle-analyzer": "^2.13.1",
-    "webpack-dev-server": "^2.11"
+    "webpack-bundle-analyzer": "^2.13",
+    "webpack-dev-server": "^2"
   },
   "scripts": {
     "stats": "webpack-bundle-analyzer stats.json"

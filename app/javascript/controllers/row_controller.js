@@ -72,7 +72,7 @@ export default class extends Controller {
 	}
 
 	get isFilled() {
-		return Boolean(this.element.querySelector('select:checked[value], input[value]:not([type=hidden], .d-none)'));
+		return Boolean(this.element.querySelector('select:checked[value], input[value]:not([type=hidden]):not(.d-none)'));
 	}
 
 	get _id() {

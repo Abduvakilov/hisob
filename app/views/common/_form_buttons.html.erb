@@ -1,7 +1,7 @@
-<div class="d-sm-flex">
+<div class="d-sm-flex d-print-none">
   
   <div class="d-none d-sm-flex mr-sm-auto">
-	  <%= link_to icon('chevron-left')+' '+t('views.back'), controller_path, class: " btn btn-outline-secondary" %>
+	  <%= link_to icon('chevron-left')+' '+t('views.back'), controller.path, class: " btn btn-outline-secondary" %>
 	</div>
   
   <%= f.button :button, type: :submit, name: :save, class: "btn-primary mx-1" do %>

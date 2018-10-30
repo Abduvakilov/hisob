@@ -33,6 +33,7 @@ export default class extends Controller {
 			e.addEventListener(event, this.saveInput);
 
 			if (localStorage[e.name]) {
+				console.log(`${e.name} was set` )
 				e.value = localStorage[e.name];
 		  	Promise.resolve().then(() => {
 					e.dispatchEvent(new Event('change'));
@@ -46,8 +47,9 @@ export default class extends Controller {
 
 	onSubmitClearStorage() {
 		this.element.addEventListener('submit', () => {
-		  for (let i = 0; i < localStorage.length; i++) {
+		  for (let i=0; i<localStorage.length; i++) {
 		  	let key = localStorage.key(i);
+		  	if (key.includes(this.modelName)) console.log(`${key} was removed`)
 				if (key.includes(this.modelName)) localStorage.removeItem(key);
 			}
 		})

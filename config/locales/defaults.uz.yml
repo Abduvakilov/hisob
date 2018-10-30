@@ -36,7 +36,7 @@ uz:
     - shanba
     formats:
       default: "%d.%m.%Y"
-      long: "%d %B %Y"
+      long: "%d-%B, %Y"
       short: "%d %b"
     month_names:
     -
@@ -58,7 +58,8 @@ uz:
     - :year
   datetime:
     formats:
-      short: "%d.%m.%y, %H:%M"
+      short: "%d.%m, %H:%M"
+      default: "%d.%m.%y, %H:%M"
     distance_in_words:
       about_x_hours:
         few: chamasi %{count} soat
@@ -251,7 +252,7 @@ uz:
   time:
     am: ertalab
     formats:
-      default: "%a, %d %b %Y, %H:%M:%S %z"
-      long: "%d %B %Y, %H:%M"
-      short: "%d %b, %H:%M"
+      default: "%d.%m.%y, %H:%M"
+      long: "%d %B %Y, %H:%M:%S"
+      short: "%d.%m, %H:%M"
     pm: kechasi
