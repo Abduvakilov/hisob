@@ -2,8 +2,12 @@ module Table
 
 	module Fields
 
+		def base_params
+			column_names - ['id', 'created_at', 'updated_at', 'discarded_at']
+		end
+
 	  def permitted_params
-	    column_names - ['id', 'created_at', 'updated_at', 'discarded_at']
+	    base_params
 	  end
 
 	  def shown_fields
@@ -22,27 +26,23 @@ module Table
 	    reflect_on_all_associations(:belongs_to).find{ |a| a.name == field_name.to_sym }.klass
 	  end
 
+	  def searched_by_child
+	    nil      # This should be implemented to search among belongs_to
+	  end
+
 	end
 
 
 	module Search
 
 	  def search(query)
-	    if searched_fields && !query.blank?
-	      where multiple_like_query(searched_fields), q: "%#{query}%"
-	    else
-	      all
-	    end
-	  end
-
-	  def searched_by_child
-	    nil      # This should be implemented to search among belongs_to
+      where(([multiple_like_query(searched_fields), q: "%#{query}%"] if !query.blank? && searched_fields))
 	  end
 
 	  private
 
 	  def searched_fields
-	    permitted_params + belong_search_fields - belongs('_id')
+	    base_params + belong_search_fields - belongs('_id')
 	  end
 
 	  def belong_search_fields
@@ -74,7 +74,7 @@ module Table
 	module Sort
 
 	  def sortable_fields
-	    permitted_params - belongs('_id')
+	    base_params - belongs('_id')
 	  end
 
 	end

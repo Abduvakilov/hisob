@@ -21,6 +21,7 @@ class TransactionsController < ApplicationController
         redirect_to transactions_path
       end
     else
+      # puts self.object.errors.inspect # For debugging
       render :new
     end
   end

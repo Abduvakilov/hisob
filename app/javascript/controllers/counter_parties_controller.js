@@ -24,6 +24,7 @@ export default class extends SelectrController {
 				text: e.innerText,
 				customer: e.hasAttribute('cus'),
 				supplier: e.hasAttribute('sup'),
+				contract: e.getAttribute('contract')
 			})
 		})
   }

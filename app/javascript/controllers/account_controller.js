@@ -31,7 +31,7 @@ export default class extends Controller {
       .then( json => {
       	this.accounts.push(json);
         this.balance = json;
-      });
+    });
   }
 
 }

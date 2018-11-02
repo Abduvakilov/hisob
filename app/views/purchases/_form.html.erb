@@ -5,14 +5,20 @@
 <div class="col-md-8">
   <%= f.error_notification %>
 
-  <div class="form-row">
+  <div class="form-row" data-controller="contract">
 	  <%= f.input :datetime, as: :datepicker, input_html: {required: true},
 	  	wrapper_html: { 'data-flatpickr-enable-time': true,
 	  		'data-flatpickr-alt-format': t('datetime.formats.default')} %>
-	  <%= f.association :contract,
-	  	collection: CounterParty.kept.includes(:contracts).where(is_supplier: true),
-	  	input_html: {'data-controller': 'selectr'} %>
-	  <%= f.association :currency, selected: @purchase.currency_id || 1 %> <%# TODO Supplier default%>
+	  <%= f.input :counter_party, selected: f.object.contract&.counter_party_id,
+	  	collection: CounterParty.kept.includes(:contracts).where(is_supplier: true).map { |cp|
+	  			[cp, cp.id, contract: (cp.contracts.count==1 ? cp.main_contract.id : '')] },
+	  	input_html: {required: true, data: {
+	  		controller: 'selectr', action: 'change->contract#updateContract',
+	  		custom_track: ''}} %>
+	  <%= f.association :contract, collection: f.object.contract&.with_others || [],
+	  	label_method: :to_s, required: false,
+	  	wrapper_class: "form-group#{' d-none' if f.object.new_record? || f.object.contract&.single?}",
+	  	input_html: {'data-target': 'contract.contract'} %> <%# TODO Supplier default%>
   </div>
 
   <table class="table table-bordered table-sm">
@@ -40,13 +46,13 @@
 			</td>
   		<th class="font-weight-normal" scope="row" data-target="row.no">1</th>
   		<%= fa.input :product_id, wrapper: :table_row, wrapper_html: {class: nil},
-  			required: true, collection: Product.kept.map { |p| [p, p.id, unit: p.unit]},
+  			required: true, collection: Product.includes(:unit).kept.map { |p| [p, p.id, unit: p.unit]},
   			input_html: {
   				'data-action': 'change->row#copy change->unit#updateUnit', id: nil} %>
   		<%= fa.input :price, wrapper: :table_row, as: :string,
   			wrapper_html: {class: nil}, required: true, input_html: {
   				value: currency_precise_number(fa.object.price, @purchase.currency),
-  				autocomplete: 'off', id: nil, min: 0, data: {
+  				autocomplete: 'off', id: nil, data: {
   				target: 'table.price',
   				controller: 'currency',
   				action: 'input->row#copy input->table#update'
@@ -57,7 +63,7 @@
   				target: 'table.amount',
   				action: 'input->row#copy input->table#update'
   		}} %>
-  		<td data-target="unit.unit"></td>
+  		<td data-target="unit.unit"><%= fa.object.product&.unit %></td>
   	</tr>
 		<%end-%>
   </tbody>

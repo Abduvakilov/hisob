@@ -33,7 +33,7 @@ class Purchase < ApplicationRecord
 
 
   def self.shown_fields
-    %w[ datetime counter_party total_amount to_be_paid products ]
+    %w[ datetime contract_counter_party total_amount to_be_paid products ]
   end
 
   def self.permitted_params

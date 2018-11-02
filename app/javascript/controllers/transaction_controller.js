@@ -12,13 +12,13 @@ export default class extends PersistencyController {
   update() {
     this.updateCounterParties();
     this.showConversionFields();
+    this.disableContractField();
   }
 
   updateCounterParties() {
   	let id = this.typeTarget.value;
 		this.counterParties.updateList(this.constructor.customerOrSupplier[id]);
   }
-
 
   get counterParties() {
     return this.application.getControllerForElementAndIdentifier(this.counterPartiesTarget, 'counter-parties')
@@ -29,6 +29,17 @@ export default class extends PersistencyController {
       this.conversionHiddenTarget.classList.remove('d-none');
     else
       this.conversionHiddenTarget.classList.add('d-none');
+  }
+
+  disableContractField() {
+    if (!['0','10'].includes(this.typeTarget.value))
+      this.contract.parentElement.style.display = 'none'
+    else
+      this.contract.parentElement.removeAttribute('style')
+  }
+
+  get contract() {
+    return document.querySelector('[data-target="contract.contract"]')
   }
 
   initialize() {

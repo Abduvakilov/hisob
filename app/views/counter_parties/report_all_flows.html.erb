@@ -1,9 +1,9 @@
 <% content_for :custom_yield do %>
-<%= render 'common/subhead' %>
-<h5><%= t 'views.report.all_flows_with_dates', subject: @counter_party.name,
-	start_date: l(start_date=Date.strptime(params[:all_flows][:start_date]), format: :long),
-	end_date: l(Date.strptime(params[:all_flows][:end_date]), format: :long) %> </h5>
-<table class="table table-hover table-responsive">
+<%= render 'subhead' %>
+<h5><%= @counter_party.name %></h5>
+<p><%= @contract unless @contract.single? %></p>
+<p><%= l start_date=Date.strptime(params[:all_flows][:start_date]) -%> - <%= l Date.strptime(params[:all_flows][:end_date]) -%></p>
+<table class="table table-hover table-responsive table-bordered text-right">
 	<thead>
 		<tr>
 		<% %w[type date opening_balance amount_up amount_down closing_balance].each do |column| -%>
@@ -13,23 +13,25 @@
 	</thead>
 	<tbody>
 
-			<% closing = @counter_party.balances(start_date)[1] || 0 -%>
+			<% closing = @counter_party.balance(start_date, @contract.id) || 0
+				currency = @contract.currency -%>
 			<% @records.each do |record| -%>
 				
 			<%= tag.tr 'data-url': url_for(only_path: true, controller: record['model'].pluralize, action: :show, id: record['id']) do %>
 				<% record['model'] = %w[income expense][record['type_id']/10] if record['type_id'] -%>
 				<td><%=t record['model'] + '.one', scope: 'activerecord.models' %></td>
 				<td><%=l(Date.strptime(record['datetime'])) %></td>
-				<td><%= opening = closing %></td>
-				<% amount = number_to_currency(record['amount'], unit: record['currency_name'], precision: record['currency_precision']) %>
-				<% if amount_down = record['model'].in?(%w[expense sale]) -%>
+				<td><%= currency_precise_number(opening=closing, currency) %></td>
+				<% amount = currency_precise_number record['amount'], currency %>
+				<% if amount_down = record['model'].in?(%w[income purchase]) -%>
 					<td></td>
 					<td><%= amount %></td>
 				<%else-%>
 					<td><%= amount %></td>
 					<td></td>
 				<%end-%>
-				<td><%= closing = opening + (amount_down ? -record['amount'] : record['amount']) %></td>
+				<td><%= currency_precise_number(
+					closing=opening+(amount_down ? -record['amount'] : record['amount']), currency) %></td>
 			<%end-%>
 
 			<%end-%>
@@ -37,7 +39,7 @@
 			<% if @records.blank? -%>
 				<tr>
 					<td colspan="5">Bu muddat ichida xech nima topilmadi.</td>
-					<td><%= closing %></td>
+					<td><%= currency_precise_number closing, @contract.currency  %></td>
 				</tr>
 			<%end-%>
 			

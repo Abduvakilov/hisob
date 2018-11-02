@@ -17,6 +17,10 @@ module TableHelper
     define_method("table_#{field}") { |object| l(object[field]) }
   end
 
+  def table_type_id(object)
+    t object.type_id, scope: 'attributes'
+  end
+
   def table_amount(object)
     content_tag :span, currency_precise_number(object.amount, object.account.currency, unit: true),
       class: "text-#{COLORS[object.type_id_before_type_cast/10]}"
@@ -26,12 +30,12 @@ module TableHelper
     currency_precise_number(object.balance, object.currency, unit: true)
   end
 
+  def table_contract_counter_party(object)
+    object.contract.counter_party
+  end
+
   def table_counter_party_or_account(object)
-    if object.type_id_before_type_cast/10<2
-      object.counter_party
-    else
-      object.counter_account
-    end
+    [object.contract&.counter_party, object.counter_party, object.counter_account].find &:itself
   end
 
   %w[ total discount to_be_paid ].each do |field|

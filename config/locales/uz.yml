@@ -130,6 +130,18 @@ uz:
     unit: Birligi
     base_unit: Asos birligi
     include_base_unit: Asos birligi ham ishlatilsin
+    from_sale: Savdodan
+    from_conversion: Konversiyadan
+    from_others: Boshqalardan
+    to_purchase: Xaridga
+    to_conversion: Konversiyaga
+    to_employee: Hodimga
+    to_other: Boshqaga
+    replace: Ko‘chirish
+    opening_balance: Avvalgi qoldiq
+    closing_balance: Keyingi qoldiq
+    amount_up: Ortdi
+    amount_down: Kamaydi
 
 
   helpers:

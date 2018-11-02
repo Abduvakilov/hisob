@@ -13,7 +13,8 @@
 
   <div class="form-row">
     <%= f.input :type_id, label: "Pul aylanmasi turi",
-        collection: @transaction.class.type_ids,
+        collection: @transaction.class.type_ids.
+          transform_keys {|k| t(k, scope: 'attributes')},
         selected: @transaction.type_id_before_type_cast,
         input_html: {'data-action': 'change->transaction#update',
                      'data-target': 'transaction.type'} %>
@@ -22,21 +23,28 @@
         'data-flatpickr-alt-format': t('datetime.formats.default')} %>
   </div>
 
-  <div class="form-row">
-    <%= f.input :counter_party do %>
+  <div class="form-row" data-controller="contract">
+    <%= f.input :counter_party, required: true do %>
       <%= f.select :counter_party_id,
-          CounterParty.kept.map { |cp|
-            [cp, cp.id, {'sup': ('' if cp.is_supplier),
-                         'cus': ('' if cp.is_customer)}] },
-          {},
-          data: {
-            custom_track: '',
-            controller: 'counter-parties',
-            target: 'transaction.counterParties',
-            counter_parties_placeholder: t('helpers.select.prompt.default')
-          } %>
+        CounterParty.kept.map { |cp|
+          [cp, cp.id,
+            contract: (cp.contracts.count==1 ? cp.main_contract.id : ''),
+            sup: ('' if cp.is_supplier), cus: ('' if cp.is_customer)] },
+        {selected: f.object.contract&.counter_party_id},
+        data: {
+          custom_track: '', action: 'change->contract#updateContract',
+          controller: 'counter-parties',
+          target: 'transaction.counterParties'
+        } %>
     <% end %>
-    <%= f.input :amount, as: :currency, wrapper_class: 'form-group w-sm-200', input_html: {
+
+    <%= f.association :contract, collection: f.object.contract&.with_others || [],
+      label_method: :to_s, required: false,
+      wrapper_class: "form-group#{' d-none' if f.object.new_record? || f.object.contract&.single?}",
+      input_html: {'data-target': 'contract.contract'} %>
+
+    <%= f.input :amount, as: :currency, wrapper_class: 'form-group w-sm-200',
+      required: true, input_html: {
       value: currency_precise_number(@transaction.amount, @transaction.account&.currency)
     }%>
   </div>
@@ -49,9 +57,9 @@
     }%>
   </div>
 
-  <%= more_wrapped @transaction.class.name.downcase do %>
+  <%= more_wrapped @transaction.class.name.downcase, checked: %w[accepted_as_amount accepted_as_currency notes].any? {|x| f.object.send(x)} do %>
     <div class="form-row">
-      <%= f.input :accepted_as_amount %>
+      <%= f.input :accepted_as_amount, as: :currency %>
       <%= f.association :accepted_as_currency %>
     </div>
     <div class="form-row">
