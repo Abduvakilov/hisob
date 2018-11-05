@@ -8,9 +8,9 @@
 
 	<%= javascript_pack_tag 'application', defer: true %>
 	<%= stylesheet_pack_tag 'application' %>
-	<% if head = yield(:head).presence -%>
-		<%= head %>
-	<%end-%>
+	
+	<%= yield(:head) %>
+
 </head>
 
 <body>
@@ -25,8 +25,8 @@
 
 			<h1><%= title %></h1>		
 
-			<% if content = yield(:custom_yield).presence %>
-				<%= content %>
+			<% if content_for? :custom_yield %>
+				<%= yield(:custom_yield) %>
 			<% else %>
 				<div class="row">
 
@@ -34,9 +34,9 @@
 						<%= yield %>		
 					</div>
 
-					<% if aside = yield(:aside).presence -%>
+					<% if content_for? :aside -%>
 					<aside class="col-md-<%=12-col%> mt-2 mt-md-0">
-						<%= aside %>		
+						<%= yield :aside %>
 					</aside>
 					<%end-%>
 

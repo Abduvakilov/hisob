@@ -1,8 +1,3 @@
-#  id          :integer          not null, primary key
-#  is_for_sale :boolean          default(FALSE)
-#  name        :string
-#  category_id :integer
-#  company_id  :integer
 class Product < ApplicationRecord
 
   def leftover
@@ -17,21 +12,36 @@ class Product < ApplicationRecord
   end
 
   def price=(value)
-    self.product_price_histories.create price: value
+    prices.create! price: value
   end
 
-  def price
-    self.product_price_histories.order('created_at DESC').limit(1).first.price
+  def category_price(currency_id)
+    Price.kept.where('date <= ?', Date.today).
+      order('date desc').find_by(category_id: category_id, currency_id: currency_id).
+      price if category_id?
+  end
+
+  def price(options={})
+    raise ArgumentError, "At least, :price_category_id and :currency_id or :contract_id should be provided" unless (options[:price_category_id] && options[:currency_id]) || options[:contract_id]
+    price_category_id = options[:price_category_id] || Contract.find(options[:contract_id]).category_id
+    currency_id = options[:currency_id] || Contract.find(options[:contract_id]).currency_id
+    prices.kept.where('date <= ?', Date.today).
+      order('date DESC').find_by(price_category_id: price_category_id, currency_id: currency_id)&.
+      price || category_price(currency_id)
   end
 
   def self.shown_fields
     %w[name leftover unit is_for_sale company category include_base_unit]
   end
 
-  has_many :sales_items
-  has_many :product_price_histories
+
+  validates_presence_of :name
+
+  has_many :sales_items, -> { kept }
+  has_many :prices, -> { kept }
   belongs_to :unit, optional: true
   belongs_to :company, optional: true
+  belongs_to :counter_party, optional: true
   belongs_to :category, optional: true
 
 

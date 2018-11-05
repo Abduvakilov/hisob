@@ -1,16 +1,6 @@
-# == Schema Information
-#
-# Table name: companies
-#
-#  id         :integer          not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-
 class Company < ApplicationRecord
-  has_many :products
-  has_many :departments
+  has_many :products, -> { kept }
+  has_many :departments, -> { kept }
 
   def to_s
   	short_name

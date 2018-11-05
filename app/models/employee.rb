@@ -2,8 +2,8 @@ class Employee < ApplicationRecord
 
   enum gender: { male: true, female: false }
 
-  validates_presence_of :first_name, unless: -> { last_name.present? }
-  validates_presence_of :last_name, unless: -> { first_name.present? }
+  validates_presence_of :first_name, unless: :last_name?
+  validates_presence_of :last_name,  unless: :first_name?
 
   def to_s
     full_name
@@ -19,7 +19,7 @@ class Employee < ApplicationRecord
 
   belongs_to :department, optional: true
   belongs_to :company, optional: true
-  has_many :salaries
-  has_one :user
+  has_many :salaries, -> { kept }
+  has_one :user, -> { kept }
 
 end

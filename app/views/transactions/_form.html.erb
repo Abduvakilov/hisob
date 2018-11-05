@@ -57,7 +57,7 @@
     }%>
   </div>
 
-  <%= more_wrapped @transaction.class.name.downcase, checked: %w[accepted_as_amount accepted_as_currency notes].any? {|x| f.object.send(x)} do %>
+  <%= more_wrapped @transaction.class.name.downcase, checked: %w[accepted_as_amount accepted_as_currency_id notes].any? {|x| f.object.send("#{x}?")} do %>
     <div class="form-row">
       <%= f.input :accepted_as_amount, as: :currency %>
       <%= f.association :accepted_as_currency %>

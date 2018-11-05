@@ -1,0 +1,15 @@
+<% _id = params[:id] || params[:product_id] -%>
+<ul class="nav nav-tabs mb-3">
+	<% ['show', 'report'].each do |action| %>
+	<li class="nav-item">
+		<%= link_to t(action, scope: 'views.tab_titles'),
+			{id: _id, action: action, controller: :products},
+			class: "nav-link#{' active' if action==action_name }" %>
+	</li>
+	<%end-%>
+	<li class="nav-item">
+		<%= link_to Price.model_name.human(count: 2),
+			product_prices_path(_id),
+			class: "nav-link#{' active' if controller_name=='prices' }" %>
+	</li>
+</ul>

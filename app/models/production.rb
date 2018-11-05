@@ -7,17 +7,6 @@ class Production < ApplicationRecord
 
   def products
     production_items.includes(:product).uniq(&:product).join(', ')
-    # Buggy
-    # first_item = true
-    # production_items.reduce('') do | text, item |
-    #   unless text.include?(item.product)
-    #     if first_item
-    #       first_item = false
-    #       return item.product.to_s
-    #     end
-    #     return "#{text}, #{item.product}"
-    #   end
-    # end
   end
 
   has_many :production_items, inverse_of: :production

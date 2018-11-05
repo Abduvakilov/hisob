@@ -1,8 +1,3 @@
-#  bank_account_number :integer
-#  is_bank_account     :boolean
-#  name                :string
-#  company_id          :integer
-#  currency_id         :integer
 class Account < ApplicationRecord
 
   def balance
@@ -20,7 +15,7 @@ class Account < ApplicationRecord
   end
 
   def self.shown_fields
-    %w[ name balance company is_bank_account bank_account_number ]
+    %w[ name balance company bank_account_number ]
   end
 
   def to_s
@@ -33,7 +28,7 @@ class Account < ApplicationRecord
 
   belongs_to :currency
   belongs_to :company
-  has_many   :transactions
+  has_many   :transactions, -> { kept }
 
   validates_presence_of :name
 

@@ -1,11 +1,6 @@
 class Transaction < ApplicationRecord
   extend Filter
   include Validations::Transaction::Base
-  # before_validation :puts_hi
-  # validates :amount, numericality: { greater_than: 0 }
-  # validates_presence_of :type_id, :datetime
-  # validates_presence_of :accepted_as_currency, if: :accepted_as_amount?
-  # validates_presence_of :accepted_as_amount, if: :accepted_as_currency_id?
 
   cattr_reader :all_types
   @@all_types = {
@@ -17,15 +12,16 @@ class Transaction < ApplicationRecord
 
   enum type_id: @@all_types.values.inject(&:merge)
 
-  # validates_presence_of :rate, :asked_currency, if: :to_conversion?
-  # validates_absence_of :rate, :asked_currency, unless: :to_conversion?
-
   def self.all_i
     where(type_id: type_ids.values)
   end
 
   def self.kept_i
-    kept.where(type_id: type_ids.values)
+    kept.all_i
+  end
+
+  def self.human_type_names
+    @@all_types.map{ |k,v| [I18n.t("activerecord.models.#{k}.one"), v.map{|a,b|[human_attribute_name(a), b]}] }
   end
 
   def self.models

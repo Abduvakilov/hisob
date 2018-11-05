@@ -59,6 +59,12 @@ uz:
       unit:
         one: Birlik
         other: Birliklar
+      price:
+        one: Narx
+        other: Narxlar
+      contract:
+        one: Shartnoma
+        other: Shartnomalar
 
     attributes:
       product:
@@ -68,6 +74,8 @@ uz:
       gender:
         male: Erkak
         female: Ayol
+      currency:
+        is_main: Asosiy valyuta
 
   attributes:
     date: Sana
@@ -89,6 +97,7 @@ uz:
     amount: Miqdori
     coefficient: Koeffitsient
     counter_party: Ikkinchi tomon
+    contract_counter_party: Ikkinchi tomon
     counter_party_or_account: Ikkinchi tomon
     primary_person: Asosiy odami
     type_id: Turi
@@ -126,6 +135,7 @@ uz:
     code: Kodi
     precision: Nisbat qismi raqamlari soni (aniqligi)
     start_date: Sanadan
+    due_date: Sanagacha
     end_date: Sanagacha
     unit: Birligi
     base_unit: Asos birligi
@@ -142,6 +152,8 @@ uz:
     closing_balance: Keyingi qoldiq
     amount_up: Ortdi
     amount_down: Kamaydi
+    price: Narx
+    price_category: Narx toifasi
 
 
   helpers:

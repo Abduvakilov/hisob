@@ -8,7 +8,7 @@
 	</li>
 	<%end-%>
 	<li class="nav-item">
-		<%= link_to t('contracts', scope: 'views.tab_titles'),
+		<%= link_to Contract.model_name.human(count: 2),
 			counter_party_contracts_path(_id),
 			class: "nav-link#{' active' if controller_name=='contracts' }" %>
 	</li>

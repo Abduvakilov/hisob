@@ -9,7 +9,7 @@ module Objects
   end
 
   def model
-  	begin
+    begin
       controller_name.classify.constantize
     rescue NameError
       nil
@@ -37,7 +37,5 @@ module Objects
   def object=(value)
   	instance_variable_set("@#{controller_name.singularize}", value)
   end
-
-
 
 end

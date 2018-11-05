@@ -3,5 +3,5 @@ class Department < ApplicationRecord
     name
   end
   belongs_to :company
-  has_many :employees
+  has_many :employees, -> { kept }
 end

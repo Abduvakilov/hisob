@@ -4,13 +4,13 @@ table.table.table-hover.table-responsive
 			- records.model.shown_fields.each do |column|
 				== th_sortable records.model, column
 	tbody
-		- records.each do |t|
-			tr data-url=polymorphic_path(t)
+		- records.each do |r|
+			tr data-url=polymorphic_path(r)
 				- records.model.shown_fields.each do |column|
 					- if respond_to? "table_#{column}"
-						td == public_send("table_#{column}", t)
+						td == public_send("table_#{column}", r)
 					- else
-						- case val = t.send(column)
+						- case val = r.send(column)
 						- when true
 							td = icon 'check'
 						- when false

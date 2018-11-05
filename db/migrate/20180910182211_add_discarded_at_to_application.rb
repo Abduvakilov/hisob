@@ -1,5 +1,5 @@
 class AddDiscardedAtToApplication < ActiveRecord::Migration[5.2]
-  TABLES = %I[accounts currencies price_histories departments
+  TABLES = %I[accounts currencies prices departments
               products categories districts salaries companies employees
               counter_parties transactions]
   def self.up

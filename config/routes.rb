@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :transactions, :products, :counter_parties, :units,
-            :purchases, :productions, :sales, :price_histories,
+            :purchases, :productions, :sales, :prices,
             :employees, :users, :salaries, :departments, :companies,
   					:accounts, :categories, :districts, :currencies,
   except: [:edit, :destroy],
@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   resources :counter_parties, only: [] do
     resources :contracts, concerns: :discardable,
     on: :member, except: [:edit, :destroy]
+  end
+
+  resources :products, only: [] do
+    resources :prices, concerns: :discardable,
+    on: :member, except: [:edit, :destroy], controller: 'prices_nested'
   end
 
 

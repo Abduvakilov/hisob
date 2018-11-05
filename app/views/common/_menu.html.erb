@@ -6,6 +6,7 @@
       [purchases_path, 'box-open', Purchase],
       [counter_parties_path, 'user-friends', CounterParty],
       [accounts_path, 'money-check-alt', Account],
+      [prices_path, 'hand-holding-usd', Price],
   ].each do |el| %>
     <%= link_to el[0], title: el[2].model_name.human do %>
       <%=icon el[1]%>

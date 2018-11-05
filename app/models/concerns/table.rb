@@ -2,24 +2,24 @@ module Table
 
 	module Fields
 
-		def base_params
-			column_names - ['id', 'created_at', 'updated_at', 'discarded_at']
-		end
-
 	  def permitted_params
 	    base_params
 	  end
 
 	  def shown_fields
-	  	sortable_fields + belongs
+	  	base_params_without_id
 	  end
 
 	  def form_fields
-	  	sortable_fields + belongs
+	  	base_params_without_id
 	  end
 
-	  def belongs(suffix=nil)
-	    reflect_on_all_associations(:belongs_to).map { |x| x.name.to_s + suffix.to_s }
+	  def belongs
+	    reflect_on_all_associations(:belongs_to).map { |x| x.name.to_s }
+	  end
+
+	  def belongs_with_id
+			reflect_on_all_associations(:belongs_to).map { |x| x.name.to_s + '_id' }
 	  end
 
 	  def belongs_class(field_name)
@@ -29,6 +29,14 @@ module Table
 	  def searched_by_child
 	    nil      # This should be implemented to search among belongs_to
 	  end
+
+	  private
+		def base_params
+			column_names - ['id', 'created_at', 'updated_at', 'discarded_at']
+		end
+		def base_params_without_id
+	  	base_params.map { |x| x.in?(belongs_with_id) ? x.delete_suffix('_id') : x }
+		end
 
 	end
 
@@ -74,7 +82,7 @@ module Table
 	module Sort
 
 	  def sortable_fields
-	    base_params - belongs('_id')
+	    base_params - belongs_with_id
 	  end
 
 	end

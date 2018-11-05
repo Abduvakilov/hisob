@@ -16,20 +16,6 @@ class CounterPartiesController < ApplicationController
     @contract   = Contract.find(all_flows[:contract]) ||
                   CounterParty.includes(:contracts).find(params[:id]).main_contract
 
-    # transaction_sql = Transaction.joins(account: :currency).
-    #   kept.where(counter_party: self).
-    #   select('"transaction" model, transactions.id, datetime, amount, currencies.name currency_name, currencies.precision currency_precision, type_id')
-
-    # sale_sql = Sale.joins('inner join ('+
-    #   SaleItem.select('sale_id, sum(price*amount) total').group(:sale_id).to_sql+
-    #   ') si on sale_id = sales.id').joins(:currency).
-    #   select('"sale" model, sales.id, datetime, si.total amount, currencies.name currency_name, currencies.precision currency_precision, null type_id')
-
-    # purchase_sql = Purchase.joins('inner join ('+
-    #   PurchaseItem.select('purchase_id, sum(price*amount) total').group(:purchase_id).to_sql+
-    #   ') pi on purchase_id = purchases.id').joins(:currency).
-    #   select('"purchase" model, purchases.id, datetime, pi.total amount, currencies.name currency_name, currencies.precision currency_precision, null type_id')
-
     sql = <<-SQL
       select 'transaction' as model, t.id, datetime, ifnull(accepted_as_amount, amount) amount, type_id
       from transactions t

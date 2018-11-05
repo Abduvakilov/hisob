@@ -7,7 +7,7 @@
     <% if model.belongs.include?(field) %>
       <%= f.association field %>
     <% else %>
-      <%= f.input field %>
+      <%= f.input field, ({as: 'datepicker'} if model.type_for_attribute(field).type == :date ) || {} %>
     <% end %>
   <% end %>
 

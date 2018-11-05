@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def more_wrapped(name='', options={}, &block)
-    name = name+'[more]'
+    name = name.to_s+'[more]'
     toggle_text = options[:toggle_text]
     check_box_tag(name,nil,options[:checked], class: "more-state#{' show' if options[:show_check_box]}", **options) +
     label_tag(name, toggle_text || t('views.more'),
@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def title_of_page
-    return model_name(2) if action_name == 'index'
+    return (controller.try(:parent_class)&.model_name&.human || model_name(2)) if action_name == 'index'
     _action_name = 'new' if action_name == 'create'
   	_action_name = 'show' if action_name == 'update'
     _action_name ||= action_name
@@ -40,9 +40,10 @@ module ApplicationHelper
     number_to_currency(number, precision: currency.precision, unit: unit)
   end
 
-  # def format_transaction_amount(transaction, amount=nil)
-  #   currency_precise_number( amount || transaction.amount, transaction.account.currency,
-  #     unit: true)
+  # def parent_layout(layout)
+  #   @view_flow.set(:layout, output_buffer)
+  #   output = render(file: "layouts/#{layout}")
+  #   self.output_buffer = ActionView::OutputBuffer.new(output)
   # end
 
   def icon(fa_symbol_name, text='')

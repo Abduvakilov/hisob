@@ -1,5 +1,5 @@
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
-import { faWeightHanging, faIndustry, faBoxOpen, faMinus, faTruckLoading, faPlus, faSignOutAlt, faChevronLeft, faChevronCircleRight, faTrashAlt, faPeopleCarry, faBriefcase, faBuilding, faMoneyBillAlt, faList, faHome, faCheck, faTimes, faMoneyCheckAlt, faAppleAlt, faUserFriends, faDollarSign, faMapMarkedAlt, faShapes, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHandHoldingUsd, faWeightHanging, faIndustry, faBoxOpen, faMinus, faTruckLoading, faPlus, faSignOutAlt, faChevronLeft, faChevronCircleRight, faTrashAlt, faPeopleCarry, faBriefcase, faBuilding, faMoneyBillAlt, faList, faHome, faCheck, faTimes, faMoneyCheckAlt, faAppleAlt, faUserFriends, faDollarSign, faMapMarkedAlt, faShapes, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faWeightHanging, faIndustry, faBoxOpen, faMinus, faTruckLoading, faPlus, faSignOutAlt, faChevronLeft, faChevronCircleRight, faTrashAlt, faPeopleCarry, faBriefcase, faBuilding, faMoneyBillAlt, faList, faHome, faCheck, faTimes, faMoneyCheckAlt, faAppleAlt, faUserFriends, faDollarSign, faMapMarkedAlt, faShapes, faCalendarAlt);
+library.add(faHandHoldingUsd, faWeightHanging, faIndustry, faBoxOpen, faMinus, faTruckLoading, faPlus, faSignOutAlt, faChevronLeft, faChevronCircleRight, faTrashAlt, faPeopleCarry, faBriefcase, faBuilding, faMoneyBillAlt, faList, faHome, faCheck, faTimes, faMoneyCheckAlt, faAppleAlt, faUserFriends, faDollarSign, faMapMarkedAlt, faShapes, faCalendarAlt);
 dom.watch({observeMutationsRoot: document})

@@ -6,8 +6,11 @@
     <%= f.input :name %>
     <%= f.association :company %>
     <%= f.association :currency %>
-    <%= f.input :is_bank_account %>
-    <%= f.input :bank_account_number %>
+    <%= more_wrapped 'account', show_check_box: true,
+      toggle_text: t('attributes.is_bank_account'),
+      checked: f.object.bank_account_number? do %>
+      <%= f.input :bank_account_number %>
+    <%end-%>
   </div>
 
   <%= render 'common/form_buttons', f: f %>

@@ -17,6 +17,9 @@ uz:
     pagination:
       first: Boshi
       last: Oxiri
+    total: Jami
+    discount: Chegirma
+    to_be_paid: To‘lanishga
 
     flash:
       success:
