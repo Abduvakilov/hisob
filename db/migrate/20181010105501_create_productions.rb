@@ -2,9 +2,9 @@ class CreateProductions < ActiveRecord::Migration[5.2]
   def change
     create_table :productions do |t|
       t.date     :date, null: false
-      t.datetime :discarded_at, index: true
-      t.text       :notes
+      t.text     :notes
 
+      t.datetime :discarded_at, index: true
       t.timestamps
     end
 

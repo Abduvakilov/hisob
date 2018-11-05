@@ -1,7 +1,7 @@
 class AddDiscardedAtToApplication < ActiveRecord::Migration[5.2]
   TABLES = %I[accounts currencies prices departments
               products categories districts salaries companies employees
-              counter_parties transactions]
+              counter_parties]
   def self.up
     TABLES.each do |table|
       add_column table, :discarded_at, :datetime

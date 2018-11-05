@@ -10,12 +10,12 @@ unless Currency.any?
   currency = Currency.create! name: "so‘m", code: "UZS", precision: 0, is_main: true
   currency2 = Currency.create! name: "$", code: "USD", precision: 2
 end
-company = Company.create! short_name: "Our Company" unless Company.any?
-department = Department.create! name: "Management", company: company unless Department.any?
-category = Category.create! name: "Wholesale" unless Category.any?
+company = Company.create! short_name: "Biz" unless Company.any?
+department = Department.create! name: "Boshqaruv", company: company unless Department.any?
+category = Category.create! name: "Ulgurji" unless Category.any?
 unless Account.any?
-  account = Account.create! name: "Primary Account", company: company, currency: currency
-  account2 = Account.create! name: "Secondary Account", company: company, currency: currency2
+  account = Account.create! name: "Birinchi Hisob", company: company, currency: currency
+  account2 = Account.create! name: "Ikkinchi Hisob", company: company, currency: currency2
 end
 district = District.create! name: "Toshkent" unless District.any?
 unless CounterParty.any?

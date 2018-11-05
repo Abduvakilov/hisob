@@ -7,9 +7,9 @@ class CreateContracts < ActiveRecord::Migration[5.2]
       t.references :currency, foreign_key: true
       t.date       :start_date
       t.date       :due_date
-      t.datetime   :discarded_at, index: true
       t.text       :notes
 
+      t.datetime   :discarded_at, index: true
       t.timestamps
     end
   end

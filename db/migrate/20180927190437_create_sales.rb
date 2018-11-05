@@ -4,9 +4,9 @@ class CreateSales < ActiveRecord::Migration[5.2]
       t.references :contract, null: false, foreign_key: true
       t.datetime   :datetime, null: false
       t.float      :discount
-      t.datetime   :discarded_at, index: true
       t.text       :notes
 
+      t.datetime   :discarded_at, index: true
       t.timestamps
     end
 
