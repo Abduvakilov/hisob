@@ -17,4 +17,7 @@ table.table.table-hover.table-responsive
 							td = icon 'times'
 						- else
 							td = val
+		- if records.empty?
+			tr
+				td colspan=records.model.shown_fields.count = t 'views.no_records_found'
 == paginate records

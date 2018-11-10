@@ -23,3 +23,14 @@ SimpleForm::FormBuilder.class_eval do
     end
   end
 end
+
+SimpleForm::ErrorNotification.class_eval do
+  # https://github.com/plataformatec/simple_form/blob/da2ddcc847f6c1498b96c11145c0af079207a9f4/lib/simple_form/error_notification.rb#L28-L30
+  def error_message
+    error_messsages = errors.full_messages.inject('') { |memo,msg|
+      memo.html_safe+template.content_tag(:li, msg)
+    }
+    messages = translate_error_notification + template.content_tag(:ul, error_messsages)
+    (@message || messages).html_safe
+  end
+end

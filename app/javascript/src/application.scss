@@ -1,24 +1,5 @@
-$body-bg: #f8f9fa;
-$grid-breakpoints: (
-  xs: 0,
-  sm: 480px,
-  md: 768px,
-  // lg: 1024px
-);
-$container-max-widths: (
-  sm: 630px,
-  // md: 816px,
-  md: 1260px,
-  // lg: 1260px,
-  // xl: 1250px
-);
-
-$table-bg: #fdfdfe;
-$nav-tabs-border-color: #b9bcc0;
-$nav-tabs-link-active-border-color: #b9bcc0 #b9bcc0 transparent;
-$nav-tabs-link-hover-border-color: #dee2e6 #dee2e6 #dde2e6;
-$sizes: (
-  60: 60%
-);
-@import '~bootstrap/scss/bootstrap';
-@import '../../assets/stylesheets/application.scss';
+@import 'bootstrap';
+@import 'table';
+@import 'nav';
+@import 'form';
+@import 'others';

@@ -2,7 +2,7 @@ class Expense < Transaction
 
   validate :sufficient_balance, if: -> { [amount, account].all? &:present? }
 
-	enum type_id: @@all_types[:expense]
+	enum type_id: ALL_TYPES[:expense]
 
   private
 

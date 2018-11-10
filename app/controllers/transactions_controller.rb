@@ -10,7 +10,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    type = (Transaction.all_types.keys.map(&:to_s) & params.keys)[0]
+    type = (Transaction::ALL_TYPES.keys.map(&:to_s) & params.keys)[0]
     model = type.to_s.classify.constantize
     @transaction = model.new(transaction_params(type))
     if @transaction.save
@@ -21,13 +21,13 @@ class TransactionsController < ApplicationController
         redirect_to transactions_path
       end
     else
-      # puts self.object.errors.inspect # For debugging
+      puts self.object.errors.inspect # For debugging
       render :new
     end
   end
 
   def update
-    type = (Transaction.all_types.keys.map(&:to_s) & params.keys)[0]
+    type = (Transaction::ALL_TYPES.keys.map(&:to_s) & params.keys)[0]
     if @transaction.update(transaction_params(type))
       redirect_to transactions_path, flash: {
         success: t('views.flash.success.update', model: Transaction.model_name.human) }

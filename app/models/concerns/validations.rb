@@ -4,8 +4,8 @@ module Validations
       extend ActiveSupport::Concern
 
       included do
+        validates_presence_of :type_id, :datetime, :amount
         validates :amount, numericality: { greater_than: 0 }
-        validates_presence_of :type_id, :datetime
 
         validates_presence_of :accepted_as_currency, if: :accepted_as_amount?
         validates_presence_of :accepted_as_amount, if: :accepted_as_currency_id?
@@ -16,7 +16,7 @@ module Validations
         validates_presence_of :employee, if: :to_employee?
         validates_absence_of  :employee, unless: :to_employee?
 
-        validate :counter_party_contract
+        validate :counter_party_contract, unless: :replace?
       end
 
       private
@@ -33,7 +33,8 @@ module Validations
 
       def validate_contract_currency_matches
         if contract&.currency != account&.currency
-          errors.add :contract, :currencies_does_not_match
+          invalid_field = counter_party.contracts.one? ? :counter_party : :contract
+          errors.add invalid_field, :currencies_does_not_match
         end
       end
 

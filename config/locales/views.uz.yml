@@ -20,6 +20,8 @@ uz:
     total: Jami
     discount: Chegirma
     to_be_paid: To‘lanishga
+    no_records_found: Xech nima topilmadi
+    accounting_different_amount: Boshqa qiymat bilan hisobni yuritish
 
     flash:
       success:

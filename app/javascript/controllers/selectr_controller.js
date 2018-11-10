@@ -8,7 +8,12 @@ export default class extends Controller {
 		this.selectr = new Selectr(this.element, {
 			pagination: 25,
 			defaultSelected: false,
-			placeholder: this.data.get('placeholder') || 'Tanlang: '
+			placeholder: this.data.get('placeholder') || 'Tanlang: ',
+			messages: {
+				noResults: "Xech nima topilmadi.",
+		    // maxSelections: "A maximum of {max} items can be selected.",
+		    // tagDuplicate: "That tag is already in use"
+			}
 		});
 		this.destroyBeforeCache();
 		if(this.element.id.startsWith('new')) {

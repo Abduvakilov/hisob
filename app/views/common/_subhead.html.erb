@@ -1,9 +1,9 @@
 <ul class="nav nav-tabs mb-3">
 	<% ['show', 'report'].each do |action| %>
-	<% if lookup_context.exists?(action, controller_name) || lookup_context.exists?(action, 'application') -%>
+	<% if lookup_context.exists?(action, controller_name) || lookup_context.exists?(action, 'application') %>
 	<li class="nav-item">
 		<%= link_to t(action, scope: 'views.tab_titles'), {action: action, id: controller.object}, class: "nav-link#{' active' if action_name==action}" %>
 	</li>
-	<%end-%>
-	<%end-%>
+	<%end%>
+	<%end%>
 </ul>

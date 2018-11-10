@@ -1,3 +1,3 @@
 class Income < Transaction
-	enum type_id: all_types[:income]
+	enum type_id: ALL_TYPES[:income]
 end

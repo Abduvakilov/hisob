@@ -5,7 +5,7 @@ class NestedController < ApplicationController
   end
 
   def index
-    self.objects  = model.kept.where required_key
+    self.objects  = model.kept.where(required_key).page(params[:page]).per OBJECTS_PER_PAGE
     self.objects.order_values.prepend("#{params[:sort]} #{params[:dir]}") if params[:sort].present? && model.permitted_params.include?(params[:sort])
   end
 

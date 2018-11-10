@@ -1,26 +1,26 @@
 <table class="table table-hover table-responsive">
 	<thead>
 		<tr>
-		<% columns.each do |column| -%>
+		<% columns.each do |column| %>
 			<th><%= t "attributes.#{column}" %></th>
-		<%end-%>
+		<%end%>
 		</tr>
 	</thead>
 	<tbody>
-		<% if lookup_context.exists?('row', controller_name, true) -%>
-			<% records.each do |row| -%>
+		<% if lookup_context.exists?('row', controller_name, true) %>
+			<% records.each do |row| %>
 				<%= render "#{controller_name}/row", record: row %>
-			<%end-%>
-		<%else-%>		
+			<%end%>
+		<%else%>		
 
-			<% records.rows.each do |row| -%>
+			<% records.rows.each do |row| %>
 			<tr>
-				<% row.each do |field| -%>
+				<% row.each do |field| %>
 				<td><%= field %></td>
-				<%end-%>
+				<%end%>
 			</tr>
-			<%end-%>
+			<%end%>
 
-		<%end-%>
+		<%end%>
 	</tbody>
 </table>

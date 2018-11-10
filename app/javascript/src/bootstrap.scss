@@ -1,0 +1,58 @@
+$body-bg: #f8f9fa;
+$grid-breakpoints: (
+  xs: 0,
+  sm: 480px,
+  md: 768px,
+  // lg: 1024px
+);
+$container-max-widths: (
+  sm: 630px,
+  // md: 816px,
+  md: 1260px,
+  // lg: 1260px,
+  // xl: 1250px
+);
+
+$table-bg: #fdfdfe;
+$nav-tabs-border-color: #b9bcc0;
+$nav-tabs-link-active-border-color: #b9bcc0 #b9bcc0 transparent;
+$nav-tabs-link-hover-border-color: #dee2e6 #dee2e6 #dde2e6;
+$sizes: (
+  60: 60%
+);
+// @import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+// @import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+// @import "~bootstrap/scss/images";
+// @import "~bootstrap/scss/code";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+// @import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/input-group";
+@import "~bootstrap/scss/custom-forms";
+@import "~bootstrap/scss/nav";
+// @import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+// @import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+// @import "~bootstrap/scss/jumbotron";
+@import "~bootstrap/scss/alert";
+// @import "~bootstrap/scss/progress";
+// @import "~bootstrap/scss/media";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/modal";
+// @import "~bootstrap/scss/tooltip";
+// @import "~bootstrap/scss/popover";
+// @import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/print";

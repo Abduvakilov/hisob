@@ -39,9 +39,11 @@
     <% end %>
 
     <%= f.association :contract, collection: f.object.contract&.with_others || [],
-      label_method: :to_s, required: false,
+      label_method: :to_s, required: false, 
       wrapper_class: "form-group#{' d-none' if f.object.new_record? || f.object.contract&.single?}",
-      input_html: {'data-target': 'contract.contract'} %>
+      input_html: {data:{
+        target: 'contract.contract', counter_party_id: f.object.contract&.counter_party_id
+      }} %>
 
     <%= f.input :amount, as: :currency, wrapper_class: 'form-group w-sm-200',
       required: true, input_html: {
@@ -49,7 +51,7 @@
     }%>
   </div>
 
-  <div class="form-row" data-target="transaction.conversionHidden">
+  <div class="form-row<%= ' d-none' unless f.object.to_conversion? %>" data-target="transaction.conversionHidden">
     <%= f.association :asked_currency, wrapper_class: 'form-group w-sm-200', required: false %>
     <%= f.input :rate, as: :currency, wrapper_class: 'form-group w-sm-200',
       input_html: {
@@ -59,6 +61,7 @@
 
   <%= more_wrapped @transaction.class.name.downcase, checked: %w[accepted_as_amount accepted_as_currency_id notes].any? {|x| f.object.send("#{x}?")} do %>
     <div class="form-row">
+      <legend class="col-form-label"><%= t 'views.accounting_different_amount' %></legend>
       <%= f.input :accepted_as_amount, as: :currency %>
       <%= f.association :accepted_as_currency %>
     </div>

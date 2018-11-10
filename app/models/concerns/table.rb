@@ -15,11 +15,11 @@ module Table
 	  end
 
 	  def belongs
-	    reflect_on_all_associations(:belongs_to).map { |x| x.name.to_s }
+	    @belongs ||= reflect_on_all_associations(:belongs_to).map { |x| x.name.to_s }
 	  end
 
 	  def belongs_with_id
-			reflect_on_all_associations(:belongs_to).map { |x| x.name.to_s + '_id' }
+			@belongs_with_id ||= reflect_on_all_associations(:belongs_to).map { |x| x.name.to_s + '_id' }
 	  end
 
 	  def belongs_class(field_name)
@@ -32,10 +32,10 @@ module Table
 
 	  private
 		def base_params
-			column_names - ['id', 'created_at', 'updated_at', 'discarded_at']
+			@base_params ||= column_names - ['id', 'created_at', 'updated_at', 'discarded_at']
 		end
 		def base_params_without_id
-	  	base_params.map { |x| x.in?(belongs_with_id) ? x.delete_suffix('_id') : x }
+	  	@base_params_without_id ||= base_params.map { |x| x.in?(belongs_with_id) ? x.delete_suffix('_id') : x }
 		end
 
 	end
@@ -44,28 +44,30 @@ module Table
 	module Search
 
 	  def search(query)
-      where(([multiple_like_query(searched_fields), q: "%#{query}%"] if !query.blank? && searched_fields))
+      where(([multiple_like_query(searched_fields), q: "%#{query}%"] if query.present? && searched_fields))
 	  end
 
 	  private
 
 	  def searched_fields
-	    base_params + belong_search_fields - belongs('_id')
+	    @searched_fields ||= base_params + belong_search_fields - belongs('_id')
 	  end
 
 	  def belong_search_fields
-	  	belong_classes = reflect_on_all_associations(:belongs_to).map &:klass
-	    belong_classes.reduce([]) { |memo, x|
-	      case x.searched_by_child
-	      when Array
-	        x.searched_by_child.each do |field|
-	          memo.push "#{x}.#{field}"
-	        end
-				when String, Symbol
-          memo.push "#{x}.#{x.searched_by_child}"
-	      end
-	      memo
-	    }
+	  	@belong_search_fields ||= begin
+	  		belong_classes = reflect_on_all_associations(:belongs_to).map &:klass
+		    belong_classes.reduce([]) { |memo, x|
+		      case x.searched_by_child
+		      when Array
+		        x.searched_by_child.each do |field|
+		          memo.push "#{x}.#{field}"
+		        end
+					when String, Symbol
+	          memo.push "#{x}.#{x.searched_by_child}"
+		      end
+		      memo
+		    }
+		  end
 	  end
 
 	  def multiple_like_query(array)
@@ -82,7 +84,7 @@ module Table
 	module Sort
 
 	  def sortable_fields
-	    base_params - belongs_with_id
+	    @sortable_fields ||= base_params - belongs_with_id
 	  end
 
 	end

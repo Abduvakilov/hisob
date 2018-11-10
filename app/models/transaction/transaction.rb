@@ -2,15 +2,18 @@ class Transaction < ApplicationRecord
   extend Filter
   include Validations::Transaction::Base
 
-  cattr_reader :all_types
-  @@all_types = {
-            income:  {from_sale: 0, from_conversion: 1, from_others: 2},
-            expense: {to_purchase: 10, to_conversion: 11,  to_employee: 12, to_other: 13},
-            replace: {replace: 20}
-            # Togirlash: [:kopaytirish, :kamaytirish]
-            }
+  ALL_TYPES = {
+    income:  {from_sale: 0, from_conversion: 1, from_others: 2},
+    expense: {to_purchase: 10, to_conversion: 11,  to_employee: 12, to_other: 13},
+    replace: {replace: 20}
+    # Togirlash: [:kopaytirish, :kamaytirish]
+  }
 
-  enum type_id: @@all_types.values.inject(&:merge)
+  enum type_id: ALL_TYPES.values.inject(&:merge)
+
+  def counter
+    counter_party || contract&.counter_party || counter_account
+  end
 
   def self.all_i
     where(type_id: type_ids.values)
@@ -21,11 +24,11 @@ class Transaction < ApplicationRecord
   end
 
   def self.human_type_names
-    @@all_types.map{ |k,v| [I18n.t("activerecord.models.#{k}.one"), v.map{|a,b|[human_attribute_name(a), b]}] }
+    @@human_type_names ||= ALL_TYPES.map{ |k,v| [I18n.t("activerecord.models.#{k}.one"), v.map{|a,b|[human_attribute_name(a), b]}] }
   end
 
   def self.models
-    @@models ||= all_types.keys.map { |key| key.to_s.classify.constantize }
+    @@models ||= ALL_TYPES.keys.map { |key| key.to_s.classify.constantize }
   end
 
   def self.modeled_find(_pk)
@@ -34,17 +37,17 @@ class Transaction < ApplicationRecord
   end
 
   def type
-    all_types.keys[ type_id_before_type_cast / 10 ]
+    ALL_TYPES.keys[ type_id_before_type_cast / 10 ]
   end
 
-  all_types.keys.each do |_type|
+  ALL_TYPES.keys.each do |_type|
     define_method("#{_type}?") {
       type == _type
     }
   end
 
   def self.shown_fields
-    %w[datetime type_id amount account counter_party_or_account notes accepted_as_amount accepted_as_currency]
+    %w[datetime type_id amount account counter notes accepted_as_amount accepted_as_currency]
   end
 
   def self.searched_fields

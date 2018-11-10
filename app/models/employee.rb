@@ -14,7 +14,7 @@ class Employee < ApplicationRecord
   end
 
   def self.shown_fields
-     %I[first_name last_name birthday department gender hire_date notes]
+     %w[first_name last_name birthday department gender hire_date notes]
   end
 
   belongs_to :department, optional: true

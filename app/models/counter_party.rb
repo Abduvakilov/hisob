@@ -41,6 +41,9 @@ class CounterParty < ApplicationRecord
     contract_ids.is_a?(Integer) ? res[contract_ids] : res
   end
 
+  validates_presence_of :short_name, unless: :company_name?
+  validates_presence_of :company_name, unless: :short_name?
+
   belongs_to :district, optional: true
   belongs_to :category, optional: true
   has_many :sales, -> { kept }

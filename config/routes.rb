@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :transactions, :products, :counter_parties, :units,
             :purchases, :productions, :sales, :prices,
             :employees, :users, :salaries, :departments, :companies,
-  					:accounts, :categories, :districts, :currencies,
+            :accounts, :categories, :districts, :currencies,
   except: [:edit, :destroy],
   concerns: :discardable do
     member do

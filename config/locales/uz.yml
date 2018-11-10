@@ -3,7 +3,8 @@ uz:
     errors:
       messages:
         is_more_than_account_balance: hisobdagi qoldiqdan ortiq
-        currencies_does_not_match: valyutalari bir emas
+        currencies_does_not_match: va hisob valyutalari bir emas
+        is_the_same: ayni o‘zi
       #   required: kiritishi kerak
       #   less_than: "%{count} dan kam bo‘lishi kerak"
       #   blank: bo‘sh bo‘lishi mumkin emas
@@ -98,7 +99,8 @@ uz:
     coefficient: Koeffitsient
     counter_party: Ikkinchi tomon
     contract_counter_party: Ikkinchi tomon
-    counter_party_or_account: Ikkinchi tomon
+    counter: Ikkinchi tomon
+    contract: Shartnoma
     primary_person: Asosiy odami
     type_id: Turi
     parent_category: Yuqori toifasi
@@ -153,7 +155,10 @@ uz:
     amount_up: Ortdi
     amount_down: Kamaydi
     price: Narx
-    price_category: Narx toifasi
+    price_category: Narx turi
+    ratio_to_base_unit: Asos birligiga nisbati
+    accepted_as_amount: Qiymat
+    accepted_as_currency: Valyuta
 
 
   helpers:

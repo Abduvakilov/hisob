@@ -3,20 +3,16 @@
 <head>
 	<title><%= title = yield(:title).presence || title_of_page %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <%= csrf_meta_tags %>
-	<%= csp_meta_tag %>
-
-	<%= javascript_pack_tag 'application', defer: true %>
+  <%= csrf_meta_tags %><%= csp_meta_tag %>
 	<%= stylesheet_pack_tag 'application' %>
-	
+	<%= javascript_pack_tag 'others' %>
+	<%= javascript_pack_tag 'application', defer: true %>
 	<%= yield(:head) %>
-
 </head>
-
 <body>
-
-	<%= render 'common/menu' %>
-
+	<% cache :menu do %>
+		<%= render 'common/menu' %>
+	<%end%>
 	<div class="main-content">
 
 		<%= render 'common/flash' %>
@@ -34,14 +30,14 @@
 						<%= yield %>		
 					</div>
 
-					<% if content_for? :aside -%>
+					<% if content_for? :aside %>
 					<aside class="col-md-<%=12-col%> mt-2 mt-md-0">
 						<%= yield :aside %>
 					</aside>
-					<%end-%>
+					<%end%>
 
 				</div>
-			<%end-%>
+			<%end%>
 
 		</div>
 

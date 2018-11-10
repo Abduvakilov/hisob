@@ -3,12 +3,6 @@ import PersistencyController from "./persistency_controller.js";
 export default class extends PersistencyController {
   static targets = [ 'type', 'counterParties', 'conversionHidden' ];
 
-  static customerOrSupplier = {
-  	0: 'customer',
-  	10: 'supplier',
-  	12: 'employee'
-  }
-
   update() {
     this.updateCounterParties();
     this.showConversionFields();
@@ -17,7 +11,7 @@ export default class extends PersistencyController {
 
   updateCounterParties() {
   	let id = this.typeTarget.value;
-		this.counterParties.updateList(this.constructor.customerOrSupplier[id]);
+		this.counterParties.updateList(id);
   }
 
   get counterParties() {
@@ -42,11 +36,14 @@ export default class extends PersistencyController {
     return document.querySelector('[data-target="contract.contract"]')
   }
 
-  initialize() {
-    super.initialize();
-  	Promise.resolve().then(() => {
-	  	this.update();
-	  })
-  }
+  // initialize() {
+  //   super.initialize();
+  // 	// Promise.resolve().then(() => {
+  //     this.showConversionFields();
+  //     this.disableContractField();
+  //     let id = this.typeTarget.value;
+  //     this.counterParties.initList(this.constructor.customerOrSupplier[id]);
+	 //  // })
+  // }
 
 }

@@ -18,7 +18,7 @@
     </tr>
   </thead>
 
-  <% @production.production_items.build -%>
+  <% @production.production_items.build %>
   <tbody>
 	  <%=	f.fields_for :production_items do | fa | %>
   	<tr data-controller="row unit">
@@ -27,7 +27,7 @@
   			<%= fa.label :_destroy, 'data-action': 'click->row#remove click->table#update',
   				'data-target': 'row.minus' do %>
   				<%=icon 'minus'%>
-				<%end-%>
+				<%end%>
 			</td>
   		<th class="font-weight-normal" scope="row" data-target="row.no">1</th>
   		<%= fa.input :product_id, wrapper: :table_row, wrapper_html: {class: nil},
@@ -41,7 +41,7 @@
   		}} %>
       <td data-target="unit.unit"><%=fa.object.product&.unit%></td>
   	</tr>
-		<%end-%>
+		<%end%>
   </tbody>
 
 	<tfoot>
@@ -54,4 +54,4 @@
 
   <%= render 'common/form_buttons', f: f %>
 
-<%end-%>
+<%end%>

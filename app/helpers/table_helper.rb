@@ -34,10 +34,6 @@ module TableHelper
     object.contract.counter_party
   end
 
-  def table_counter_party_or_account(object)
-    [object.contract&.counter_party, object.counter_party, object.counter_account].find &:itself
-  end
-
   %w[ total discount to_be_paid ].each do |field|
     define_method("table_#{field}") { |object|
       currency_precise_number(object.send(field), object.currency, unit: true)

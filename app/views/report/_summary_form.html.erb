@@ -1,6 +1,6 @@
 <% content_for :head do %>
 <%= javascript_pack_tag 'chart' %>
-<%end-%>
+<%end%>
 <%= simple_form_for :summary, url: polymorphic_path([:report,controller_name.singularize]),
 method: :post, defaults: {
 	wrapper_html: {class: 'col-md'},
@@ -15,7 +15,7 @@ method: :post, defaults: {
 			'data-flatpickr-mode': 'range'
 	} %>
 	<% year = 30.days.ago.year
-	 	 months=I18n.t('date.month_names').drop(1).each_with_index.map{|x,i| [x, i+1]}-%>
+	 	 months=I18n.t('date.month_names').drop(1).each_with_index.map{|x,i| [x, i+1]}%>
 	<%= f.simple_fields_for 'monthly', defaults: {
 		wrapper_html: {class: 'col-6 col-md', 'data-target': 'report.monthly'},
 	label: false} do |m| %>
@@ -26,14 +26,14 @@ method: :post, defaults: {
 		<%= m.input :to_year, collection: 2010..year, selected: year,
 			wrapper_html: {class: 'col-6 col-md pr-0'} %>
 		<%= m.input :to_month, collection: months, selected: Date.today.month %>
-	<%end-%>
+	<%end%>
 	<%= f.simple_fields_for 'yearly', defaults: {
 		wrapper_html: {class: 'd-none col-6 col-md', 'data-target': 'report.yearly'},
 	label: false} do |y| %>
 		<%= y.input :from_year, collection: 2010..year, selected: year %>
 		<div class="d-none pt-sm-1 col-12 col-sm-auto text-center">—</div>
 		<%= y.input :to_year, collection: 2010..year, selected: year-1 %>
-	<%end-%>
+	<%end%>
 	<%= f.button :button, t('helpers.submit.create_report'), class: 'btn btn-primary ml-sm-2 mb-sm-3 col-md-auto col' %>
 	</div>
-<%end-%>
+<%end%>

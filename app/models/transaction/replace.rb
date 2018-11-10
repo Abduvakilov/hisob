@@ -6,7 +6,7 @@ class Replace < Transaction
   validate :account_currencies_match
   validate :different_accounts
 
-  enum type_id: @@all_types[:replace]
+  enum type_id: ALL_TYPES[:replace]
 
   private
   def account_currencies_match

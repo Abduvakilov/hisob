@@ -12,6 +12,7 @@ export default class extends Controller {
 	updateContract(e) {
 
 		if (e.target.selectedOptions.length==0) return;
+		if(this.contractTarget.getAttribute('data-counter-party-id') === e.target.value) return;
 
 		let contractID = e.target.selectedOptions[0].getAttribute('contract')
 
@@ -22,7 +23,7 @@ export default class extends Controller {
 			let cp = this.cps.find(el => el['id'] == e.target.value); // find counter_party from array fetched before
 
 			if (cp) {  // if fetched before
-				this.options = cp['contracts'];
+				this.options = cp;
 				return;
 			}
 
@@ -30,7 +31,7 @@ export default class extends Controller {
 	      .then( res => res.json() )
 	      .then( json => {
 	      	this.cps.push(json);
-	        this.options = json['contracts'];
+	        this.options = json;
 	    });
 
 		} else {
@@ -45,14 +46,15 @@ export default class extends Controller {
 		}
 	}
 
-	set options(contactsObjectsArray) {
+	set options(counterPartyObject) {
 		this.removeContracts();
-		contactsObjectsArray.forEach(e=>{
+		counterPartyObject['contracts'].forEach(e=>{
 			let option = document.createElement('option');
 			option.value = e['id'];
 			option.text = e['name'];
 			this.contractTarget.append(option);
 		})
+		this.contractTarget.setAttribute('data-counter-party-id', counterPartyObject['id'])
 	}
 
 	removeContracts() {

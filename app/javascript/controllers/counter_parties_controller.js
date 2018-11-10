@@ -4,34 +4,56 @@ export default class extends SelectrController {
 
 	static data = [];
 
-	updateList(customerOrSupplier) {
-		if(typeof customerOrSupplier === 'undefined') {
+  static role = {
+  	0: 'customer',
+  	10: 'supplier',
+  	12: 'employee'
+  }
+
+	updateList(typeID) {
+		let role = this.constructor.role[typeID]
+		if(typeof role === 'undefined') {
 			this.selectr.add(this.constructor.data, true)
 		} else {
 			let value = this.selectr.getValue();
 			this.selectr.removeAll();
 			let dataToAdd = this.constructor.data
-											.filter(e => e[customerOrSupplier]);
+											.filter(e => e[role]);
 			this.selectr.add(dataToAdd);
 			this.selectr.setValue(value||'');
 		}
 	}
 
-  fillData() {
+	// initList(role){
+	// 	let dataToRemove = this.constructor.data.
+	// 											filter(e => !e[role]).
+	// 											map(e => e.value);
+	// 	this.element.querySelectremove(dataToRemove)
+	// }
+
+  fillDataAndRemove() {
+  	this.constructor.data = [];
 		Array.from(this.element).forEach( e => {
-			this.constructor.data.push({
+			let cp = {
 				value: e.value,
 				text: e.innerText,
 				customer: e.hasAttribute('cus'),
 				supplier: e.hasAttribute('sup'),
 				contract: e.getAttribute('contract')
-			})
+			}
+			this.constructor.data.push(cp)
+			let role = this.constructor.role[this.typeID]
+			if(!cp[role]) e.remove()
 		})
   }
 
   initialize() {
+  	this.fillDataAndRemove();
   	super.initialize();
-  	if (!this.constructor.data.length) this.fillData();
   }
+
+  get typeID() {
+		return document.querySelector('[data-target="transaction.type"]').value;
+	}
 
 }

@@ -1,6 +1,6 @@
-<% if lookup_context.exists? 'subhead', controller_name, true -%>
+<% if lookup_context.exists? 'subhead', controller_name, true %>
 	<%= render "#{controller_name}/subhead" %>
-<%else-%>
+<%else%>
 	<%= render 'common/subhead' %>
-<%end-%>
+<%end%>
 <%= render 'form' %>
