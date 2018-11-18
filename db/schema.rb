@@ -30,11 +30,13 @@ ActiveRecord::Schema.define(version: 2018_11_05_075431) do
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.integer "parent_category_id"
+    t.string "for"
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_categories_on_discarded_at"
+    t.index ["for"], name: "index_categories_on_for"
     t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
   end
 
@@ -142,7 +144,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_075431) do
     t.integer "category_id"
     t.float "price"
     t.integer "currency_id"
-    t.integer "price_category_id"
+    t.integer "price_type_id"
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -150,7 +152,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_075431) do
     t.index ["category_id"], name: "index_prices_on_category_id"
     t.index ["currency_id"], name: "index_prices_on_currency_id"
     t.index ["discarded_at"], name: "index_prices_on_discarded_at"
-    t.index ["price_category_id"], name: "index_prices_on_price_category_id"
+    t.index ["price_type_id"], name: "index_prices_on_price_type_id"
     t.index ["product_id"], name: "index_prices_on_product_id"
   end
 
@@ -254,6 +256,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_075431) do
     t.float "amount", null: false
     t.integer "type_id", limit: 1, null: false
     t.integer "counter_party_id"
+    t.integer "expense_type_id"
     t.integer "employee_id"
     t.integer "contract_id"
     t.float "accepted_as_amount"
@@ -274,6 +277,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_075431) do
     t.index ["counter_party_id"], name: "index_transactions_on_counter_party_id"
     t.index ["discarded_at"], name: "index_transactions_on_discarded_at"
     t.index ["employee_id"], name: "index_transactions_on_employee_id"
+    t.index ["expense_type_id"], name: "index_transactions_on_expense_type_id"
     t.index ["type_id"], name: "index_transactions_on_type_id"
   end
 

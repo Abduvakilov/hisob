@@ -1,0 +1,20 @@
+= simple_form_for @employee, defaults: { wrapper_html: { class: 'col-sm' } } do |f|
+  = f.error_notification
+  .form-row
+    = f.input :first_name
+    = f.input :last_name
+  .form-row
+    = f.input :hire_date, as: :datepicker,
+      input_html: {'data-flatpickr-date-format': 'd.m.Y'}
+    = f.association :department
+  .form-row
+    = f.input :birthday, as: :datepicker,
+      input_html: {'data-flatpickr-date-format': 'd.m.Y'}
+    = f.association :company
+  = f.input :gender, as: :radio_buttons,
+    wrapper: :vertical_collection_inline,
+    collection: %w[ male female ].map { | gender | \
+    						[Employee.human_attribute_name("gender.#{gender}"), gender]}
+  .form-row
+    = f.input :notes
+  = render 'common/form_buttons', f: f

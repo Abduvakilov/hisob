@@ -1,18 +1,20 @@
 {
+  "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1",
     "@fortawesome/free-solid-svg-icons": "^5",
     "@rails/webpacker": "^3",
     "bootstrap": "^4.1",
-    "chartist": "^0.11",
+    "chartist": "^0",
     "cleave.js": "^1.4",
     "flatpickr": "^4",
     "mobius1-selectr": "https://github.com/Mobius1/Selectr#master",
     "rails-ujs": "^5.2",
-    "stimulus-flatpickr": "^1.0.0",
+    "stimulus-flatpickr": "^1",
     "turbolinks": "^5.2"
   },
   "devDependencies": {
+    "brotli-webpack-plugin": "^1.0.0",
     "webpack-bundle-analyzer": "^2.13",
     "webpack-dev-server": "^2"
   },

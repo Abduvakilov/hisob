@@ -11,11 +11,11 @@ module ApplicationHelper
   end
 
   def title_of_page
-    return (controller.try(:parent_class)&.model_name&.human || model_name(2)) if action_name == 'index'
+    _model_name = (controller.try(:parent_class)&.model_name&.human || model_name(2)) if action_name == 'index'
     _action_name = 'new' if action_name == 'create'
   	_action_name = 'show' if action_name == 'update'
     _action_name ||= action_name
-		t _action_name, scope: [:views, :title, controller_name], default: model_name
+		t _action_name, scope: [:views, :title, controller_name], default: (_model_name || model_name)
   end
 
   def bootstrap_alert(key)
@@ -30,6 +30,8 @@ module ApplicationHelper
 
   def model_name(count=1)
     controller.model&.model_name&.human(count: count)
+  rescue NoMethodError
+    nil
   end
 
   def currency_precise_number(number, currency, options={})

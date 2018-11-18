@@ -5,6 +5,6 @@ class Price < ApplicationRecord
 
   belongs_to :product, optional: true
   belongs_to :category, optional: true
-  belongs_to :price_category, class_name: 'Category'
+  belongs_to :price_type, class_name: 'Category'
   belongs_to :currency
 end

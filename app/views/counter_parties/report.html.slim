@@ -1,0 +1,25 @@
+- @col = 10
+= render 'subhead'
+h5
+  = t 'views.report.balance'
+  | : 
+  = @counter_party.balance.map { |contract_id,balance| \
+    color_pay_receive(balance, Contract.includes(:currency).find(contract_id). \currency, unit:true, tag: :small) \
+    }.join(', ').html_safe.presence || 0
+h5
+  = t 'views.report.summary'
+  | :
+= render 'report/summary_form'
+h5
+  = t 'views.report.all_flows'
+  | :
+= simple_form_for :all_flows, url: report_counter_party_path,
+  method: :post, defaults: { \
+  	wrapper_html: {class: 'col-sm'}, label: false },
+  html: {class: 'form-row', 'data-controller': 'all_flows'} do |f|
+  = f.input :start_date, as: :datepicker, input_html: {required: true, value: Date.yesterday}
+  = f.input :end_date, as: :datepicker, input_html: {value: Date.today}
+  
+  - contracts = CounterParty.contracts
+  = (f.input :contract, collection: contracts, prompt: false) unless contracts.one?
+  = f.button :button, t('helpers.submit.create_report'), name: :all_flows?, class: 'btn btn-primary ml-sm-2 mb-sm-3 col-md-auto col-12'

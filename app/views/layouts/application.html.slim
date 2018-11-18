@@ -1,0 +1,29 @@
+doctype html
+html[lang="uz"]
+  head
+    title
+      = title = @title || title_of_page
+    meta[name="viewport" content="width=device-width, initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'application'
+    = javascript_pack_tag 'others'
+    = javascript_pack_tag 'application', defer: true
+    = yield(:head)
+  body
+    - cache :menu do
+      = render 'common/menu'
+    .main-content
+      = render 'common/flash'
+      .container.mb-3
+        h1
+          = title
+        - if @custom_yield
+          = yield
+        - else
+          .row
+            div class="col-md-#{col=@col||8}"
+              = yield
+            - if content_for?(:aside)
+              aside class="col-md-#{12-col} mt-2 mt-md-0"
+                = yield :aside

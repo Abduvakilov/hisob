@@ -1,7 +1,7 @@
 class Replace < Transaction
 
-	validates_presence_of :counter_account
-	validates_absence_of :counter_party, :accepted_as_amount, :accepted_as_currency, :rate, :asked_currency
+	validates_absence_of :counter_party, :accepted_as_amount,
+    :accepted_as_currency, :asked_currency
 
   validate :account_currencies_match
   validate :different_accounts

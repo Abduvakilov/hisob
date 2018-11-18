@@ -9,7 +9,7 @@ module Objects
   end
 
   def model
-    begin
+    @model ||= begin
       controller_name.classify.constantize
     rescue NameError
       nil

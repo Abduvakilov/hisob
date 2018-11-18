@@ -11,8 +11,12 @@ class Transaction < ApplicationRecord
 
   enum type_id: ALL_TYPES.values.inject(&:merge)
 
+  def with_contract?
+    from_sale? || to_purchase?
+  end
+
   def counter
-    counter_party || contract&.counter_party || counter_account
+    counter_party || contract&.counter_party || counter_account || expense_type
   end
 
   def self.all_i
@@ -37,7 +41,7 @@ class Transaction < ApplicationRecord
   end
 
   def type
-    ALL_TYPES.keys[ type_id_before_type_cast / 10 ]
+    ALL_TYPES.keys[ type_id_before_type_cast / 10 ] if type_id_before_type_cast
   end
 
   ALL_TYPES.keys.each do |_type|
@@ -59,6 +63,8 @@ class Transaction < ApplicationRecord
   end
 
   # belongs_to :reference, optional: true # TODO
+  belongs_to :employee, optional: true
+  belongs_to :expense_type, class_name: 'Category', optional: true
   belongs_to :contract, optional: true
   belongs_to :counter_party, optional: true
   belongs_to :counter_account, class_name: 'Account', optional: true

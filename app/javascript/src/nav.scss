@@ -116,3 +116,16 @@
   width: 1.25em!important;
   vertical-align: middle;
 }
+
+aside a {
+  font-size: $font-size-lg;
+  font-weight: 300;
+  margin-left: .5em;
+  position: relative;
+  .fa-circle {
+    font-size: $font-size-base * 0.6;
+    color: $gray-500;
+    position: absolute;
+    left:-0.5em; top:2em;
+  }
+}

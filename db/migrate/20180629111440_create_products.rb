@@ -29,7 +29,7 @@ class CreateProducts < ActiveRecord::Migration[5.2]
       t.references :category, foreign_key: true
       t.float      :price
       t.references :currency, foreign_key: true
-      t.references :price_category, foreign_key: { to_table: :categories }
+      t.references :price_type, foreign_key: { to_table: :categories }
       t.text       :notes
 
       t.timestamps

@@ -1,0 +1,35 @@
+= simple_form_for @price,
+  defaults: { wrapper_html: {class: 'col-sm'} },
+  html: {'data-controller': 'unit'} do |f|
+  = f.error_notification
+
+  .form-row
+    = f.input :date, as: 'datepicker'
+    = f.association :price_type, collection: Category.where(for: Price.name)
+
+  .form-row
+    legend.col-form-label
+      = t 'views.either_of_this',
+        '1': t('attributes.product'), '2': t('attributes.category')
+    = f.association :product,
+      collection: Product.includes(unit: :base_unit).kept.map {|item| \
+      [item, item.id, {unit: item.unit}.merge( item.unit.base_unit ? \
+        {base_unit: item.unit.base_unit, ratio: item.unit.ratio_to_base_unit} \
+        : {} )]}, input_html: {'data-action': 'change->unit#updateUnit'}
+    = f.association :category,
+      collection: Category.kept.where(for: Price.name).order( \
+        params[:product_id] && \
+        (main_category = Product.find(params[:product_id]).category_id) ? \
+      'id='+main_category : nil)
+
+  .form-row
+    = f.input :unit, input_html: { \
+      value: @price.product&.unit&.base_unit || @price.product&.unit,
+      disabled: true, 'data-target': 'unit.unit' }
+    = f.input :price
+    = f.association :currency
+
+  .form-row
+    = f.input :notes
+
+  = render 'common/form_buttons', f: f

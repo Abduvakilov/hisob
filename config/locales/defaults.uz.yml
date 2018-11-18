@@ -128,7 +128,7 @@ uz:
     format: "%{attribute} %{message}"
     messages:
       present: to‘ldirilmasligi kerak
-      required: to‘ldirilishi kerak
+      required: tanlanishi kerak
       accepted: tasdiqlash kerak
       blank: bo‘sh bo‘lishi mumkin emas
       confirmation: tasdiq bilan mos emas

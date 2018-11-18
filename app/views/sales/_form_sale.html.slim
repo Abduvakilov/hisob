@@ -1,0 +1,52 @@
+- @custom_yield = true
+= simple_form_for @sale, defaults: { wrapper_html: { class: 'col-sm' } },
+  html: { 'data-controller': 'table price' } do |f|
+  .row
+    .col-md-8
+      = f.error_notification
+      .form-row data-controller='contract'
+        = f.input :datetime, as: :datepicker,
+          wrapper_html: { 'data-flatpickr-enable-time': true,
+          'data-flatpickr-alt-format': t('datetime.formats.default')}
+        = f.input :counter_party,
+          selected: f.object.contract&.counter_party_id,
+          collection: CounterParty.kept.includes(:contracts). \
+          where(is_customer: true).map { |cp| [cp, cp.id,
+            contract: (cp.contracts.count==1 ? cp.main_contract.id : '')] },
+          input_html: {required: true, data: { target: 'contract.cp',
+          controller: 'selectr', action: 'change->contract#updateContract'}}
+        = f.association :contract,
+          collection: f.object.contract&.with_others || [],
+          label_method: :to_s, required: false, wrapper_class: ['form-group',
+          (' d-none' if f.object.new_record? || f.object.contract&.single?)],
+          input_html: {'data-target': 'contract.contract'}
+        /-  TODO customer default
+      
+      = render 'form_table', f: f, item_name: item_name
+
+
+    .col-md-8.order-3.order-md-2
+      = render 'common/form_buttons', f: f
+
+
+    aside.col-md-4
+      br.d-none.d-md-block
+      table.form-table.w-auto
+        tbody
+          tr
+            th.font-weight-bold scope='row' = t 'views.total'
+            td.w-50.text-right data-target="table.total"
+              = currency_precise_number @sale.total, @sale.currency
+          tr
+            th scope="row" = t 'views.discount'
+            td.w-60
+              = f.text_field :discount, autocomplete: 'off',
+                value: currency_precise_number(@sale.discount, @sale.currency),
+                id: nil, class: 'text-right', data: { \
+                	controller: 'currency',
+                	target: 'table.discount',
+                	action: 'input->table#update'}
+          tr
+            th.font-weight-bold scope="row" = t 'views.to_be_paid'
+            td.w-50.text-right data-target='table.toBePaid'
+              = currency_precise_number @sale.to_be_paid, @sale.currency

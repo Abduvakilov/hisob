@@ -1,0 +1,10 @@
+= f.input :counter_party, wrapper_class: ['form-group', (' d-none' if f.object.to_employee?)] do
+  = f.select :counter_party_id,
+    CounterParty.kept.map { |cp| [cp, cp.id,
+      contract: (cp.contracts.count==1 ? cp.main_contract.id : ''),
+      sup: ('' if cp.is_supplier), cus: ('' if cp.is_customer)] },
+      {selected: (f.object.contract || f.object).counter_party_id},
+      data: { \
+        custom_track: '', action: 'change->contract#updateContract',
+        controller: 'counter-party',
+        target: 'transaction.counterParty' }

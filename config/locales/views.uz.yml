@@ -22,6 +22,8 @@ uz:
     to_be_paid: To‘lanishga
     no_records_found: Xech nima topilmadi
     accounting_different_amount: Boshqa qiymat bilan hisobni yuritish
+    either_of_this: "%{1} yoki %{2}ni kiriting"
+    links: Havolalar
 
     flash:
       success:
@@ -31,6 +33,15 @@ uz:
         destroy: "%{model} muvaffaqqiyatli o‘chirib tashlandi"
 
     title:
+      categories:
+        expense:
+          new: Yangi Xarajat turi
+          show: Xarajat turi
+          index: Xarajat turlari
+        price:
+          new: Yangi Narx turi
+          show: Narx turi
+          index: Narx turlari
       sessions:
         new: Kirish
       home_page:
@@ -38,6 +49,8 @@ uz:
         short: Bosh Sahifa
       action:
         new: Yangi %{model}
+      pages:
+        index: Hisob
 
     tab_titles:
       show: Ma‘lumotlar

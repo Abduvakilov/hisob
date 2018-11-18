@@ -1,0 +1,13 @@
+= simple_form_for(@account) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.association :company
+    = f.association :currency
+    = more_wrapped 'account', show_check_box: true,
+      toggle_text: t('attributes.is_bank_account'),
+      checked: f.object.bank_account_number? do
+      = f.input :bank_account_number
+      
+  = render 'common/form_buttons', f: f

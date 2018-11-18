@@ -13,6 +13,8 @@ uz:
       category:
         one: Toifa
         other: Toifalar
+        price: Narx turi
+        expense: Xarajat turi
       account:
         one: Hisob
         other: Hisoblar
@@ -103,6 +105,7 @@ uz:
     contract: Shartnoma
     primary_person: Asosiy odami
     type_id: Turi
+    expense_type: Xarajat turi
     parent_category: Yuqori toifasi
     product: Mahsulot
     price: Narxi
@@ -128,6 +131,8 @@ uz:
     leftover: Qoldiq
     balance: Qoldiq
     products: Mahsulotlar
+    login: Login
+    password: Parol
     remember_me: Eslab qol
     hire_date: Ishga qabul qilingan
     first_name: Ismi
@@ -172,6 +177,7 @@ uz:
       update: "%{model}ni tahrirla"
       discard: "Bekor qil"
       create_report: Hisobotni yarat
+      login: Kirish
 
   periods:
     today: Bugun

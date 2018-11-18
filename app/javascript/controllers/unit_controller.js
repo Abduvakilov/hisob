@@ -5,7 +5,11 @@ export default class extends Controller {
 	static targets = [ 'unit' ];
 
 	updateUnit(e) {
-		this.unitTarget.innerText = e.target.selectedOptions[0].getAttribute('unit');
+		let unit = e.target.selectedOptions[0].getAttribute('unit');
+		if(this.unitTarget.tagName == 'INPUT')
+			this.unitTarget.value = unit;
+		else
+			this.unitTarget.innerText = unit;
 	}
 
 }

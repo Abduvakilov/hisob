@@ -1,0 +1,3 @@
+- @sale.sale_items.build
+= render 'sale_purchase/form', counter_party_role: :is_customer,
+  item_name: :sale_items, product_where: { is_for_sale: true }

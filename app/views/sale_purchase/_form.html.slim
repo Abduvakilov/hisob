@@ -1,0 +1,19 @@
+- @custom_yield = true
+= simple_form_for controller.object,
+  defaults: { wrapper_html: { class: 'col-sm' } },
+  html: { 'data-controller': 'table price' } do |f|
+  .row
+    .col-md-8
+      = render 'sale_purchase/form_header', f: f, counter_party_role: counter_party_role
+      
+      = render 'sale_purchase/form_table', f: f, item_name: item_name,
+        product_where: product_where
+
+
+    .col-md-8.order-3.order-md-2
+      = render 'common/form_buttons', f: f
+
+
+    aside.col-md-4
+      br.d-none.d-md-block
+      = render 'sale_purchase/form_table_aside', f: f

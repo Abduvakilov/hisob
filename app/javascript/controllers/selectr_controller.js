@@ -11,6 +11,7 @@ export default class extends Controller {
 			placeholder: this.data.get('placeholder') || 'Tanlang: ',
 			messages: {
 				noResults: "Xech nima topilmadi.",
+				noOptions: "Xech nima yo‘q."
 		    // maxSelections: "A maximum of {max} items can be selected.",
 		    // tagDuplicate: "That tag is already in use"
 			}

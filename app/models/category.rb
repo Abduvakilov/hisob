@@ -10,4 +10,12 @@ class Category < ApplicationRecord
     name
   end
 
+  def self.shown_fields
+    %w[ name parent_category notes ]
+  end
+
+  def self.form_fields
+    %w[ name parent_category notes ]
+  end
+
 end

@@ -1,0 +1,5 @@
+- if lookup_context.exists? 'subhead', controller_name, true
+  = render "#{controller_name}/subhead"
+- else
+  = render 'common/subhead'
+= render 'form'

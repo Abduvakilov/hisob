@@ -4,7 +4,7 @@ module Validations
       extend ActiveSupport::Concern
 
       included do
-        validates_presence_of :type_id, :datetime, :amount
+        validates_presence_of :type_id, :datetime
         validates :amount, numericality: { greater_than: 0 }
 
         validates_presence_of :accepted_as_currency, if: :accepted_as_amount?
@@ -13,21 +13,27 @@ module Validations
         validates_presence_of :rate, :asked_currency, if: :to_conversion?
         validates_absence_of  :rate, :asked_currency, unless: :to_conversion?
 
-        validates_presence_of :employee, if: :to_employee?
-        validates_absence_of  :employee, unless: :to_employee?
+        validates_presence_of :counter_account, if: :replace?
+        validates_absence_of  :counter_account, unless: :replace?
 
-        validate :counter_party_contract, unless: :replace?
+        validate :counter, unless: :replace?
       end
 
       private
-      def counter_party_contract
-        if from_sale? || to_purchase?
+      def counter
+        if to_employee?
+          validates_presence_of :employee
+          self.counter_party = nil
+          self.contract = nil
+        elsif from_sale? || to_purchase?
           validates_presence_of :counter_party, :contract
           validate_contract_currency_matches
           self.counter_party = nil
-        else
+          self.employee = nil
+        elsif !to_expense?
           validates_presence_of :counter_party
           self.contract = nil
+          self.employee = nil
         end
       end
 

@@ -5,6 +5,7 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
       t.float       :amount, null: false
       t.integer     :type_id, null: false, index: true, limit: 1
       t.references  :counter_party, foreign_key: true
+      t.references  :expense_type, foreign_key: { to_table: :categories }
       t.references  :employee, foreign_key: true
       t.references  :contract, foreign_key: true
       t.float       :accepted_as_amount

@@ -1,0 +1,18 @@
+= f.error_notification
+.form-row data-controller='contract'
+  = f.input :datetime, as: :datepicker,
+    wrapper_html: { 'data-flatpickr-enable-time': true,
+    'data-flatpickr-alt-format': t('datetime.formats.default')}
+  = f.input :counter_party,
+    selected: f.object.contract&.counter_party_id,
+    collection: CounterParty.kept.includes(:contracts). \
+    where(counter_party_role => true).map { |cp| [cp, cp.id,
+      contract: (cp.contracts.count==1 ? cp.main_contract.id : '')] },
+    input_html: {required: true, data: { target: 'contract.cp',
+    controller: 'selectr', action: 'change->contract#updateContract'}}
+  = f.association :contract,
+    collection: f.object.contract&.with_others || [],
+    label_method: :to_s, required: false, wrapper_class: ['form-group',
+    (' d-none' if f.object.new_record? || f.object.contract&.single?)],
+    input_html: {'data-target': 'contract.contract'}
+  /-  TODO customer default

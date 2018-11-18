@@ -4,15 +4,18 @@ Rails.application.routes.draw do
   root "pages#index"
 
   concern :discardable do
-    member do
-      post 'discard'
-    end
+    post 'discard', on: :member
   end
+
+  # concern :categorizable do
+  #   collection { resources :categories }
+  # end
 
   resources :transactions, :products, :counter_parties, :units,
             :purchases, :productions, :sales, :prices,
             :employees, :users, :salaries, :departments, :companies,
             :accounts, :categories, :districts, :currencies,
+            # :price_types, :expense_types,
   except: [:edit, :destroy],
   concerns: :discardable do
     member do
@@ -25,10 +28,9 @@ Rails.application.routes.draw do
     on: :member, except: [:edit, :destroy]
   end
 
-  resources :products, only: [] do
+  resources :products, only: [], module: :nested do
     resources :prices, concerns: :discardable,
-    on: :member, except: [:edit, :destroy], controller: 'prices_nested'
+    on: :member, except: [:edit, :destroy]
   end
-
 
 end

@@ -42,32 +42,40 @@
   padding: 0.375rem 0.75rem;
 }
 
-.table td {
-  
-  position: relative;
-  height: $input-height-sm;
-
-  label{margin:0;}
-
-  input, select {
-    // height: $input-height-sm;
-    position: absolute;
-    top:0; left:0; bottom:0;
-    width: 100%;
-    // width: 100%;
-    border-radius: 0 !important;
-    border: none;
-    padding: $table-cell-padding-sm;
-    appearance: none;
-    background-color: white;
-  }
-  select {
-   background: white $custom-select-indicator no-repeat right $custom-select-padding-x center / $custom-select-bg-size;
+.form-table {
+  @extend .table;
+  @extend .table-bordered;
+  @extend .table-sm;
+ 
+  th {
+    font-weight: normal;
   }
 
-  input.is-invalid, select.is-invalid {
-    // padding: calc( #{$table-cell-padding-sm} - 1px ) ;
-    border: 1px solid $danger!important;
-  }
+  td {
+    position: relative;
+    height: $input-height-sm;
 
+    label{margin:0;}
+
+    input, select {
+      // height: $input-height-sm;
+      position: absolute;
+      top:0; left:0; bottom:0;
+      width: 100%;
+      // width: 100%;
+      border-radius: 0 !important;
+      border: none;
+      padding: $table-cell-padding-sm;
+      appearance: none;
+      background-color: white;
+    }
+    select {
+     background: white $custom-select-indicator no-repeat right $custom-select-padding-x center / $custom-select-bg-size;
+    }
+
+    input.is-invalid, select.is-invalid {
+      // padding: calc( #{$table-cell-padding-sm} - 1px ) ;
+      border: 1px solid $danger!important;
+    }
+  }
 }

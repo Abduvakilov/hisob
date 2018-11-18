@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title Login
+    meta[name="viewport" content="width=device-width, initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    css:
+      html, body {
+        position: relative;
+        height: 100%;
+        font-size: 1.15em;
+      }
+      .center {
+        position: absolute;
+        top: 15%; left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        border: 2px solid orange;
+        padding: 10px;
+      }
+      input {
+        height: 1.15em;
+        font-size: 1.1em;
+        padding: 5px;
+        margin-bottom: 10px;
+      }
+      input:not([type=checkbox]) {
+        width: 95%
+      }
+      button {
+        display: block;
+        margin: auto;
+        width: 60%;
+        height: 30px;
+      }
+  body
+    .center
+      = yield

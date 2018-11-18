@@ -1,0 +1,27 @@
+h5
+  = t 'views.links'
+ul.nav.flex-column
+  li.nav-item
+    a.nav-link href=categories_path(for: Expense.name)
+      = icon('circle')
+      = t('views.title.categories.expense.index')
+h5 Filterlar
+form.filter action==transactions_path method="get"
+  - %I[ sort dir search].each do |field|
+    - if params[field].present?
+      input type='hidden' name=field value=params[field]
+  select.custom-select name='type_id' onchange='this.form.submit()'
+    option[value] = t('simple_form.prompts.defaults.type_id')
+    = grouped_options_for_select(Transaction.human_type_names, params[:type_id])
+
+  h6.mt-sm-2.mb-sm-1
+    | Sana:
+  = date_filter_links :datetime, params[:datetime]
+
+  h6.mt-sm-2.mb-sm-1
+    | Valyuta:
+  = filter_links :currency_id, Currency.kept, params[:currency_id]
+
+  h6.mt-sm-2.mb-sm-1
+    | Hisob:
+  = filter_links :account_id, Account.kept, params[:account_id]

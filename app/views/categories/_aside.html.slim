@@ -1,0 +1,11 @@
+- if params[:for] == 'Price'
+  h5 = t 'views.links'
+  ul.nav.flex-column
+    li.nav-item
+      a href=prices_path class='nav-link'
+        = icon('circle')
+        = Price.model_name.human count: 2
+    li.nav-item
+      a href=products_path class='nav-link'
+        = icon('circle')
+        = Product.model_name.human count: 2

@@ -1,8 +1,0 @@
-<% flash.each do |key, value| %>
-<div class="alert alert-<%= bootstrap_alert key %>" role="alert">
-	<%= value %>
-	<button type="button" class="close" onclick="dismiss(event)" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	</button>
-</div>
-<% end %>

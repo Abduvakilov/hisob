@@ -17,7 +17,7 @@ class AccountsController < ApplicationController
     @transactions = Transaction.kept.
       where('account_id = :id or counter_account_id = :id', id: params[:id]).
       where('datetime between ? and ?',
-        all_flows[:start_date], all_flows[:end_date])
+        all_flows[:start_date], Date.strptime(all_flows[:end_date])+1)
     render :report_all_flows
   end
 

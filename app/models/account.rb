@@ -1,7 +1,6 @@
 class Account < ApplicationRecord
 
-  def balance(date=Date.today)
-
+  def balance(date=Date.tomorrow)
     sql = <<-SQL
       select sum( (case
         when type_id/10 = 1 or
@@ -10,9 +9,10 @@ class Account < ApplicationRecord
       from transactions t
       where t.discarded_at is null and
         ( account_id = :id or counter_account_id = :id) and
-        datetime <= :date
+        datetime < :date
     SQL
 
+    # date = Date.strptime(date) unless date.is_a? Date
     sanitized_sql = ActiveRecord::Base.sanitize_sql [ sql, id: id, date: date]
     ActiveRecord::Base.connection.select_one(sanitized_sql)['balance'] || 0
 

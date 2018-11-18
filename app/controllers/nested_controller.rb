@@ -28,16 +28,16 @@ class NestedController < ApplicationController
   end
 
   def parent_class
-    raise NotImplementedError
+    @parent_class ||= self.class.parent or raise NotImplementedError
   end
 
   def parent_class_name
-    parent_class.model_name.singular
+    @parent_class_name ||= parent_class.model_name.singular
   end
 
-  def controller_name
-    super.delete_suffix('_nested')
-  end
+  # def controller_name
+  #   super.delete_suffix('_nested')
+  # end
 
   private
 

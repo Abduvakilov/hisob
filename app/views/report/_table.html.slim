@@ -1,0 +1,16 @@
+table.table.table-hover.table-responsive
+  thead
+    tr
+      - columns.each do |column|
+        th
+          = t "attributes.#{column}"
+  tbody
+    - if lookup_context.exists?('row', controller_name, true)
+      - records.each do |row|
+        = render "#{controller_name}/row", record: row
+    - else
+      - records.rows.each do |row|
+        tr
+          - row.each do |field|
+            td
+              = field

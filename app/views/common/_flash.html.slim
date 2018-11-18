@@ -1,0 +1,6 @@
+- flash.each do |key, value|
+  .alert class="alert-#{bootstrap_alert key}" role='alert'
+    = value
+    button.close[type="button" onclick="dismiss(event)" aria-label="Close"]
+      span[aria-hidden="true"]
+        | ×

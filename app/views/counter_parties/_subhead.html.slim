@@ -1,0 +1,14 @@
+- _id = params[:id] || params[:counter_party_id]
+ul.nav.nav-tabs.mb-3
+
+  li.nav-item
+    a.nav-link href=counter_party_path(_id) class=('active' if action_name=='show')
+      = t(:show, scope: 'views.tab_titles')
+
+  li.nav-item
+    a.nav-link href=report_counter_party_path(_id) class=('active' if action_name=='report')
+      = t(:report, scope: 'views.tab_titles')
+        
+  li.nav-item
+    a.nav-link href=counter_party_contracts_path(_id) class=('active' if controller_name=='contracts')
+      = Contract.model_name.human(count: 2)
