@@ -1,29 +1,38 @@
 @include media-breakpoint-up(md) {
+
   #menu {
     flex-direction: column;
     bottom: 0;
     position: fixed;
     width: 175px;
+
     &:not(.open) {
       width: 60px;
     }
   }
 
   #menu {
+
     margin:0; padding:0;
-    a, button {
+
+    a,
+    button {
       border-width: 0 0 1px;
       display: block;
       padding: .5rem 1rem;
       width: 100%;
     }
-    a svg, button svg {
+
+    a svg,
+    button svg {
       margin-right: 6px;
     }
   }
 
   .main-content {
+
     margin-left: 200px;
+
     :not(.open) + & {
       margin-left: 60px;
     }
@@ -32,8 +41,8 @@
   .bottom {
     margin-top: auto;
   }
-
 }
+
 @include media-breakpoint-down(sm) {
   #menu {
     // margin: 0 auto;
@@ -41,80 +50,90 @@
     right: 0;
     padding: 0 15px;
     // height: auto;
-    a, button {
+    a,
+    button {
       padding: 18px;
       border-width: 0 0 0 1px;
       // width: auto;
       display: inline-block;
     }
-    a, .bottom {
+
+    a,
+    .bottom {
       display: inline-block;
     }
     // .bottom button {
     //   width: 100%;
     // }
-    a svg, button svg {
+    a svg,
+    button svg {
       margin-right: auto; margin-left: auto;
     }
   }
 
-  .nav-label, .btn-expand {
+  .nav-label,
+  .btn-expand {
     display: none!important;
   }
 
 }
 
+.nav-label {
+  opacity: 1;
+  transition: opacity .4s ease;
+}
+
 #menu {
   overflow-x: auto;
   background-color: $dark;
-  top: 0px; left: 0px;
+  top: 0; left: 0;
   z-index: 8;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  transition: width .4s ease-in-out;
 
   &::-webkit-scrollbar {
     display: none;
   }
 
-  transition: width 0.4s ease-in-out;
-}
+  button {
+    background-color: $dark;
+  }
 
-#menu button {
-  background-color: $dark;
-}
+  &:not(.open) svg {
+    font-size: 1.5em;
+  }
 
-#menu:not(.open) svg {
-  font-size: 1.5em;
-}
 
-.nav-label {
-  opacity: 1;
-  transition: opacity 0.4s ease;
-}
 
-#menu:not(.open) .nav-label {
-  opacity: 0;
-}
+  &:not(.open) .nav-label {
+    opacity: 0;
+  }
 
-#menu a, #menu button {
-  border-style: solid;
-  border-color: #444;
-  text-align: left;
-  color: #ccc;
-}
-#menu a:hover, #menu button:hover {
-  background-color: #000;
-  text-decoration: none;
-  color: white;
-}
+  a,
+  button {
+    border-style: solid;
+    border-color: #444;
+    text-align: left;
+    color: #ccc;
+  }
 
-#menu a svg, #menu button svg {
-  transition: 0.4s ease-in-out;
-  font-size: 1.3em;
-  text-align: center;
-  width: 1.25em!important;
-  vertical-align: middle;
+  a:hover,
+  button:hover {
+    background-color: black;
+    text-decoration: none;
+    color: white;
+  }
+
+  a svg,
+  button svg {
+    transition: .4s ease-in-out;
+    font-size: 1.3em;
+    text-align: center;
+    width: 1.25em!important;
+    vertical-align: middle;
+  }
 }
 
 aside a {
@@ -122,10 +141,16 @@ aside a {
   font-weight: 300;
   margin-left: .5em;
   position: relative;
+
+  &.nav-link{
+    padding-top: $nav-link-padding-y * .1;
+    padding-bottom: $nav-link-padding-y * .1;
+  }
+
   .fa-circle {
-    font-size: $font-size-base * 0.6;
+    font-size: $font-size-base * .6;
     color: $gray-500;
     position: absolute;
-    left:-0.5em; top:2em;
+    left:-.5em; top:1.2em;
   }
 }

@@ -1,0 +1,22 @@
+= simple_form_for @product,
+  defaults: { wrapper_html: { class: 'col-sm' } } do |f|
+  = f.error_notification
+  .form-row
+    = f.input :name
+    = f.association :category
+  .form-row
+    = f.association :unit
+    = f.input :include_base_unit, wrapper_html: { \
+      class: 'col-sm d-flex align-items-end pb-2 ml-3' }
+  .form-row
+    legend.col-form-label
+      = t 'attributes.producer'
+    = f.association :company
+    = f.association :counter_party
+
+  .form-row
+    = f.input :is_for_sale
+
+  .form-row
+    = f.input :notes
+  = render 'common/form_buttons', f: f

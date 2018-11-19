@@ -1,25 +1,28 @@
 .d-sm-flex.d-print-none
   .d-none.d-sm-flex.mr-sm-auto
     a.btn.btn-outline-secondary href=controller.path
-      = icon('chevron-left')+' '+t('views.back')
-    
-  = f.button :button, type: :submit, name: :save, class: "btn-primary mx-1" do
+      = icon('chevron-left') + ' ' + t('views.back')
+
+  = f.button :button, type: :submit, name: :save, class: 'btn-primary mx-1' do
     = icon 'plus'
-    = f.object.persisted? ? t('helpers.submit.update', model: f.object.model_name.human) : t('helpers.submit.create', model: f.object.model_name.human)
+    - if f.object.persisted?
+      = t('helpers.submit.update', model: f.object.model_name.human)
+    - else
+      = t('helpers.submit.create', model: f.object.model_name.human)
 
   - if f.object.persisted?
-    button [ type='button' class='btn btn-outline-danger' data={ \
-        controller: 'confirmation',
-        confirmation_title: t('views.confirmation.discard.title',
-          model: f.object.model_name.human),
-        confirmation_body: yield(:confirmation_body).presence || \
-        t('views.confirmation.discard.body', model: f.object.model_name.human,
-          date: tag.b(l f.object.created_at, format: :short)),
-        confirmation_action: t('views.confirmation.discard.action',
-          model: f.object.model_name.human),
-        confirmation_url: url_for(id:f.object.id, action: :discard, controller: controller_name, only_path: true) \
-    }]
-      = icon('trash-alt')+' '+t('helpers.submit.discard')
+    button type='button' class='btn btn-outline-danger' data={ \
+      controller: 'confirmation',
+      confirmation_title: t('views.confirmation.discard.title',
+        model: f.object.model_name.human),
+      confirmation_body: yield(:confirmation_body).presence || \
+      t('views.confirmation.discard.body', model: f.object.model_name.human,
+        date: tag.b(l(f.object.created_at, format: :short))),
+      confirmation_action: t('views.confirmation.discard.action',
+        model: f.object.model_name.human),
+      confirmation_url: url_for(id: f.object.id, action: :discard,
+        controller: controller_name, only_path: true) }
+      = icon('trash-alt') + ' ' + t('helpers.submit.discard')
   - else
-    = f.button :button, name: :create_and_new, class: "btn-outline-info" do
+    = f.button :button, name: :create_and_new, class: 'btn-outline-info' do
       = icon('chevron-circle-right') + t('helpers.submit.create_and_new')

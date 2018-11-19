@@ -1,7 +1,7 @@
 - @custom_yield = true
 = render 'subhead'
 h5 = @counter_party.name
-p  = @contract unless @contract.single?
+p = @contract unless @contract.single?
 p
   = l start_date=Date.strptime(params[:all_flows][:start_date])
   |  - 

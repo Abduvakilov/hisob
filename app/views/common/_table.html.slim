@@ -1,23 +1,23 @@
 table.table.table-hover.table-responsive
-	thead
-		tr
-			- records.model.shown_fields.each do |column|
-				== th_sortable records.model, column
-	tbody
-		- records.each do |r|
-			tr data-url=polymorphic_path(r)
-				- records.model.shown_fields.each do |column|
-					- if respond_to? "table_#{column}"
-						td == public_send("table_#{column}", r)
-					- else
-						- case val = r.send(column)
-						- when true
-							td = icon 'check'
-						- when false
-							td = icon 'times'
-						- else
-							td = val
-		- if records.empty?
-			tr
-				td colspan=records.model.shown_fields.count = t 'views.no_records_found'
+  thead
+    tr
+      - records.model.shown_fields.each do |column|
+        == th_sortable records.model, column
+  tbody
+    - records.each do |r|
+      tr data-url=polymorphic_path(r)
+        - records.model.shown_fields.each do |column|
+          - if respond_to? "table_#{column}"
+            td == public_send("table_#{column}", r)
+          - else
+            - case val = r.send(column)
+            - when true
+              td = icon 'check'
+            - when false
+              td = icon 'times'
+            - else
+              td = val
+    - if records.empty?
+      tr
+        td colspan=records.model.shown_fields.count = t 'views.no_records_found'
 == paginate records

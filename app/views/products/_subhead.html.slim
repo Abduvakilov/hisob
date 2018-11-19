@@ -1,14 +1,11 @@
 - _id = params[:id] || params[:product_id]
 ul.nav.nav-tabs.mb-3
   li.nav-item
-    = link_to t('views.tab_titles.show'),
-    - 			product_path(_id),
-    - 			class: "nav-link#{' active' if action_name=='show' }"
+    a.nav-link[href=product_path(_id) class=('active' if action_name=='show')]
+      = t('views.tab_titles.show')
   li.nav-item
-    = link_to t('views.tab_titles.report'),
-    - 			report_product_path(_id),
-    - 			class: "nav-link#{' active' if action_name=='report' }"
+    a.nav-link href=report_product_path(_id) class=('active' if action_name=='report')
+      = t('views.tab_titles.report')
   li.nav-item
-    = link_to Price.model_name.human(count: 2),
-    - 			product_prices_path(_id),
-    - 			class: "nav-link#{' active' if controller_name=='prices' }"
+    a.nav-link href=product_prices_path(_id) class=('active' if controller_name=='prices')
+      = Price.model_name.human(count: 2)

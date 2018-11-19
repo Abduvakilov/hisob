@@ -17,7 +17,7 @@
         {base_unit: item.unit.base_unit, ratio: item.unit.ratio_to_base_unit} \
         : {} )]}, input_html: {'data-action': 'change->unit#updateUnit'}
     = f.association :category,
-      collection: Category.kept.where(for: Price.name).order( \
+      collection: Category.kept.where(for: nil).order( \
         params[:product_id] && \
         (main_category = Product.find(params[:product_id]).category_id) ? \
       'id='+main_category : nil)

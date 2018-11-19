@@ -1,46 +1,13 @@
 = simple_form_for @production, defaults: { wrapper_html: { class: 'col-sm' } },
-- 	html: {  'data-controller': 'table' } do |f|
-= f.error_notification
-.form-row
-  = f.input :date, as: :datepicker, input_html: {required: ''}
-  = f.input :company, input_html: { value: current_user.employee&.company.short_name, disabled: true}
-table.table.table-bordered.table-sm
-  thead
-    tr
-      th
-      th.font-weight-normal[scope="col"]
-        | #
-      th.font-weight-normal[scope="col"]
-        = ProductionItem.human_attribute_name :product
-      th.font-weight-normal[scope="col"]
-        = ProductionItem.human_attribute_name :amount
-      th.font-weight-normal[scope="col"]
-        = ProductionItem.human_attribute_name :unit
+  html: {  'data-controller': 'table' } do |f|
+  = f.error_notification
+  .form-row
+    = f.input :date, as: :datepicker, input_html: {required: ''}
+    = f.input :company, input_html: { value: current_user.employee&.company.short_name, disabled: true}
+
   - @production.production_items.build
-  tbody
-    =	f.fields_for :production_items do | fa |
-      tr[data-controller="row unit"]
-        td.text-danger.text-center[data-save]
-          = fa.check_box :_destroy, class: 'd-none' if fa.object.persisted?
-          = fa.label :_destroy, 'data-action': 'click->row#remove click->table#update',
-          -   				'data-target': 'row.minus' do
-          =icon 'minus'
-    th.font-weight-normal[scope="row" data-target="row.no"]
-      | 1
-    = fa.input :product_id, wrapper: :table_row, wrapper_html: {class: nil},
-    -   			collection: Product.kept.where(company_id: 1).map{ |p| [p, p.id, unit: p.unit] },
-    -   			prompt: '', input_html: {'data-action': 'change->row#copy change->unit#updateUnit', id: nil}
-    = fa.input :amount, wrapper: :table_row,
-    - 				wrapper_html: {class: nil}, input_html: {
-    - 					autocomplete: 'off', id: nil, min: 0, data: {
-    -   				target: 'table.amount',
-    -   				action: 'input->row#copy input->table#update'
-    -   		}}
-    td[data-target="unit.unit"]
-      =fa.object.product&.unit
-  tfoot
-    tr
-      td[colspan="3"]
-      td[data-target="table.totalAmount"]
-        = @production.total_amount
-= render 'common/form_buttons', f: f
+  = render 'sale_purchase/form_table', f: f,
+    item_name: :production_items,
+    exclude_price: true,
+    product_where: 'company_id is not null'
+  = render 'common/form_buttons', f: f

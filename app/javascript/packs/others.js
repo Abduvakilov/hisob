@@ -1,1 +1,1 @@
-import 'others'
+import 'others';

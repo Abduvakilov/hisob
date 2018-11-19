@@ -1,8 +1,8 @@
 = render 'common/subhead'
 h5
-  | Hisobdagi qoldiq: 
+  | Hisobdagi qoldiq:
   small.text-muted
-    = currency_precise_number(@account.balance, @account.currency, unit:true)
+    = currency_precise_number(@account.balance, @account.currency, unit: true)
 h5 Kirim va chiqimlar
 
 = render 'report/all_flows_form'

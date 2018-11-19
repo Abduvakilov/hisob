@@ -1,5 +1,4 @@
-h5
-  = t 'views.links'
+h5 = t 'views.links'
 ul.nav.flex-column
   li.nav-item
     a.nav-link href=categories_path(for: Expense.name)
@@ -7,7 +6,7 @@ ul.nav.flex-column
       = t('views.title.categories.expense.index')
 h5 Filterlar
 form.filter action==transactions_path method="get"
-  - %I[ sort dir search].each do |field|
+  - %I[sort dir search].each do |field|
     - if params[field].present?
       input type='hidden' name=field value=params[field]
   select.custom-select name='type_id' onchange='this.form.submit()'

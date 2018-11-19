@@ -6,8 +6,9 @@
     .col-md-8
       = render 'sale_purchase/form_header', f: f, counter_party_role: counter_party_role
       
-      = render 'sale_purchase/form_table', f: f, item_name: item_name,
-        product_where: product_where
+      = render 'sale_purchase/form_table', f: f,
+        item_name: item_name, product_where: product_where,
+        exclude_price: local_assigns[:exclude_price]
 
 
     .col-md-8.order-3.order-md-2

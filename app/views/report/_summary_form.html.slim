@@ -3,21 +3,21 @@
 = simple_form_for :summary,
   url: polymorphic_path([:report,controller_name.singularize]),
   method: :post, defaults: { \
-  	wrapper_html: {class: 'col-md'}, label: false \
+    wrapper_html: {class: 'col-md'}, label: false \
   }, html: {'data-controller': 'summary'} do |f|
 
   .form-row
     = f.input :freq, collection: %w[daily weekly monthly yearly].map{|e| \
       [t("frequnecies.#{e}"), e]}, selected: 'monthly'
     = f.input :daily, as: :datepicker,
-      wrapper_html: {class: 'd-none'}, input_html: {
-    		'data-target': 'report.daily report.monthly',
-    		'data-flatpickr-mode': 'range'}
+      wrapper_html: {class: 'd-none'}, input_html: { \
+        'data-target': 'report.daily report.monthly',
+        'data-flatpickr-mode': 'range'}
     - year = 30.days.ago.year
     - months=I18n.t('date.month_names').drop(1).each_with_index.map{|x,i| [x, i+1]}
     
-    = f.simple_fields_for 'monthly', defaults: {
-  		wrapper_html: {class: 'col-6 col-md', 'data-target': 'report.monthly'},
+    = f.simple_fields_for 'monthly', defaults: { \
+      wrapper_html: {class: 'col-6 col-md', 'data-target': 'report.monthly'},
       label: false} do |m|
       = m.input :from_year, collection: 2010..year, selected: year,
         wrapper_html: {class: 'col-6 col-md pr-0'}
@@ -29,7 +29,7 @@
         wrapper_html: {class: 'col-6 col-md pr-0'}
       = m.input :to_month, collection: months, selected: Date.today.month
 
-    = f.simple_fields_for 'yearly', defaults: {
+    = f.simple_fields_for 'yearly', defaults: { \
       wrapper_html: {class: 'd-none col-6 col-md', 'data-target': 'report.yearly'},
       label: false} do |y|
       = y.input :from_year, collection: 2010..year, selected: year

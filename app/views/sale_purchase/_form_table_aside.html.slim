@@ -10,9 +10,9 @@ table.form-table.w-auto
         = f.text_field :discount, autocomplete: 'off',
           value: currency_precise_number(f.object.discount, f.object.currency),
           id: nil, class: 'text-right', data: { \
-          	controller: 'currency',
-          	target: 'table.discount',
-          	action: 'input->table#update'}
+            controller: 'currency',
+            target: 'table.discount',
+            action: 'input->table#update'}
     tr
       th.font-weight-bold scope="row" = t 'views.to_be_paid'
       td.w-50.text-right data-target='table.toBePaid'

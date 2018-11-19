@@ -1,26 +1,31 @@
 .alert ul {
   margin-bottom: 0;
 }
+
 .selectr-selected,
 .selectr-input {
   border-color: $input-border-color;
   border-radius: $input-border-radius;
 }
+
 .selectr-selected:focus {
   outline: none;
 }
+
 .selectr-container.open.inverted .selectr-selected {
-  border-radius: 0,0,$input-border-radius,$input-border-radius;
+  border-radius: 0, 0, $input-border-radius, $input-border-radius;
 }
 
 .selectr-container.open .selectr-selected {
-  border-radius: $input-border-radius,$input-border-radius,0,0;
+  border-radius: $input-border-radius, $input-border-radius, 0, 0;
 }
 
 .form-group-invalid {
+
   .invalid-feedback {
     display: block;
   }
+
   .selectr-selected {
     border-color: $danger;
   }

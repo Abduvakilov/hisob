@@ -2,7 +2,7 @@
   = f.error_notification
   .form-row
     = f.association :employee, input_html: {'data-controller': 'selectr'},
-    - 			collection: Employee.kept.left_outer_joins(:user).where( users: { employee_id: [nil, f.object.employee_id] })
+      collection: Employee.kept.left_outer_joins(:user).where( users: { employee_id: [nil, f.object.employee_id] })
   .form-row
     = f.input :login
   .form-row

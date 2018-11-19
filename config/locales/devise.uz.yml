@@ -3,7 +3,7 @@
 uz:
   devise:
     failure:
-      already_authenticated: "You are already signed in."
+      already_authenticated: "Kirib bo‘lingan."
       invalid: "%{authentication_keys} yoki parol noto‘g‘ri."
       locked: "Your account is locked."
       last_attempt: "You have one more attempt before your account is locked."

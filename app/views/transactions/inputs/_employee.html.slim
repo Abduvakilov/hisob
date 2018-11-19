@@ -1,7 +1,7 @@
 = f.input :employee, wrapper_class: ['form-group', (' d-none' unless f.object.to_employee?)] do
   = f.select :employee_id,
-    (f.object.to_employee? ? Employee.kept.map{|e|[e,e.id]} : []),
-    {selected: (f.object.employee_id)}, data: { \
+    (f.object.to_employee? ? Employee.kept.map{ |e| [e, e.id] } : []),
+    { selected: f.object.employee_id }, data: { \
       custom_track: '',
       controller: 'selectr',
       target: 'transaction.employee'},

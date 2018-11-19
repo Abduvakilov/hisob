@@ -2,19 +2,19 @@
 - records = controller.objects
 a.btn.btn-outline-success.mb-2 href=controller.path(action: :new) = "+ #{model_name}"
 table.table.table-hover.table-responsive
-	thead
-		tr
-			- records.model.shown_fields.each do |column|
-				== th_sortable records.model, column
-	tbody
-		- records.each do |r|
-			tr data-url=controller.path(r)
-				- records.model.shown_fields.each do |column|
-					- if respond_to? "table_#{column}"
-						td == public_send("table_#{column}", r)
-					- else
-						td = r.send(column)
-		- if records.blank?
-			tr
-				td colspan=records.model.shown_fields.count = t 'views.no_records_found'
+  thead
+    tr
+      - records.model.shown_fields.each do |column|
+        == th_sortable records.model, column
+  tbody
+    - records.each do |r|
+      tr data-url=controller.path(r)
+        - records.model.shown_fields.each do |column|
+          - if respond_to? "table_#{column}"
+            td == public_send("table_#{column}", r)
+          - else
+            td = r.send(column)
+    - if records.blank?
+      tr
+        td colspan=records.model.shown_fields.count = t 'views.no_records_found'
 == paginate records

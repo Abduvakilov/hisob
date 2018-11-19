@@ -3,23 +3,25 @@
 - model_name = records.model.model_name
 
 form action=controller.path method='get'
-	.row.mb-2
-		- if lookup_context.exists?('add_buttons', controller_name, true)
-			= render 'add_buttons'
-		- else
-			.col-auto
-				a.btn.btn-outline-success.mr-2 href=public_send("new_#{controller_name.singularize}_path") = "+ #{model_name.human}"
-		.col
-			- %I[ sort dir type_id date account_id currency_id ].each do |field|
-				- if params[field].present?
-					input type='hidden' name=field value=params[field] 
-			.input-group
-				input.form-control type='search' name='search' value=params[:search]
-				.input-group-append
-					button.btn.btn-outline-primary type='submit' = t('views.search')
-	= yield :second_row
+  .row.mb-2
+    - if lookup_context.exists?('add_buttons', controller_name, true)
+      = render 'add_buttons'
+    - else
+      .col-auto
+        a.btn.btn-outline-success.mr-2[
+          href=send("new_#{controller_name.singularize}_path") ]
+          = "+ #{model_name.human}"
+    .col
+      - %I[sort dir type_id date account_id currency_id].each do |field|
+        - if params[field].present?
+          input type='hidden' name=field value=params[field]
+      .input-group
+        input.form-control type='search' name='search' value=params[:search]
+        .input-group-append
+          button.btn.btn-outline-primary type='submit' = t('views.search')
+  = yield :second_row
 = render 'common/table', records: records
 
 - if lookup_context.exists?('aside', controller_name, true)
-	= content_for :aside
-		= render 'aside'
+  = content_for :aside
+    = render 'aside'

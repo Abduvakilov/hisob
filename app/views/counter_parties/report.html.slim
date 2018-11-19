@@ -15,7 +15,7 @@ h5
   | :
 = simple_form_for :all_flows, url: report_counter_party_path,
   method: :post, defaults: { \
-  	wrapper_html: {class: 'col-sm'}, label: false },
+    wrapper_html: {class: 'col-sm'}, label: false },
   html: {class: 'form-row', 'data-controller': 'all_flows'} do |f|
   = f.input :start_date, as: :datepicker, input_html: {required: true, value: Date.yesterday}
   = f.input :end_date, as: :datepicker, input_html: {value: Date.today}
