@@ -1,19 +1,21 @@
 class CounterPartiesController < ApplicationController
   def report
-    if request.post?
-      if params[:all_flows?]
-        all_flows_report
-      elsif params[:summary?]
-        summary_report
-      end
+    if params[:flows]
+      report_flows
+    elsif params[:summary]
+      report_summary
     end
-
   end
 
   private
-  def all_flows_report
-    all_flows   = params[:all_flows]
-    @contract   = Contract.find(all_flows[:contract]) ||
+  def report_flows
+    flows     = params[:flows]
+    if flows[:start_date].empty? || flows[:end_date].empty?
+      redirect_to new_report_counter_party_path(
+        'flows_start_date]': flows[:start_date].present?, 'flows_end_date': flows[:end_date].present?)
+      return
+    end
+    @contract = flows[:contract] ? Contract.find(flows[:contract]) :
                   CounterParty.includes(:contracts).find(params[:id]).main_contract
 
     sql = <<-SQL
@@ -23,7 +25,7 @@ class CounterPartiesController < ApplicationController
 
       union all
 
-      select 'sale', s.id, datetime, si.total-discount as amount, null
+      select 'sale', s.id, datetime, si.total-ifnull(discount,0) as amount, null
       from sales s
       join (
         select sale_id, sum(price*amount) as total from sale_items si group by sale_id
@@ -32,7 +34,7 @@ class CounterPartiesController < ApplicationController
 
       union all
 
-      select 'purchase', p.id, datetime, pi.total-discount as amount, null
+      select 'purchase', p.id, datetime, pi.total-ifnull(discount,0) as amount, null
       from purchases as p
       join (
         select purchase_id, sum(price*amount) as total from purchase_items pi group by purchase_id
@@ -43,13 +45,14 @@ class CounterPartiesController < ApplicationController
     SQL
 
     sanitized_sql = ActiveRecord::Base.sanitize_sql [ sql,
-      contract_id: @contract.id, start_date: all_flows[:start_date], end_date: Date.strptime(all_flows[:end_date])+1]
+      contract_id: @contract.id,
+      start_date: flows[:start_date], end_date: Date.strptime(flows[:end_date])+1]
     @records = ActiveRecord::Base.connection.select_all sanitized_sql
 
-    render :report_all_flows
+    render :report_flows
   end
 
-  def summary_report
+  def report_summary
 
   end
 

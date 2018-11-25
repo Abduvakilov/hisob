@@ -4,16 +4,21 @@ import './alert';
 
 Turbolinks.start();
 
-document.addEventListener('turbolinks:load', function() {
+window.touch = 'ontouchstart' in document.documentElement;
 
-	window.touch = 'ontouchstart' in document.documentElement;
-	let linkEventHandler = e => Turbolinks.visit(e.currentTarget.getAttribute('data-url'));
+document.addEventListener('turbolinks:load', function() {
 	let linkedEls = document.querySelectorAll('[data-url]');
 	for (let i = 0; i < linkedEls.length; i++) {
 		let event = (linkedEls[i].tagName === 'TR' && !window.touch) ? 'dblclick' : 'click';
 		linkedEls[i].addEventListener(event, linkEventHandler);
 	}
 });
+
+function linkEventHandler(e) {
+	Turbolinks.visit(e.currentTarget.getAttribute('data-url'));
+	window.getSelection().removeAllRanges();
+}
+
 
 window.toggleOpen = (e) => {
 	e.currentTarget.parentElement.parentElement.classList.toggle('open');

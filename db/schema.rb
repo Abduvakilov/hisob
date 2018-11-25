@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_05_075431) do
+ActiveRecord::Schema.define(version: 2018_11_21_094627) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
@@ -136,6 +136,62 @@ ActiveRecord::Schema.define(version: 2018_11_05_075431) do
     t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["discarded_at"], name: "index_employees_on_discarded_at"
+  end
+
+  create_table "payroll_items", force: :cascade do |t|
+    t.integer "payroll_id"
+    t.integer "employee_id"
+    t.float "day_1_hours"
+    t.float "day_2_hours"
+    t.float "day_3_hours"
+    t.float "day_4_hours"
+    t.float "day_5_hours"
+    t.float "day_6_hours"
+    t.float "day_7_hours"
+    t.float "day_8_hours"
+    t.float "day_9_hours"
+    t.float "day_10_hours"
+    t.float "day_11_hours"
+    t.float "day_12_hours"
+    t.float "day_13_hours"
+    t.float "day_14_hours"
+    t.float "day_15_hours"
+    t.float "day_16_hours"
+    t.float "day_17_hours"
+    t.float "day_18_hours"
+    t.float "day_19_hours"
+    t.float "day_20_hours"
+    t.float "day_21_hours"
+    t.float "day_22_hours"
+    t.float "day_23_hours"
+    t.float "day_24_hours"
+    t.float "day_25_hours"
+    t.float "day_26_hours"
+    t.float "day_27_hours"
+    t.float "day_28_hours"
+    t.float "day_29_hours"
+    t.float "day_30_hours"
+    t.float "day_31_hours"
+    t.float "non_chash"
+    t.float "tax"
+    t.float "bonus"
+    t.float "overtime"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_payroll_items_on_employee_id"
+    t.index ["payroll_id"], name: "index_payroll_items_on_payroll_id"
+  end
+
+  create_table "payrolls", force: :cascade do |t|
+    t.integer "month"
+    t.integer "year"
+    t.text "notes"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_payrolls_on_discarded_at"
+    t.index ["month"], name: "index_payrolls_on_month"
+    t.index ["year"], name: "index_payrolls_on_year"
   end
 
   create_table "prices", force: :cascade do |t|
@@ -297,6 +353,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_075431) do
     t.integer "employee_id"
     t.boolean "is_admin"
     t.text "notes"
+    t.text "settings"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

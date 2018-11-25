@@ -3,25 +3,21 @@ html
   head
     title Login
     meta[name="viewport" content="width=device-width, initial-scale=1"]
-    = csrf_meta_tags
-    = csp_meta_tag
     css:
       html, body {
         position: relative;
         height: 100%;
-        font-size: 1.15em;
       }
       .center {
         position: absolute;
         top: 15%; left: 50%;
         transform: translateX(-50%);
         width: 300px;
-        border: 2px solid orange;
+        border: 2px solid gray;
         padding: 10px;
       }
       input {
-        height: 1.15em;
-        font-size: 1.1em;
+        height: 1.1em;
         padding: 5px;
         margin-bottom: 10px;
       }
@@ -36,4 +32,7 @@ html
       }
   body
     .center
+      - flash.each do |_, value|
+        div role='alert'
+          = value
       = yield

@@ -3,9 +3,9 @@
 h5 = @counter_party.name
 p = @contract unless @contract.single?
 p
-  = l start_date=Date.strptime(params[:all_flows][:start_date])
-  |  - 
-  = l Date.strptime(params[:all_flows][:end_date])
+  = l start_date=Date.strptime(params[:flows][:start_date])
+  |  -
+  = l Date.strptime(params[:flows][:end_date])
 table.table.table-hover.table-responsive.table-bordered.text-right
   thead: tr
     - %w[type date opening_balance amount_up amount_down closing_balance].each do |column|

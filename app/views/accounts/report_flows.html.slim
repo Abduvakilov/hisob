@@ -2,17 +2,18 @@
 h3
   = @account
 p
-  = l Date.strptime(params[:all_flows][:start_date])
-  |  - 
-  = l Date.strptime(params[:all_flows][:end_date])
+  = l Date.strptime(params[:flows][:start_date])
+  |  -
+  = l Date.strptime(params[:flows][:end_date])
 table.table.table-hover.table-responsive.table-bordered.text-right
   thead
     tr
-      - %w[date type counter_party opening_balance amount_up amount_down closing_balance].each do |column|
+      - %w[date type counter_party opening_balance
+        amount_up amount_down closing_balance].each do |column|
         th
           = t "attributes.#{column}"
   tbody
-    - closing  = @account.balance(params[:all_flows][:start_date])
+    - closing  = @account.balance(params[:flows][:start_date])
     - currency = @account.currency
     - @transactions.each do |transaction|
       tr data-url=transaction_path(transaction)
@@ -20,12 +21,13 @@ table.table.table-hover.table-responsive.table-bordered.text-right
         td = t "activerecord.models.#{transaction.type}.one"
         td = transaction.counter
         td = currency_precise_number(opening = closing, currency)
-        - if amount_up = transaction.income? || transaction.counter_account == @account
+        - if amount_up = transaction.income? || \
+            transaction.counter_account == @account
           td = currency_precise_number transaction.amount, currency
           td
         - else
           td
           td = currency_precise_number transaction.amount, currency
         td = currency_precise_number( \
-          closing = opening + (amount_up ? 1 : -1 ) * transaction.amount,
+          closing = opening + (amount_up ? 1 : -1) * transaction.amount,
             currency)

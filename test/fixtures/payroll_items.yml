@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  1: 1.5
+  31: 1.5
+  non-chash: 1.5
+  tax: 1.5
+  bonus: 1.5
+  overtime: 1.5
+
+two:
+  1: 1.5
+  31: 1.5
+  non-chash: 1.5
+  tax: 1.5
+  bonus: 1.5
+  overtime: 1.5

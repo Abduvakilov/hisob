@@ -1,6 +1,7 @@
 = render "#{controller.parent_class_name.pluralize}/subhead"
 - records = controller.objects
-a.btn.btn-outline-success.mb-2 href=controller.path(action: :new) = "+ #{model_name}"
+a.btn.btn-outline-success.mb-2 href=controller.path(action: :new)
+  = "+ #{model_name}"
 table.table.table-hover.table-responsive
   thead
     tr

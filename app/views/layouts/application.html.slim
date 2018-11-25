@@ -4,11 +4,15 @@ html[lang="uz"]
     title
       = title = @title || title_of_page
     meta[name="viewport" content="width=device-width, initial-scale=1"]
-    = csrf_meta_tags
-    = csp_meta_tag
+    / = csrf_meta_tags
+    / = csp_meta_tag
+    - if action_name == 'index'
+      link rel="prefetch" href=asset_pack_path('application.js')
+    - else
+      = javascript_pack_tag 'application', defer: true
+
+    = javascript_pack_tag 'others', defer: true
     = stylesheet_pack_tag 'application'
-    = javascript_pack_tag 'others'
-    = javascript_pack_tag 'application', defer: true
     = yield(:head)
   body
     - cache :menu do

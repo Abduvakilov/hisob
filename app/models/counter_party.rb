@@ -8,7 +8,7 @@ class CounterParty < ApplicationRecord
     contracts.first
   end
 
-  def balance(date=Date.today, contract_ids=contracts.ids)
+  def balance(date=Date.tomorrow, contract_ids=contracts.ids) # start of the date
     sql = <<-SQL
       select contract_id, sum(amount) balance from (
 
@@ -17,7 +17,7 @@ class CounterParty < ApplicationRecord
 
       union all
 
-      select si.total-discount, contract_id from sales s
+      select si.total-ifnull(discount,0), contract_id from sales s
       join (
         select sale_id, sum(price*amount) as total from sale_items si group by sale_id
         ) as si on s.id = sale_id
@@ -25,7 +25,7 @@ class CounterParty < ApplicationRecord
 
       union all
 
-      select pi.total-discount, contract_id from purchases as p
+      select pi.total-ifnull(discount,0), contract_id from purchases as p
       join (
         select purchase_id, sum(price*amount) as total from purchase_items pi group by purchase_id
         ) as pi on p.id = purchase_id
@@ -46,9 +46,9 @@ class CounterParty < ApplicationRecord
 
   belongs_to :district, optional: true
   belongs_to :category, optional: true
-  has_many :sales, -> { kept }
-  has_many :purchases, -> { kept }
   has_many :contracts, -> { kept }
+  has_many :sales,     -> { kept }, through: :contracts
+  has_many :purchases, -> { kept }, through: :contracts
 
   after_create :create_contract
 

@@ -42,11 +42,9 @@ module ApplicationHelper
     number_to_currency(number, precision: currency.precision, unit: unit)
   end
 
-  # def parent_layout(layout)
-  #   @view_flow.set(:layout, output_buffer)
-  #   output = render(file: "layouts/#{layout}")
-  #   self.output_buffer = ActionView::OutputBuffer.new(output)
-  # end
+  def user_default_time
+    Time.now + current_user.default_day_difference.days
+  end
 
   def icon(fa_symbol_name, text='')
     content_tag(:i, '', class: 'fas fa-'+fa_symbol_name)+text

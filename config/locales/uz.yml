@@ -18,7 +18,7 @@ uz:
       account:
         one: Hisob
         other: Hisoblar
-      transaction: 
+      transaction:
         one: Pul aylanmasi
         other: Pul aylanmalari
       counter_party:
@@ -161,10 +161,15 @@ uz:
     amount_up: Ortdi
     amount_down: Kamaydi
     price: Narx
-    price_category: Narx turi
+    price_type: Narx turi
     ratio_to_base_unit: Asos birligiga nisbati
     accepted_as_amount: Qiymat
     accepted_as_currency: Valyuta
+    allow_negative_account_balance: Hisobda mablag‘ yetarliligi tekshirilsin
+    allow_negative_product_balance: Mahsulot soni yetarliligi tekshirilsin
+    default_day_difference: Standart vaqt farqi
+    password_confirmation: Parolni tasdiqlash
+    employee: Xodim
 
 
   helpers:

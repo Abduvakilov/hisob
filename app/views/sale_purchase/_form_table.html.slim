@@ -11,8 +11,8 @@ table.form-table
   /- @sale.sale_items.build
   tbody
     =	f.simple_fields_for item_name, defaults: { required: true,
-      wrapper: :table_row, wrapper_html: {class: nil},
-      input_html: {id: nil} } do | fa |
+      wrapper: :table_row, wrapper_html: { class: nil },
+      input_html: { id: nil } } do | fa |
       tr data-controller="row unit#{' price' if exclude_price}"
         td.text-danger.text-center[data-save]
           - if fa.object.persisted?
@@ -27,7 +27,7 @@ table.form-table
             map { |p| [p, p.id, unit: p.unit] },
           input_html: { \
             'data-action': "change->row#copy change->unit#updateUnit#{ \
-            'change->price#updatePrice' unless exclude_price}",
+            ' change->price#updatePrice' unless exclude_price}",
             id: nil}
         - unless exclude_price
           = fa.input :price, as: :string, input_html: { \

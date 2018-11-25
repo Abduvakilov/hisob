@@ -1,8 +1,0 @@
-= simple_form_for :all_flows,
-  url: polymorphic_path([:report,controller_name.singularize]),
-  method: :post, defaults: { \
-    wrapper_html: {class: 'col-sm'}, label: false \
-  }, html: {class: 'form-row w-75', 'data-controller': 'all_flows'} do |f|
-  = f.input :start_date, as: :datepicker, input_html: {required: true, placeholder: t('attributes.start_date')}
-  = f.input :end_date, as: :datepicker, input_html: {placeholder: t('attributes.end_date')}
-  = f.button :button, t('helpers.submit.create_report'), name: :all_flows?, class: 'btn btn-primary ml-sm-2 mb-sm-3 col-md-auto col-12'

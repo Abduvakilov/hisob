@@ -22,11 +22,11 @@ class Product < ApplicationRecord
   end
 
   def price(options={})
-    raise ArgumentError, "At least, :price_category_id and :currency_id or :contract_id should be provided" unless (options[:price_category_id] && options[:currency_id]) || options[:contract_id]
-    price_category_id = options[:price_category_id] || Contract.find(options[:contract_id]).category_id
+    raise ArgumentError, "At least, :price_type_id and :currency_id or :contract_id should be provided" unless (options[:price_type_id] && options[:currency_id]) || options[:contract_id]
+    price_type_id = options[:price_type_id] || Contract.find(options[:contract_id]).category_id
     currency_id = options[:currency_id] || Contract.find(options[:contract_id]).currency_id
     prices.kept.where('date <= ?', Date.today).
-      order('date DESC').find_by(price_category_id: price_category_id, currency_id: currency_id)&.
+      order('date DESC').find_by(price_type_id: price_type_id, currency_id: currency_id)&.
       price || category_price(currency_id)
   end
 

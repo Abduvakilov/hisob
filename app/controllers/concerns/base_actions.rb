@@ -3,7 +3,7 @@ module BaseActions
   include Objects
 
   included do
-    before_action :set_object, only: %I[show report discard update]
+    before_action :set_object, only: %I[show update new_report report discard]
     before_action :authenticate_user!
   end
 
@@ -18,7 +18,7 @@ module BaseActions
   def show
   end
 
-  def report
+  def new_report
   end
 
   def new

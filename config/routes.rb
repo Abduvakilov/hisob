@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'sign_up' }
+  devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root "pages#index"
 
@@ -7,19 +7,17 @@ Rails.application.routes.draw do
     post 'discard', on: :member
   end
 
-  # concern :categorizable do
-  #   collection { resources :categories }
-  # end
-
   resources :transactions, :products, :counter_parties, :units,
             :purchases, :productions, :sales, :prices,
-            :employees, :users, :salaries, :departments, :companies,
+            :employees, :users, :departments, :companies,
+            :salaries, :payrolls,
             :accounts, :categories, :districts, :currencies,
             # :price_types, :expense_types,
   except: [:edit, :destroy],
   concerns: :discardable do
     member do
-      match 'report', via: [:get, :post]
+      post 'report'
+      get 'new_report'
     end
   end
 

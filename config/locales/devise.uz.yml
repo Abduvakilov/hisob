@@ -10,6 +10,8 @@ uz:
       not_found_in_database: "%{authentication_keys} yoki parol noto‘g‘ri."
       timeout: "Sizning sessiyangiz tugadi, Iltimos qaytadan kiring."
       unauthenticated: "Birinchi tizimga kiring."
+      user:
+        inactive: "Bu foydalanuvchi nofaol deb topildi"
     sessions:
       signed_in: "Muvaffaqqiyatli kirildi."
       signed_out: "Muvaffaqqiyatli chiqildi."

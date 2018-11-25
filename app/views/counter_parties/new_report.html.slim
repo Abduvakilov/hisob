@@ -1,0 +1,22 @@
+- @col = 10
+= render 'subhead'
+h4 = @counter_party
+h5
+  = t 'views.report.balance'
+  ' :
+  = @counter_party.balance.map do |contract_id, balance| \
+    color_pay_receive(balance,
+      Contract.includes(:currency).find(contract_id).currency,
+      unit: true, tag: :small) \
+    end.join(', ').html_safe.presence || 0
+h5
+  = t 'views.report.summary'
+  | :
+= render 'report/summary_form'
+h5
+  = t 'views.report.flows'
+  | :
+= render layout: 'report/flows_form' do |f|
+  - contracts = @counter_party.contracts
+  - unless contracts.one?
+    = f.input :contract, collection: contracts, prompt: false

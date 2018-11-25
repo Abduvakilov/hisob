@@ -431,7 +431,7 @@ SimpleForm.setup do |config|
     check_boxes:    :custom_collection,
     datetime:       :custom_multi_select,
     file:           :custom_file,
-    radio_buttons:  :custom_collection,
+    radio_buttons:  :vertical_collection,
     range:          :custom_range,
     time:           :custom_multi_select,
     select:         :custom_multi_select,
