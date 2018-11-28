@@ -1,20 +1,13 @@
 class CounterPartiesController < ApplicationController
   def report
-    if params[:flows]
-      report_flows
-    elsif params[:summary]
-      report_summary
+    %w[flows sales purchases summary].each do |type|
+      send("report_#{type}") and break if params[type]
     end
   end
 
   private
   def report_flows
     flows     = params[:flows]
-    if flows[:start_date].empty? || flows[:end_date].empty?
-      redirect_to new_report_counter_party_path(
-        'flows_start_date]': flows[:start_date].present?, 'flows_end_date': flows[:end_date].present?)
-      return
-    end
     @contract = flows[:contract] ? Contract.find(flows[:contract]) :
                   CounterParty.includes(:contracts).find(params[:id]).main_contract
 
@@ -54,6 +47,24 @@ class CounterPartiesController < ApplicationController
 
   def report_summary
 
+  end
+
+  def report_sales
+    sale  = params[:sales]
+    @contract = sale[:contract] ? Contract.find(sale[:contract]) :
+          CounterParty.includes(:contracts).find(params[:id]).main_contract
+    @sales = @counter_party.sales.where('datetime between ? and ?',
+      sale[:start_date], Date.strptime(sale[:end_date])+1)
+    render :report_sales
+  end
+
+  def report_purchases
+    purchase  = params[:purchases]
+    @contract = purchase[:contract] ? Contract.find(purchase[:contract]) :
+          CounterParty.includes(:contracts).find(params[:id]).main_contract
+    @purchases = @counter_party.purchases.where('datetime between ? and ?',
+      purchase[:start_date], Date.strptime(purchase[:end_date])+1)
+    render :report_purchases
   end
 
 end

@@ -6,7 +6,7 @@ p
   = l start_date=Date.strptime(params[:flows][:start_date])
   |  -
   = l Date.strptime(params[:flows][:end_date])
-table.table.table-hover.table-responsive.table-bordered.text-right
+table.report-table
   thead: tr
     - %w[type date opening_balance amount_up amount_down closing_balance].each do |column|
       th = t "attributes.#{column}"

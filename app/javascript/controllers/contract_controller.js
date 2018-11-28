@@ -17,7 +17,7 @@ export default class extends Controller {
 		let contractID = e.target.selectedOptions[0].getAttribute('contract')
 
 		if(contractID === '') {
-			
+
 			this.contractTarget.parentElement.classList.remove('d-none')
 
 			let cp = this.cps.find(el => el['id'] == e.target.value); // find counter_party from array fetched before
@@ -27,7 +27,7 @@ export default class extends Controller {
 				return;
 			}
 
-			fetch( `/counter_parties/${e.target.value}.json` )
+			fetch(`/counter_parties/${e.target.value}.json`, {credentials: 'same-origin'})
 	      .then( res => res.json() )
 	      .then( json => {
 	      	this.cps.push(json);

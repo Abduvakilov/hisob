@@ -1,16 +1,18 @@
-.row
-  - [[payrolls_path, 'address-card', Payroll],
-     [employees_path, 'user-tie', Employee],
-     [departments_path, 'briefcase', Department],
-     [companies_path, 'building', Company],
-     [currencies_path, 'dollar-sign', Currency],
-     [units_path, 'weight-hanging', Unit],
-     [categories_path, 'shapes', Category],
-     [districts_path, 'map-marked-alt', District]].each do |el|
-    .col-md-4.col-sm-6.py-sm-2
-      a.card.text-center href=el[0]
-        .card-img-top.mt-3
-          = icon el[1] + ' fa-fw fa-3x'
-        .card-body
-          h5.card-title
-            = el[2].model_name.human
+- cache :home_page do
+  .row
+    - [[payrolls_path, 'calculator', Payroll],
+       [employees_path, 'user-tie', Employee],
+       [salaries_path, 'address-card', Salary],
+       [departments_path, 'briefcase', Department],
+       [companies_path, 'building', Company],
+       [currencies_path, 'dollar-sign', Currency],
+       [units_path, 'weight-hanging', Unit],
+       [categories_path, 'shapes', Category],
+       [districts_path, 'map-marked-alt', District]].each do |el|
+      .col-md-4.col-sm-6.py-sm-2
+        a.card.text-center href=el[0]
+          .card-img-top.mt-3
+            = icon el[1] + ' fa-fw fa-3x'
+          .card-body
+            h5.card-title
+              = el[2].model_name.human

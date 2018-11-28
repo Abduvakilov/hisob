@@ -1,9 +1,21 @@
 class Product < ApplicationRecord
 
-  def leftover
-    production = Production.joins(:production_items).kept.where(production_items: {product: self}).sum 'production_items.amount'
-    purchase = Purchase.joins(:purchase_items).kept.where(purchase_items: {product: self}).sum 'purchase_items.amount'
-    sale = Sale.joins(:sale_items).kept.where(sale_items: {product: self}).sum 'sale_items.amount'
+  def leftover(date=Date.tomorrow)
+    production = Production.joins(:production_items).kept
+      .where(production_items: {product: self})
+      .where('date <= ?', date)
+      .sum 'production_items.amount'
+
+    purchase = Purchase.joins(:purchase_items).kept
+      .where(purchase_items: {product: self})
+      .where('datetime <= ?', date)
+      .sum 'purchase_items.amount'
+
+    sale = Sale.joins(:sale_items).kept
+      .where(sale_items: {product: self})
+      .where('datetime <= ?', date)
+      .sum 'sale_items.amount'
+
     production + purchase - sale
   end
 

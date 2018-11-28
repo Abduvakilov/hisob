@@ -26,7 +26,7 @@ export default class extends Controller {
 			this.balance = this.accounts.find(el => el['id'] == e.target.value);
 			return;
 		}
-    fetch( `/accounts/${e.target.value}.json` )
+    fetch(`/accounts/${e.target.value}.json`, {credentials: 'same-origin'})
       .then( res => res.json() )
       .then( json => {
       	this.accounts.push(json);

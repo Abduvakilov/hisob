@@ -1,0 +1,31 @@
+- @custom_yield = true
+= render 'subhead'
+h5 = Sale.model_name.human count: 2
+h5 = @counter_party.name
+p = @contract unless @contract.single?
+p
+  = l Date.strptime(params[:sales][:start_date])
+  |  -
+  = l Date.strptime(params[:sales][:end_date])
+table.report-table
+  thead: tr
+    - %w[date mahsulotlar amount total].each do |column|
+      th = t "attributes.#{column}"
+  tbody
+    - currency = @contract.currency
+    - @sales.each do |sale|
+      tr data-url=sale_path(sale)
+        td = l sale.datetime
+        td = sale.products
+        td = sale.total_amount
+        td = currency_precise_number(sale.total, currency)
+
+    - if @sales.present?
+      t
+        td Jami
+        td
+        td = @sales.reduce(0) { |memo, sale| memo + sale.total_amount }
+        td = currency_precise_number @sales.reduce(0) { |memo, sale| \
+          memo + sale.total }, currency
+    - else
+      tr: td[colspan=5] Bu muddat ichida xech nima topilmadi.

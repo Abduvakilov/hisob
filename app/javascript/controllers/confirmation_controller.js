@@ -1,9 +1,9 @@
-import { Controller } from "stimulus"
+import { Controller } from "stimulus";
 
 export default class extends Controller {
 
 	initialize() {
-		this.element.onclick = this.handleClick.bind(this)
+		this.element.onclick = this.handleClick.bind(this);
 	}
 
 	handleClick() {
@@ -13,25 +13,25 @@ export default class extends Controller {
 				window.dismissModal();
 		});
 		this.dismissOnEsc();
-		this.show()
+		this.show();
 	}
 
 	dismissOnEsc() {
 		document.addEventListener('keydown', e => {
 			if ( e.key === 'Escape' )
 				window.dismissModal();
-		})
+		});
 	}
 
 	show() {
 		Array.from(this.modal.children).forEach( e => {
 			e.style.display = 'block';
 			setTimeout(()=>{e.classList.add('show')}, 0);
-		})
+		});
 	}
 
 	render() {
-		this.modal = document.createElement("div"); 
+		this.modal = document.createElement('div');
 		let token = document.querySelector('meta[name=csrf-token]').content;
 		this.modal.innerHTML = `
 		<div class="modal fade" tabindex="-1" role="dialog">
@@ -56,8 +56,8 @@ export default class extends Controller {
 		    </div>
 		  </div>
 		</div>
-		<div onclick="dismissModal()" class="modal-backdrop fade"></div>`
-		document.body.appendChild(this.modal)
+		<div onclick="dismissModal()" class="modal-backdrop fade"></div>`;
+		document.body.appendChild(this.modal);
 	}
 
 }

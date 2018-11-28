@@ -12,8 +12,8 @@ export default class extends Controller {
 			messages: {
 				noResults: "Xech nima topilmadi.",
 				noOptions: "Xech nima yo‘q."
-		    // maxSelections: "A maximum of {max} items can be selected.",
-		    // tagDuplicate: "That tag is already in use"
+				// maxSelections: "A maximum of {max} items can be selected.",
+				// tagDuplicate: "That tag is already in use"
 			}
 		});
 		this.destroyBeforeCache();
@@ -32,7 +32,7 @@ export default class extends Controller {
 	saveOnChange() {
 		this.selectr.on('selectr.change', () => {
 			localStorage[this.element.name] = this.element.value;
-		})
+		});
 	}
 
 	setFromStorage() {

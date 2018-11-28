@@ -9,14 +9,24 @@ h5
       Contract.includes(:currency).find(contract_id).currency,
       unit: true, tag: :small) \
     end.join(', ').html_safe.presence || 0
-h5
-  = t 'views.report.summary'
-  | :
-= render 'report/summary_form'
-h5
-  = t 'views.report.flows'
-  | :
+/ h5 = t 'views.report.summary'
+/ = render 'report/summary_form'
+
+- contracts = @counter_party.contracts
+
+h5 = t 'views.report.flows'
 = render layout: 'report/flows_form' do |f|
-  - contracts = @counter_party.contracts
   - unless contracts.one?
     = f.input :contract, collection: contracts, prompt: false
+
+- if @counter_party.is_customer
+  h5 = t 'views.report.sales'
+  = render layout: 'report/flows_form', locals: { scope: :sales } do |f|
+    - unless contracts.one?
+      = f.input :contract, collection: contracts, prompt: false
+
+- if @counter_party.is_supplier
+  h5 = t 'views.report.purchases'
+  = render layout: 'report/flows_form', locals: { scope: :purchases } do |f|
+    - unless contracts.one?
+      = f.input :contract, collection: contracts, prompt: false

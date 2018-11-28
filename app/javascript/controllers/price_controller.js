@@ -17,7 +17,7 @@ export default class extends Controller {
 		let lastPrice = productObject['contract']['last_price'];
 		if(lastPrice)
 			this.application.getControllerForElementAndIdentifier(this.priceTarget,'currency').cleave.setRawValue(lastPrice);
-	} 
+	}
 
 	updatePrice(e) {
 		if(!this.contractID || !e.target.value) return;
@@ -28,7 +28,7 @@ export default class extends Controller {
 			this.price = product;
 			return;
 		}
-    fetch( `/products/${e.target.value}.json?contract_id=${this.contractID}` )
+    fetch(`/products/${e.target.value}.json?contract_id=${this.contractID}`, {credentials: 'same-origin'})
       .then( res => res.json() )
       .then( json => {
       	this.products.push(json);

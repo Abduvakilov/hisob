@@ -1,0 +1,38 @@
+- @custom_yield = true
+= render 'subhead'
+h5 = @product.name
+h6
+  = l start_date = Date.strptime(params[:flows][:start_date])
+  = ' - '
+  = l end_date = Date.strptime(params[:flows][:end_date])
+- closing = @product.leftover(start_date)
+h6
+  = "O‘lchov birligi: #{@product.unit}"
+div == "Muddat <b>boshida</b> #{closing} #{@product.unit}"
+div == "Muddat <b>so‘ngida</b> #{@product.leftover(end_date)} #{@product.unit}"
+div == "Muddat ichida mahsulot <b>kirimi</b> #{total_amount_up} #{@product.unit}"
+div == "Muddat ichida mahsulot <b>sarfi</b> #{total_amount_down} #{@product.unit}"
+br
+table.report-table
+  thead: tr
+    - %w[type date opening_balance amount_up amount_down closing_balance].each do |column|
+      th = t "attributes.#{column}"
+  tbody
+    - @records.each do |record|
+      tr data-url=url_for(only_path: true,
+        controller: record['model'].pluralize, action: :show, id: record['id'])
+        td = t record['model'].classify.constantize.model_name.human
+        td = l Date.strptime(record['datetime'])
+        td = opening = closing
+        - amount = record['total_amount']
+        - if amount_down = record['model'] == 'sale'
+          td
+          td = amount
+        - else
+          td = amount
+          td
+        td = closing = opening + (amount_down ? -1 : 1) * record['total_amount']
+    - if @records.blank?
+      tr
+        td[colspan=5] Bu muddat ichida xech nima topilmadi.
+        td = closing

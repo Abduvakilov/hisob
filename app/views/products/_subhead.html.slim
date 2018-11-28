@@ -4,8 +4,8 @@ ul.nav.nav-tabs.mb-3
     a.nav-link[href=product_path(_id) class=('active' if action_name=='show')]
       = t('views.tab_titles.show')
   li.nav-item
-    a.nav-link href=report_product_path(_id) class=('active' if action_name=='report')
+    a.nav-link href=new_report_product_path(_id) class=('active' if action_name==:new_report)
       = t('views.tab_titles.report')
   li.nav-item
-    a.nav-link href=product_prices_path(_id) class=('active' if controller_name=='prices')
+    a.nav-link href=product_prices_path(_id) class=('active' if controller_name==:prices)
       = Price.model_name.human(count: 2)

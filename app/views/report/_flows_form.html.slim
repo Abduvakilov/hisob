@@ -1,4 +1,4 @@
-= simple_form_for :flows,
+= simple_form_for local_assigns[:scope] || :flows,
   url: polymorphic_path([:report, controller_name.singularize]),
   method: :post, defaults: { label: false,
     wrapper_html: { class: 'col-sm' } },

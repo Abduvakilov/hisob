@@ -24,13 +24,6 @@ export default class extends SelectrController {
 		}
 	}
 
-	// initList(role){
-	// 	let dataToRemove = this.constructor.data.
-	// 											filter(e => !e[role]).
-	// 											map(e => e.value);
-	// 	this.element.querySelectremove(dataToRemove)
-	// }
-
   fillDataAndRemove() {
   	this.constructor.data = [];
 		Array.from(this.element).forEach( e => {

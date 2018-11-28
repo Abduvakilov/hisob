@@ -2,7 +2,7 @@
 - records = controller.objects
 a.btn.btn-outline-success.mb-2 href=controller.path(action: :new)
   = "+ #{model_name}"
-table.table.table-hover.table-responsive
+table.records-table
   thead
     tr
       - records.model.shown_fields.each do |column|

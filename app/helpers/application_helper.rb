@@ -53,7 +53,7 @@ module ApplicationHelper
   def color_pay_receive(number, currency, options={})
     formatted_number = currency_precise_number(number, currency, **options)
     raw content_tag(options[:tag]||:span, formatted_number||number,
-      class: (number>0 ? 'text-success' :(number<0 ? 'text-danger' : 'text-muted'))).html_safe
+      class: (number>0 ? 'text-success' : (number<0 ? 'text-danger' : 'text-muted'))).html_safe
   end
 
 end

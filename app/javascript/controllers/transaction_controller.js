@@ -22,10 +22,8 @@ export default class extends PersistencyController {
   }
 
   showConversionFields() {
-    if (this.typeTarget.value == 11)
-      this.conversionHiddenTarget.classList.remove('d-none')
-    else
-      this.conversionHiddenTarget.classList.add('d-none')
+    let toConversion = this.typeTarget.value == 11;
+    this.conversionHiddenTarget.classList.toggle('d-none', !toConversion)
   }
 
   disableContractField() {
@@ -41,10 +39,8 @@ export default class extends PersistencyController {
 
   showExpenseTypeField() {
     if(!this.hasExpenseTypeHiddenTarget) return;
-    if (['10', '13'].includes(this.typeTarget.value))
-      this.expenseTypeHiddenTarget.classList.remove('d-none')
-    else
-      this.expenseTypeHiddenTarget.classList.add('d-none')
+    let toExpense = ['10', '13'].includes(this.typeTarget.value);
+    this.expenseTypeHiddenTarget.classList.toggle('d-none', !toExpense)
   }
 
   showEmployeeField() {
@@ -61,7 +57,7 @@ export default class extends PersistencyController {
 
   InitEmployee() {
     if(this.employeeReady) return;
-    fetch('/employees.json').
+    fetch('/employees.json', {credentials: 'same-origin'}).
         then( res => res.json() ).
         then( json => {
           this.employee.selectr.add(json.map(e=>{
@@ -81,15 +77,4 @@ export default class extends PersistencyController {
   get employeeReady() {
     return this.employeeTarget.hasAttribute('ready');
   }
-
-  // initialize() {
-  //   super.initialize();
-  // 	// Promise.resolve().then(() => {
-  //     this.showConversionFields();
-  //     this.disableContractField();
-  //     let id = this.typeTarget.value;
-  //     this.counterParty.initList(this.constructor.customerOrSupplier[id]);
-	 //  // })
-  // }
-
 }

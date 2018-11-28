@@ -20,7 +20,7 @@
 		display: block;
 		opacity: 0.3;
 	}
-	
+
 	&.asc:before {
 		opacity: 1;
 	}
@@ -46,7 +46,7 @@
   @extend .table;
   @extend .table-bordered;
   @extend .table-sm;
- 
+
   th {
     font-weight: normal;
   }
@@ -78,4 +78,19 @@
       border: 1px solid $danger!important;
     }
   }
+}
+
+.report-table {
+  @extend .table;
+  @extend .table-hover;
+  @extend .table-responsive;
+  @extend .table-bordered;
+  @extend .table-sm;
+  @extend .text-right;
+}
+
+.records-table {
+  @extend .table;
+  @extend .table-hover;
+  @extend .table-responsive;
 }

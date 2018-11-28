@@ -5,7 +5,7 @@ class CounterParty < ApplicationRecord
   end
 
   def main_contract
-    contracts.first
+    contracts.find_by('due_date >= ? or due_date is null', Date.today)
   end
 
   def balance(date=Date.tomorrow, contract_ids=contracts.ids) # start of the date
