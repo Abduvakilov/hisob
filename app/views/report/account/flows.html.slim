@@ -1,20 +1,31 @@
+- @custom_yield = true
 = render 'common/subhead'
-h3
-  = @account
-p
-  = l Date.strptime(params[:flows][:start_date])
-  |  -
-  = l Date.strptime(params[:flows][:end_date])
-table.table.table-hover.table-responsive.table-bordered.text-right
+h4 = @account.name
+h6
+  = l start_date
+  | - 
+  = l end_date
+h6 = "Valyuta: #{currency}"
+div 
+  | Muddat <b>boshida</b> 
+  = currency_precise_number closing, currency, unit: true
+div
+  | Muddat <b>so‘ngida</b> 
+  = currency_precise_number last_balance, currency, unit: true
+div
+  | Muddat ichida hisob <b>kirimi</b> 
+  = currency_precise_number total_amount_up, currency, unit: true
+div
+  | Muddat ichida hisob <b>sarfi</b> 
+  = currency_precise_number total_amount_down, currency, unit: true
+br
+table.report-table
   thead
     tr
-      - %w[date type counter_party opening_balance
-        amount_up amount_down closing_balance].each do |column|
+      - %w[date type counter_party opening_balance amount_up amount_down closing_balance].each do |column|
         th
           = t "attributes.#{column}"
   tbody
-    - closing  = @account.balance(params[:flows][:start_date])
-    - currency = @account.currency
     - @transactions.each do |transaction|
       tr data-url=transaction_path(transaction)
         td = l transaction.datetime.to_date

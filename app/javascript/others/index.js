@@ -34,3 +34,12 @@ window.dismissModal = () => {
 		}, 150);
 	});
 };
+
+window.clearFormValues = element => {
+	const formInputTagnames = ['INPUT', 'SELECT', 'TEXTAREA'];
+	if (formInputTagnames.includes(element.tagName))
+		element.value= '';
+	else
+		element.querySelectorAll(formInputTagnames.join(','))
+			.forEach(e => e.value= '');
+};

@@ -6,12 +6,13 @@ html[lang="uz"]
     meta[name="viewport" content="width=device-width, initial-scale=1"]
     / = csrf_meta_tags
     / = csp_meta_tag
+    = javascript_pack_tag 'others', defer: true
+
     - if action_name == 'index'
       link rel="prefetch" href=asset_pack_path('application.js')
     - else
       = javascript_pack_tag 'application', defer: true
 
-    = javascript_pack_tag 'others', defer: true
     = stylesheet_pack_tag 'application'
     = yield(:head)
   body

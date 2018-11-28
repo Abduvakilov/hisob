@@ -24,6 +24,7 @@ export default class extends PersistencyController {
   showConversionFields() {
     let toConversion = this.typeTarget.value == 11;
     this.conversionHiddenTarget.classList.toggle('d-none', !toConversion)
+    if(!toConversion) window.clearFormValues(this.conversionHiddenTarget)
   }
 
   disableContractField() {
@@ -41,21 +42,24 @@ export default class extends PersistencyController {
     if(!this.hasExpenseTypeHiddenTarget) return;
     let toExpense = ['10', '13'].includes(this.typeTarget.value);
     this.expenseTypeHiddenTarget.classList.toggle('d-none', !toExpense)
+    if(!toExpense) window.clearFormValues(this.expenseTypeHiddenTarget)
   }
 
   showEmployeeField() {
     if(!this.hasEmployeeTarget) return;
     if (this.typeTarget.value == 12) {
-      this.InitEmployee();
+      this.initEmployee();
+      window.clearFormValues(this.counterPartyTarget)
       this.employeeTarget.closest('.form-group').classList.remove('d-none');
       this.counterPartyTarget.closest('.form-group').classList.add('d-none');
     } else if(this.employeeReady) {
+      window.clearFormValues(this.employeeTarget)
       this.employeeTarget.closest('.form-group').classList.add('d-none');
       this.counterPartyTarget.closest('.form-group').classList.remove('d-none');
     }
   }
 
-  InitEmployee() {
+  initEmployee() {
     if(this.employeeReady) return;
     fetch('/employees.json', {credentials: 'same-origin'}).
         then( res => res.json() ).

@@ -6,8 +6,7 @@ h6
   = ' - '
   = l end_date = Date.strptime(params[:flows][:end_date])
 - closing = @product.leftover(start_date)
-h6
-  = "O‘lchov birligi: #{@product.unit}"
+h6 = "O‘lchov birligi: #{@product.unit}"
 div == "Muddat <b>boshida</b> #{closing} #{@product.unit}"
 div == "Muddat <b>so‘ngida</b> #{@product.leftover(end_date)} #{@product.unit}"
 div == "Muddat ichida mahsulot <b>kirimi</b> #{total_amount_up} #{@product.unit}"

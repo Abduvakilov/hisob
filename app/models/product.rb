@@ -47,7 +47,7 @@ class Product < ApplicationRecord
   end
 
 
-  validates_presence_of :name
+  validates_presence_of :name, :amount
 
   has_many :sales_items, -> { kept }
   has_many :prices, -> { kept }
