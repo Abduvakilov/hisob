@@ -18,10 +18,10 @@ nav#menu.nav.d-print-none[data-turbolinks-permanent]
       = t 'views.title.home_page.short'
   .bottom
     - if user_signed_in?
-      = form_with url: destroy_user_session_path, method: :post do |f|
-        = f.button do
-          =icon 'sign-out-alt'
-          span.nav-label
-            = t 'views.logout'
+      = form_with url: destroy_user_session_path,
+        method: :post, local: true, 'data-local': '' do |f|
+        button type='submit'
+          = icon 'sign-out-alt'
+          span.nav-label = t 'views.logout'
     a.btn-expand[href="javascript:void(0)" onclick="toggleOpen(event)"]
       = icon 'list'
