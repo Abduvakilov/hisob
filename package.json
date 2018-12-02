@@ -14,7 +14,6 @@
     "turbolinks": "^5.2"
   },
   "devDependencies": {
-    "brotli-webpack-plugin": "^1.0.0",
     "webpack-bundle-analyzer": "^2.13",
     "webpack-dev-server": "^2"
   },
