@@ -34,3 +34,31 @@ SimpleForm::ErrorNotification.class_eval do
     (@message || messages).html_safe
   end
 end
+
+SimpleForm::ActionViewExtensions::FormHelper.module_eval do
+  # https://github.com/plataformatec/simple_form/blob/3a99d65b082c4422e2f761b1a01e35dee9bd69ae/lib/simple_form/action_view_extensions/form_helper.rb#L14-L29
+  def simple_form_for(record, options = {}, &block)
+    options[:builder] ||= SimpleForm::FormBuilder
+    options[:html] ||= {}
+    unless options[:html].key?(:novalidate)
+      options[:html][:novalidate] = !SimpleForm.browser_validations
+    end
+    # if options[:html].key?(:class)
+    #   options[:html][:class] = [SimpleForm.form_class, options[:html][:class]].compact
+    # else
+    #   options[:html][:class] = [SimpleForm.form_class, SimpleForm.default_form_class, simple_form_css_class(record, options)].compact
+    # end
+
+    if options[:local] != true
+      options[:authenticity_token] ||= false
+    else
+      options[:html]['data-local'] ||= ''
+    end
+
+    options[:enforce_utf8] ||= false # TODO Remove .. Default on Rails 6
+
+    with_simple_form_field_error_proc do
+      form_for(record, options, &block)
+    end
+  end
+end

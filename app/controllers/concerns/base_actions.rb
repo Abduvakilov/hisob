@@ -30,10 +30,10 @@ module BaseActions
     respond_to do |format|
       if self.object.save
         flash[:success] = t('views.flash.success.create', model: model.model_name.human)
-        format.html { redirect_to action: :index }
+        format.html { head   :created, location: path }
         format.json { render :show, status: :created, location: self.object }
       else
-        format.html { render :new }
+        format.html { render :new, layout: false }
         format.json { render json: self.object.errors, status: :unprocessable_entity }
       end
     end
@@ -43,10 +43,10 @@ module BaseActions
     respond_to do |format|
       if self.object.update(model_params)
         flash[:success] = t('views.flash.success.update', model: model.model_name.human)
-        format.html { redirect_to action: :index }
+        format.html { head   :created, location: path }
         format.json { render :show, status: :ok, location: self.object }
       else
-        format.html { render :show }
+        format.html { render :show, layout: false }
         format.json { render json: self.object.errors, status: :unprocessable_entity }
       end
     end
@@ -55,10 +55,7 @@ module BaseActions
   def discard
     if self.object.discard
       flash[:success] = t('views.flash.success.discard', model: model.model_name.human)
-      respond_to do |format|
-        format.html { redirect_to action: :index }
-        format.json { head :no_content }
-      end
+      head :no_content, location: path
     end
   end
 

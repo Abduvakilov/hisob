@@ -46,8 +46,8 @@ module ApplicationHelper
     Time.now + current_user.default_day_difference.days
   end
 
-  def icon(fa_symbol_name, text='')
-    content_tag(:i, '', class: 'fas fa-'+fa_symbol_name)+text
+  def icon(fa_symbol_name, text=nil)
+    content_tag(:i, '', class: 'fas fa-'+fa_symbol_name)+(' '+text unless text.nil?)
   end
 
   def color_pay_receive(number, currency, options={})

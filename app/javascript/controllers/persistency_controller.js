@@ -1,4 +1,4 @@
-import { Controller } from "stimulus";
+import { Controller } from 'stimulus';
 
 export default class extends Controller {
 
@@ -15,7 +15,7 @@ export default class extends Controller {
 	connect() {
 		if (this.element.id.startsWith('new')) {
 			this.trackInput();
-			this.onSubmitClearStorage();
+			this.beforeSubmitClearStorage();
 		}
 	}
 
@@ -33,26 +33,24 @@ export default class extends Controller {
 			e.addEventListener(event, this.saveInput);
 
 			if (localStorage[e.name]) {
-				console.log(`${e.name} was set` )
 				e.value = localStorage[e.name];
-		  	Promise.resolve().then(() => {
+				Promise.resolve().then(() => {
 					e.dispatchEvent(new Event('change'));
 				});
 				if (!this.modelName) {
 					this.modelName = e.name.split('[')[0];
 				}
 			}
-		})
+		});
 	}
 
-	onSubmitClearStorage() {
-		this.element.addEventListener('submit', () => {
-		  for (let i=0; i<localStorage.length; i++) {
-		  	let key = localStorage.key(i);
-		  	if (key.includes(this.modelName)) console.log(`${key} was removed`)
+	beforeSubmitClearStorage() {
+		this.element.addEventListener('beforesubmit', () => {
+			for (let i=0; i<localStorage.length; i++) {
+				let key = localStorage.key(i);
 				if (key.includes(this.modelName)) localStorage.removeItem(key);
 			}
-		})
+		});
 	}
 
 }

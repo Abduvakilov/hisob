@@ -1,0 +1,73 @@
+= simple_form_for @transaction, url: controller.path(@transaction),
+    html: { 'data-controller': 'transaction' },
+    defaults: { wrapper_html: { class: 'col-sm' } } do |f|
+  = f.error_notification
+  = f.association :account, as: :account,
+    selected: (@transaction.account_id ||= Account.kept.first.id),
+    wrapper: :hidden_account,
+    balance: currency_precise_number(@transaction.account.balance,
+      @transaction.account.currency, unit: true),
+    balance_data_target: 'account.balance'
+  .form-row
+    = f.input :type_id, label: 'Pul aylanmasi turi',
+      collection: @transaction.class.type_ids \
+        .transform_keys { |k| t(k, scope: 'attributes') },
+      selected: @transaction.type_id_before_type_cast,
+      input_html: { 'data-action': 'change->transaction#update',
+                    'data-target': 'transaction.type' }
+    = f.input :datetime, as: :datepicker, input_html: { required: true },
+      wrapper_html: { data: { flatpickr_enable_time: true,
+        flatpickr_alt_format: t('time.formats.default'),
+        flatpickr_default_date: user_default_time } }
+  .form-row[data-controller="contract"]
+    = render 'transactions/inputs/counter_party', f: f
+
+    = f.association :contract, collection: f.object.contract&.with_others || [],
+      label_method: :to_s, required: false,
+      wrapper_class: ['form-group',
+        ('d-none' if f.object.new_record? || \
+          !f.object.with_contract? || f.object.contract&.single?)],
+      input_html: { data: { \
+        target: 'contract.contract',
+        counter_party_id: f.object.contract&.counter_party_id } }
+
+    - if params[:type] == '1' || f.object.expense?
+      = render 'transactions/inputs/employee', f: f
+      = f.association :expense_type,
+        collection: Category.where(for: Expense.name),
+        wrapper_html: { class: ['col-sm',
+          ('d-none' unless f.object.to_purchase? || f.object.to_other?)],
+          'data-target': 'transaction.expenseTypeHidden' }
+
+    = f.input :amount, as: :currency, wrapper_class: 'form-group w-sm-200',
+      required: true, input_html: { \
+      value: currency_precise_number(@transaction.amount,
+        @transaction.account&.currency) }
+
+  .form-row[class=('d-none' unless f.object.to_conversion?)
+    data-target='transaction.conversionHidden']
+
+    = f.association :asked_currency, wrapper_class: 'form-group w-sm-200'
+
+    = f.input :rate, as: :currency, wrapper_class: 'form-group w-sm-200',
+      input_html: { \
+        value: currency_precise_number(@transaction.rate,
+          @transaction.account.currency) }
+
+  = more_wrapped @transaction.class.name.downcase,
+    checked: %w[accepted_as_amount accepted_as_currency_id notes].any? \
+      { |x| f.object.send("#{x}?") } do
+    .form-row
+
+      legend.col-form-label = t 'views.accounting_different_amount'
+      = f.input :accepted_as_amount, as: :currency
+      = f.association :accepted_as_currency
+
+    .form-row
+      = f.input :notes
+
+  = render 'common/form_buttons', f: f,
+    confirmation_body: t('views.confirmation.discard.transaction.body',
+      amount: tag.b(currency_precise_number(f.object.amount,
+        f.object.account.currency, unit: true)),
+      model: f.object.model_name.human)

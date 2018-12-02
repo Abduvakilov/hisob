@@ -1,13 +1,15 @@
-import { Controller } from "stimulus";
+import { Controller } from 'stimulus';
 
 export default class extends Controller {
-
 	initialize() {
-		this.element.onclick = this.handleClick.bind(this);
+		this.element.onclick = this.click.bind(this);
 	}
 
-	handleClick() {
-		if (!this.modal) this.render();
+	click() {
+		if (!this.modal) {
+			this.render();
+			Turbolinks.dispatch('turbolinks:load');
+		}
 		this.modal.addEventListener('click', e => {
 			if (!this.modal.children[0].children[0].contains(e.target))
 				window.dismissModal();

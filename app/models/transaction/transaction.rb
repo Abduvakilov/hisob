@@ -16,7 +16,7 @@ class Transaction < ApplicationRecord
   end
 
   def counter
-    counter_party || contract&.counter_party || counter_account || expense_type
+    counter_party || contract&.counter_party || counter_account || employee || expense_type
   end
 
   def self.all_i

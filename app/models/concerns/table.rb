@@ -50,7 +50,7 @@ module Table
 	  private
 
 	  def searched_fields
-	    @searched_fields ||= base_params + belong_search_fields - belongs('_id')
+	    @searched_fields ||= base_params + belong_search_fields - belongs_with_id
 	  end
 
 	  def belong_search_fields

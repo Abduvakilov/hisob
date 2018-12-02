@@ -23,8 +23,7 @@ table.report-table
   thead
     tr
       - %w[date type counter_party opening_balance amount_up amount_down closing_balance].each do |column|
-        th
-          = t "attributes.#{column}"
+        th = t "attributes.#{column}"
   tbody
     - @transactions.each do |transaction|
       tr data-url=transaction_path(transaction)

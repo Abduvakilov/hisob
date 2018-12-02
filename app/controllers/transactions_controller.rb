@@ -16,30 +16,22 @@ class TransactionsController < ApplicationController
     if @transaction.save
       flash[:success] = t('views.flash.success.create', model: Transaction.model_name.human)
       if params[:create_and_new]
-        redirect_to new_transaction_path(type: @transaction.type)
+        head :created, location: new_transaction_path(type: @transaction.type)
       else
-        redirect_to transactions_path
+        head :created, location: transactions_path
       end
     else
-      puts self.object.errors.inspect # For debugging
-      render :new
+      render :new, layout: false
     end
   end
 
   def update
     type = (Transaction::ALL_TYPES.keys.map(&:to_s) & params.keys)[0]
     if @transaction.update(transaction_params(type))
-      redirect_to transactions_path, flash: {
-        success: t('views.flash.success.update', model: Transaction.model_name.human) }
+      flash[:success] = t('views.flash.success.update', model: Transaction.model_name.human)
+      head :created, location: transactions_path
     else
-      render :show
-    end
-  end
-
-  def destroy
-    if @transaction.destroy
-      redirect_to transactions_path, flash: {
-        success: t('views.flash.success.destroy', model: Transaction.model_name.human) }
+      render :show, layout: false
     end
   end
 

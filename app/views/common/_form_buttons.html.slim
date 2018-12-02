@@ -1,14 +1,12 @@
 .d-sm-flex.d-print-none
   .d-none.d-sm-flex.mr-sm-auto
     a.btn.btn-outline-secondary href=controller.path
-      = icon('chevron-left') + ' ' + t('views.back')
+      = icon 'chevron-left', t('views.back')
 
-  = f.button :button, type: :submit, name: :save, class: 'btn-primary mx-1' do
-    = icon 'plus'
-    - if f.object.persisted?
-      = t('helpers.submit.update', model: f.object.model_name.human)
-    - else
-      = t('helpers.submit.create', model: f.object.model_name.human)
+  button type='submit' name='save' class='btn btn-primary mx-1'
+    = icon 'plus', f.object.persisted? ? \
+      t('helpers.submit.update', model: f.object.model_name.human) : \
+      t('helpers.submit.create', model: f.object.model_name.human)
 
   - if f.object.persisted?
     button[type='button' class='btn btn-outline-danger'
@@ -22,7 +20,7 @@
         model: f.object.model_name.human)
       data-confirmation-url=url_for(id: f.object.id, action: :discard,
         controller: controller_name, only_path: true) ]
-      = icon('trash-alt') + ' ' + t('helpers.submit.discard')
+      = icon 'trash-alt', t('helpers.submit.discard')
   - else
-    = f.button :button, name: :create_and_new, class: 'btn-outline-info' do
-      = icon('chevron-circle-right') + t('helpers.submit.create_and_new')
+    button type='submit' name='create_and_new' class='btn btn-outline-info'
+      = icon 'chevron-circle-right', t('helpers.submit.create_and_new')

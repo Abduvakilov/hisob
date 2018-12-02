@@ -16,7 +16,7 @@ module Filter
 	private
 
 	def type_filter(array)
-		type_ids = Transaction.all_types.values.map &:values
+		type_ids = Transaction::ALL_TYPES.values.map &:values
 		array    = array.map(&:to_i)
 		{type_id: type_ids.values_at(*array).flatten}
 	end

@@ -4,7 +4,8 @@ html[lang="uz"]
     title
       = title = @title || title_of_page
     meta[name="viewport" content="width=device-width, initial-scale=1"]
-    / = csrf_meta_tags
+    - if action_name.in? ['show', 'new']
+      = csrf_meta_tag
     / = csp_meta_tag
     = javascript_pack_tag 'others', defer: true
 
