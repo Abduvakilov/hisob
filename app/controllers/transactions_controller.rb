@@ -1,5 +1,4 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: [:show, :update, :destroy]
 
   def index
     self.objects  = model.kept.ordered.search(params[:search]).page(params[:page]).per OBJECTS_PER_PAGE
@@ -29,7 +28,7 @@ class TransactionsController < ApplicationController
     type = (Transaction::ALL_TYPES.keys.map(&:to_s) & params.keys)[0]
     if @transaction.update(transaction_params(type))
       flash[:success] = t('views.flash.success.update', model: Transaction.model_name.human)
-      head :created, location: transactions_path
+      head :ok, location: transactions_path
     else
       render :show, layout: false
     end
@@ -49,7 +48,7 @@ class TransactionsController < ApplicationController
 
   private
 
-  def set_transaction
+  def set_object
     @transaction = Transaction.modeled_find(params[:id])
   end
 

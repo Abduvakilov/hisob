@@ -30,7 +30,7 @@ module Validations
           validate_contract_currency_matches
           self.counter_party = nil
           self.employee = nil
-        elsif !to_purchase? || !to_other?
+        elsif !to_purchase? && !to_other?
           validates_presence_of :counter_party
           self.contract = nil
           self.employee = nil

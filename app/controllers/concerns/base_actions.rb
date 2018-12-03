@@ -43,7 +43,7 @@ module BaseActions
     respond_to do |format|
       if self.object.update(model_params)
         flash[:success] = t('views.flash.success.update', model: model.model_name.human)
-        format.html { head   :created, location: path }
+        format.html { head   :ok, location: path }
         format.json { render :show, status: :ok, location: self.object }
       else
         format.html { render :show, layout: false }
@@ -55,7 +55,7 @@ module BaseActions
   def discard
     if self.object.discard
       flash[:success] = t('views.flash.success.discard', model: model.model_name.human)
-      head :no_content, location: path
+      head :ok, location: path
     end
   end
 

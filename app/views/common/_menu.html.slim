@@ -19,7 +19,7 @@ nav#menu.nav.d-print-none[data-turbolinks-permanent]
   .bottom
     - if user_signed_in?
       = form_with url: destroy_user_session_path,
-        method: :post, local: true, 'data-local': '' do |f|
+        method: :post, local: true, 'data-local': '' do
         button type='submit'
           = icon 'sign-out-alt'
           span.nav-label = t 'views.logout'

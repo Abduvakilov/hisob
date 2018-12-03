@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/jhawthorn/discard.git
+  revision: afb6a171c66b69610ce4375706881a845c5c1873
+  specs:
+    discard (1.0.0)
+      activerecord (>= 4.2, < 6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -75,8 +82,6 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
-    discard (1.0.0)
-      activerecord (>= 4.2, < 6)
     erubi (1.7.1)
     ffi (1.9.25)
     ffi (1.9.25-x64-mingw32)
@@ -195,9 +200,6 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
-    turbolinks (5.2.0)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     warden (1.2.8)
@@ -227,7 +229,7 @@ DEPENDENCIES
   capybara
   chromedriver-helper
   devise
-  discard
+  discard!
   jbuilder
   kaminari
   listen
@@ -240,7 +242,6 @@ DEPENDENCIES
   spring
   spring-watcher-listen
   sqlite3
-  turbolinks
   web-console (>= 3.3.0)
   webpacker
 

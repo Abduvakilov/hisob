@@ -4,6 +4,10 @@ import Cleave from 'cleave.js';
 export default class extends Controller {
 
 	initialize() {
+		if (/android|iPhone|iPad/.test(navigator.userAgent)) {
+			this.element.setAttribute('inputmode', 'decimal');
+			this.element.setAttribute('pattern', '\\d*');
+		}
 		this.cleave = new Cleave(this.element, {
 			numeral: true,
 			numeralThousandsGroupStyle: 'thousand',

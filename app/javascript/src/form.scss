@@ -2,6 +2,12 @@
   margin-bottom: 0;
 }
 
+.selectr-selected {
+  @include box-shadow($input-box-shadow);
+  @include transition($input-transition);
+  @include form-control-focus();
+}
+
 .selectr-selected,
 .selectr-input {
   border-color: $input-border-color;
@@ -28,6 +34,10 @@
 
   .selectr-selected {
     border-color: $danger;
+
+    &:focus {
+      @extend .form-control.is-invalid:focus;
+    }
   }
 }
 

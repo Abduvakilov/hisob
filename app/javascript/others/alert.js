@@ -1,5 +1,6 @@
 export default function() {
-	setTimeout(function() {
+	clearTimeout(window.alertTimeOutCode);
+	window.alertTimeOutCode = setTimeout(function() {
 		let alert = document.getElementsByClassName('alert')[0];
 		if (alert) {
 			alert.classList.remove('alert-error','alert-danger','alert-success');

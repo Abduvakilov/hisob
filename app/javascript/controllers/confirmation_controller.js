@@ -34,7 +34,6 @@ export default class extends Controller {
 
 	render() {
 		this.modal = document.createElement('div');
-		let token = document.querySelector('meta[name=csrf-token]').content;
 		this.modal.innerHTML = `
 		<div class="modal fade" tabindex="-1" role="dialog">
 		  <div class="modal-dialog" role="document">
@@ -50,8 +49,7 @@ export default class extends Controller {
 		      </div>
 		      <div class="modal-footer">
 		      	<form action="${this.data.get('url')}" method="post">
-		      		<input type="hidden" name="authenticity_token" value="${token}">
-			        <button type="submit" class="btn btn-danger" onclick=''>${this.data.get('action')}</button>
+			        <button type="submit" class="btn btn-danger">${this.data.get('action')}</button>
 		        </form>
 		        <button type="button" class="btn btn-outline-secondary" onclick="dismissModal()">Ortga</button>
 		      </div>

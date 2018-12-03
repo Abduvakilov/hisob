@@ -66,7 +66,7 @@ class User < ApplicationRecord
     password.present?
   end
   def active_for_authentication?
-    super and discarded_at == nil
+    super && !discarded?
   end
   def discard
     return false if is_admin
