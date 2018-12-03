@@ -31,7 +31,7 @@ class CounterParty < ApplicationRecord
         ) as pi on p.id = purchase_id
       where p.discarded_at is null and contract_id in (:contract_ids) and datetime <= :end_date
 
-      ) group by contract_id
+      ) as contract_balance group by contract_id
     SQL
 
     sanitized_sql = ActiveRecord::Base.sanitize_sql [ sql,

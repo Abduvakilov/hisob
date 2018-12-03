@@ -12,7 +12,7 @@ html[lang="uz"]
     - if action_name == 'index'
       link rel="prefetch" href=asset_pack_path('application.js')
     - else
-      = javascript_pack_tag 'application', defer: true
+      = javascript_pack_tag 'application', async: true
 
     = stylesheet_pack_tag 'application'
     = yield(:head)
