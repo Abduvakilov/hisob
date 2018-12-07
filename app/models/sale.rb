@@ -31,6 +31,13 @@ class Sale < ApplicationRecord
   validates_presence_of :sale_items, :datetime
   validates_associated :sale_items
 
+  validate :contract_in_date
+
+  def contract_in_date
+    unless contract.in_date?
+      errors.add :contract, :out_of_date
+    end
+  end
 
   def self.shown_fields
     %w[ datetime contract_counter_party total_amount to_be_paid products ]

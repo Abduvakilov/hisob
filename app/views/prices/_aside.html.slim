@@ -1,6 +1,5 @@
-h5 = t 'views.links'
+h5 = t('views.links')
 ul.nav.flex-column
   li.nav-item
-    a href=categories_path(for: Price.name) class='nav-link'
-      = icon('circle')
-      = t('views.title.categories.price.index')
+    a.nav-link href=categories_path(for: Price.name)
+      = icon('circle', t('views.title.categories.price.index'))

@@ -1,5 +1,9 @@
 class Category < ApplicationRecord
 
+  def self.main_price_type
+    Category.kept.where(for: Price.name)
+  end
+
   validates_presence_of :name
   # enum type_id: [:product, :product_price_history, :counter_party, :company]
 

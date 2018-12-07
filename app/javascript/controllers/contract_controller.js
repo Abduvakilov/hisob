@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 
 export default class extends Controller {
 
-	static targets = ['contract'];
+	static targets = ['contract', 'date'];
 	static counterPartyDetails = [];
 
 	get cps() {
@@ -27,7 +27,9 @@ export default class extends Controller {
 				return;
 			}
 
-			fetch(`/counter_parties/${e.target.value}.json`, {credentials: 'same-origin'})
+			let dateQuery = this.dateTarget.value ? `?date=${this.dateTarget.value}` : '';
+
+			fetch(`/counter_parties/${e.target.value}.json` + dateQuery, {credentials: 'same-origin'})
 	      .then( res => res.json() )
 	      .then( json => {
 	      	this.cps.push(json);

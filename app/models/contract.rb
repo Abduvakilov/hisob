@@ -1,6 +1,16 @@
 class Contract < ActiveRecord::Base
 
   scope :ordered, -> {}
+  scope :in_date, -> (date=Date.today) {
+    where(':date between ifnull(start_date, subdate(:date,1)) and
+      ifnull(due_date, :date+interval 1 day)', date: date)
+  }
+
+  def in_date?(date=Date.today)
+    after_start = start_date? ? start_date <= date : true
+    before_end  = due_date?   ? due_date   >= date : true
+    after_start && before_end
+  end
 
   include Discard::Model
   extend Table::Fields

@@ -5,6 +5,7 @@ uz:
         is_more_than_account_balance: hisobdagi qoldiqdan ortiq
         currencies_does_not_match: va hisob valyutalari bir emas
         is_the_same: ayni o‘zi
+        out_of_date: sanasi o‘tgan
       #   required: kiritishi kerak
       #   less_than: "%{count} dan kam bo‘lishi kerak"
       #   blank: bo‘sh bo‘lishi mumkin emas

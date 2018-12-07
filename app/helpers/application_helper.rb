@@ -46,6 +46,10 @@ module ApplicationHelper
     Time.now + current_user.default_day_difference.days
   end
 
+  def user_default_date
+    Date.today + current_user.default_day_difference
+  end
+
   def icon(fa_symbol_name, text=nil)
     content_tag(:i, '', class: 'fas fa-'+fa_symbol_name)+(' '+text unless text.nil?)
   end

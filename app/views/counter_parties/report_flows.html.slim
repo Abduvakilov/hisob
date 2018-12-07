@@ -17,7 +17,7 @@ table.report-table
       tr data-url=url_for(only_path: true, controller: record['model'].pluralize, action: :show, id: record['id'])
         - record['model'] = %w[income expense][record['type_id']/10] if record['type_id']
         td = t record['model'] + '.one', scope: 'activerecord.models'
-        td = l Date.strptime(record['datetime'])
+        td = l record['datetime'].to_date
         td = currency_precise_number(opening=closing, currency)
         - amount = currency_precise_number record['amount'], currency
         - if amount_down = record['model'].in?(%w[income purchase])

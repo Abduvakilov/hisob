@@ -18,8 +18,8 @@ class Employee < ApplicationRecord
   end
 
   belongs_to :department, optional: true
-  belongs_to :company, optional: true
-  has_many :salaries, -> { kept }
-  has_one :user, -> { kept }
+  belongs_to :company
+  has_many   :salaries,   -> { kept }
+  has_one    :user,       -> { kept }
 
 end

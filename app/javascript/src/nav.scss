@@ -15,16 +15,14 @@
 
     margin:0; padding:0;
 
-    a,
-    button {
+    a {
       border-width: 0 0 1px;
       display: block;
       padding: .5rem 1rem;
       width: 100%;
     }
 
-    a svg,
-    button svg {
+    a svg {
       margin-right: 6px;
     }
   }
@@ -50,8 +48,7 @@
     right: 0;
     padding: 0 15px;
     // height: auto;
-    a,
-    button {
+    a {
       padding: 18px;
       border-width: 0 0 0 1px;
       // width: auto;
@@ -62,11 +59,8 @@
     .bottom {
       display: inline-block;
     }
-    // .bottom button {
-    //   width: 100%;
-    // }
-    a svg,
-    button svg {
+
+    a svg {
       margin-right: auto; margin-left: auto;
     }
   }
@@ -97,10 +91,6 @@
     display: none;
   }
 
-  button {
-    background-color: $dark;
-  }
-
   &:not(.open) svg {
     font-size: 1.5em;
   }
@@ -111,23 +101,20 @@
     opacity: 0;
   }
 
-  a,
-  button {
+  a {
     border-style: solid;
     border-color: #444;
     text-align: left;
     color: #ccc;
   }
 
-  a:hover,
-  button:hover {
+  a:hover {
     background-color: black;
     text-decoration: none;
     color: white;
   }
 
-  a svg,
-  button svg {
+  a svg {
     transition: .4s ease-in-out;
     font-size: 1.3em;
     text-align: center;
@@ -142,7 +129,7 @@ aside a {
   margin-left: .5em;
   position: relative;
 
-  &.nav-link{
+  &.nav-link {
     padding-top: $nav-link-padding-y * .1;
     padding-bottom: $nav-link-padding-y * .1;
   }

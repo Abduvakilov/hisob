@@ -1,5 +1,5 @@
 json.id counter_party.id
-json.contracts counter_party.contracts do  |contract|
+json.contracts counter_party.contracts.in_date(params[:date]) do  |contract|
   json.id contract.id
   json.name contract.to_s
 end

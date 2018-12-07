@@ -2,7 +2,8 @@
   html: {  'data-controller': 'table' } do |f|
   = f.error_notification
   .form-row
-    = f.input :date, as: :datepicker, input_html: {required: ''}
+    = f.input :date, as: :datepicker, input_html: { required: '' },
+      wrapper_html: { 'data-flatpickr-default-date': user_default_date }
     = f.input :company, input_html: { value: current_user.employee&.company.short_name, disabled: true}
 
   - @production.production_items.build

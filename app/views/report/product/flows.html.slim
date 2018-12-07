@@ -21,7 +21,7 @@ table.report-table
       tr data-url=url_for(only_path: true,
         controller: record['model'].pluralize, action: :show, id: record['id'])
         td = t record['model'].classify.constantize.model_name.human
-        td = l Date.strptime(record['datetime'])
+        td = l record['datetime'].to_date
         td = opening = closing
         - amount = record['total_amount']
         - if amount_down = record['model'] == 'sale'

@@ -53,7 +53,7 @@ class CounterParty < ApplicationRecord
   after_create :create_contract
 
   def create_contract
-    Contract.create! counter_party_id: id, name: I18n.t('main_contract'), category_id: 1, currency: Currency.find_by_is_main(true)
+    Contract.create! counter_party_id: id, name: I18n.t('main_contract'), category_id: Category.main_price_type, currency: Currency.find_by_is_main(true)
   end
 
   def self.searched_by_childs

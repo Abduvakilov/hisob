@@ -75,7 +75,7 @@ module Table
 	      unless memo == ''
 	        memo += ' or '
 	      end
-	      memo += "#{x} like :q"
+	      memo += "`#{x}` like :q"
 	    }
 	  end
 	end

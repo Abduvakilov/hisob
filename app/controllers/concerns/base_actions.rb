@@ -16,6 +16,7 @@ module BaseActions
   end
 
   def show
+    # @discardable = params[:id] != @undiscardable_id
   end
 
   def new_report

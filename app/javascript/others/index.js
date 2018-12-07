@@ -7,6 +7,11 @@ Turbolinks.start();
 
 window.touch = 'ontouchstart' in document.documentElement;
 
+document.addEventListener('turbolinks:before-cache', function() {
+	let alert = document.querySelector('.alert');
+	if(alert) alert.remove();
+});
+
 document.addEventListener('turbolinks:load', function() {
 	alertTimeout();
 	linkRows();
@@ -31,8 +36,8 @@ window.toggleOpen = (e) => {
 };
 
 window.dismissModal = () => {
-	let modal = document.getElementsByClassName('modal')[0];
-	let backdrop = document.getElementsByClassName('modal-backdrop')[0];
+	let modal = document.querySelector('.modal');
+	let backdrop = document.querySelector('.modal-backdrop');
 	[modal, backdrop].forEach( e => {
 		e.classList.remove('show');
 		setTimeout(()=> {
@@ -47,5 +52,5 @@ window.clearFormValues = element => {
 		element.value= '';
 	else
 		element.querySelectorAll(formInputTagnames.join(','))
-			.forEach(e => e.value= '');
+			.forEach(e => e.value = '');
 };

@@ -14,13 +14,11 @@ nav#menu.nav.d-print-none[data-turbolinks-permanent]
 
   a href=root_path title=t('views.title.home_page.long')
     = icon 'home'
-    span.nav-label
-      = t 'views.title.home_page.short'
+    span.nav-label = t 'views.title.home_page.short'
+
   .bottom
     - if user_signed_in?
-      = form_with url: destroy_user_session_path,
-        method: :post, local: true, 'data-local': '' do
-        button type='submit'
+      a href=destroy_user_session_path data-turbolinks='false'
           = icon 'sign-out-alt'
           span.nav-label = t 'views.logout'
     a.btn-expand[href="javascript:void(0)" onclick="toggleOpen(event)"]
