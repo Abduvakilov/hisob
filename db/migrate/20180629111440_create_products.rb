@@ -24,12 +24,13 @@ class CreateProducts < ActiveRecord::Migration[5.2]
     end
 
     create_table :prices do |t|
-      t.date       :date, null: false
+      t.date       :date, null: false, index: true
       t.references :product, foreign_key: true
-      t.references :category, foreign_key: true
+      t.references :product_type, foreign_key: { to_table: :categories }, index: true
       t.float      :price
       t.references :currency, foreign_key: true
-      t.references :price_type, foreign_key: { to_table: :categories }
+      t.boolean    :for_base_unit
+      t.references :price_type, foreign_key: { to_table: :categories }, index: true
       t.text       :notes
 
       t.timestamps

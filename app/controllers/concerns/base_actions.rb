@@ -5,18 +5,18 @@ module BaseActions
   included do
     before_action :set_object, only: %I[show update new_report report discard]
     before_action :authenticate_user!
+    extend(Objects::ClassMethods)
   end
 
   def index
-    self.objects  = model.kept.ordered.search(params[:search]).page(params[:page]).per OBJECTS_PER_PAGE
-    self.objects.order_values.prepend "#{params[:sort]} #{params[:dir]}" if params[:sort].present? && model.permitted_params.include?(params[:sort])
+    self.objects  = model.kept.ordered.search(params[:search]).page(params[:page]).per(rows_per_page)
+    self.objects.order_values.prepend("#{params[:sort]} #{params[:dir]}") if params[:sort].present? && model.permitted_params.include?(params[:sort])
     # filter_params = params.permit filter_fields
     # @sorted       = filter_params.present?
     # self.objects  = objects.filter_with(filter_params).includes(model.belongs) # TODO include shown fields of belongs
   end
 
   def show
-    # @discardable = params[:id] != @undiscardable_id
   end
 
   def new_report
@@ -56,13 +56,18 @@ module BaseActions
   def discard
     if self.object.discard
       flash[:success] = t('views.flash.success.discard', model: model.model_name.human)
-      head :ok, location: path
+      respond_to do |format|
+        format.html { head :ok, location: path }
+        format.json { head :no_content }
+      end
     end
   end
 
   private
 
-  OBJECTS_PER_PAGE = 20  # todo user settings
+  def rows_per_page
+    current_user.settings[:rows_per_page]
+  end
 
   def set_object
     self.object = model.kept.find(params[:id])

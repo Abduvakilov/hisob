@@ -9,7 +9,22 @@ export default class extends Controller {
 		if(this.unitTarget.tagName == 'INPUT')
 			this.unitTarget.value = unit;
 		else
-			this.unitTarget.innerText = unit;
+			this.unitTarget.textContent = unit;
+	}
+
+	updateUnits({target}) {
+		let selected = target.selectedOptions[0];
+		let unit     = selected.getAttribute('unit');
+		let baseUnit = selected.getAttribute('baseUnit');
+
+		Array.from(this.unitTarget.options).forEach(o => o.remove());
+		[[baseUnit, true], [unit, false]].forEach(([u,v]) => {
+			if(!u) return;
+			let option = document.createElement('option');
+			option.textContent = u;
+			option.value       = v;
+			this.unitTarget.add(option);
+		})
 	}
 
 }

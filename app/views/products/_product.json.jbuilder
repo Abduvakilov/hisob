@@ -3,8 +3,8 @@ if params[:contract_id]
   json.contract do
     contract = Contract.find(params[:contract_id])
     json.id contract.id
-    json.name contract.to_s
-    json.last_price product.price(contract_id: params[:contract_id])
+    json.name contract.name
+    json.last_price product.price_for_contract(params[:contract_id]).for_unit
     json.currency contract.currency.to_s
   end
 end

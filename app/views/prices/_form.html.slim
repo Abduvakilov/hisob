@@ -4,29 +4,31 @@
   = f.error_notification
 
   .form-row
-    = f.input :date, as: 'datepicker'
+    = f.input :date, as: :datepicker
     = f.association :price_type, collection: Category.where(for: Price.name)
 
   .form-row
     legend.col-form-label
       = t 'views.either_of_this',
-        '1': t('attributes.product'), '2': t('attributes.category')
+        '1': t('attributes.product'), '2': t('attributes.product_type')
     = f.association :product,
       collection: Product.includes(unit: :base_unit).kept.map { |item| \
       [item, item.id, { \
-        unit: item.unit, base_unit: item.unit&.base_unit,
+        unit: item.unit, baseUnit: item.base_unit,
         ratio: item.unit&.ratio_to_base_unit }.compact] },
-      input_html: {'data-action': 'change->unit#updateUnit'}
-    = f.association :category,
-      collection: Category.kept.where(for: nil).order( \
+      input_html: {'data-action': 'change->unit#updateUnits'}
+    = f.association :product_type,
+      collection: Category.kept.where(for: Product.name).order( \
         params[:product_id] && \
         (main_category = Product.find(params[:product_id]).category_id) ? \
       ['id=? desc', main_category] : nil)
 
   .form-row
-    = f.input :unit, input_html: { \
-      value: @price.product&.unit,
-      disabled: true, 'data-target': 'unit.unit' }
+    = f.input :for_base_unit, include_blank: false,
+      collection: [[@price.product&.base_unit, true],
+        [@price.product&.unit, false]],
+      input_html: {'data-target': 'unit.unit' },
+      wrapper_class: ['form-group', ('d-none' unless @price.product&.unit)]
     = f.input :price
     = f.association :currency
 

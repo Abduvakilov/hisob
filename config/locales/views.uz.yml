@@ -51,6 +51,8 @@ uz:
         new: Yangi %{model}
       pages:
         index: Hisob
+      users:
+        settings: Sozlamalar
 
     tab_titles:
       show: Ma‘lumotlar

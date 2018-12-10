@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root "pages#index"
+  root 'pages#index'
 
   concern :discardable do
     post 'discard', on: :member
@@ -30,5 +30,7 @@ Rails.application.routes.draw do
     resources :prices, concerns: :discardable,
     on: :member, except: [:edit, :destroy]
   end
+
+  match 'settings', to: 'users#settings', via: [:get, :patch]
 
 end

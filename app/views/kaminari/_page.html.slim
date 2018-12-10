@@ -7,4 +7,5 @@
 /-     per_page:      number of items to fetch per page
 /-     remote:        data-remote
 li.page.page-item class=('active' if page.current?)
-  = link_to page, url, remote: remote, rel: page.rel, class: "page-link"
+  a.page-link href=url rel=page.rel
+    = page

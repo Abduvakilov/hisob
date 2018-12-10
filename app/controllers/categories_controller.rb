@@ -4,9 +4,13 @@ class CategoriesController < ApplicationController
     self.objects  = model.kept.ordered.
       where(for: params[:for]).
       search(params[:search]).
-      page(params[:page]).per OBJECTS_PER_PAGE
+      page(params[:page]).per rows_per_page
     self.objects.order_values.prepend "#{params[:sort]} #{params[:dir]}" if
       params[:sort].present? && model.permitted_params.include?(params[:sort])
+  end
+
+  def show
+    @discardable = params[:id] != Category::DEFAULT_PRICE_TYPE_ID.to_s
   end
 
   def create
@@ -14,10 +18,10 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @category.save
         flash[:success] = t('views.flash.success.create', model: category_name)
-        format.html { redirect_to action: :index, for: @category.for }
+        format.html { head :ok, location: categories_path(for: @category.for) }
         format.json { render :show, status: :created, location: self.object }
       else
-        format.html { render :new }
+        format.html { render :new, layout: false }
         format.json { render json: self.object.errors, status: :unprocessable_entity }
       end
     end
@@ -27,10 +31,10 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @category.update(model_params)
         flash[:success] = t('views.flash.success.update', model: category_name)
-        format.html { redirect_to action: :index, for: @category.for }
+        format.html { head :ok, categories_path(for: @category.for) }
         format.json { render :show, status: :ok, location: self.object }
       else
-        format.html { render :show }
+        format.html { render :show, layout: false }
         format.json { render json: self.object.errors, status: :unprocessable_entity }
       end
     end
@@ -40,7 +44,7 @@ class CategoriesController < ApplicationController
     if @category.discard
       flash[:success] = t('views.flash.success.discard', model: category_name)
       respond_to do |format|
-        format.html { redirect_to action: :index, for: @category.for }
+        format.html { head :ok, location: categories_path(for: @category.for) }
         format.json { head :no_content }
       end
     end

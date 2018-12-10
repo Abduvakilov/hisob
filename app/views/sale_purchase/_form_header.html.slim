@@ -12,7 +12,7 @@
       contract: (cp.contracts.in_date.count == 1 ? cp.main_contract.id : '')] },
     input_html: {required: true, data: { target: 'contract.cp',
     controller: 'selectr', action: 'change->contract#updateContract'}}
-  = f.association :contract,
+  = f.association :contract, wrapper: :custom_multi_select,
     collection: f.object.contract&.with_others&.in_date(f.object.datetime) || [],
     label_method: :to_s, required: false, wrapper_class: ['form-group',
     ('d-none' if f.object.new_record? || f.object.contract&.single?)],

@@ -50,9 +50,9 @@ ActiveRecord::Schema.define(version: 2018_11_21_094627) do
   end
 
   create_table "contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
     t.bigint "counter_party_id"
-    t.bigint "category_id"
+    t.string "name", null: false
+    t.bigint "price_type_id"
     t.bigint "currency_id"
     t.date "start_date"
     t.date "due_date"
@@ -60,10 +60,10 @@ ActiveRecord::Schema.define(version: 2018_11_21_094627) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_contracts_on_category_id"
     t.index ["counter_party_id"], name: "index_contracts_on_counter_party_id"
     t.index ["currency_id"], name: "index_contracts_on_currency_id"
     t.index ["discarded_at"], name: "index_contracts_on_discarded_at"
+    t.index ["price_type_id"], name: "index_contracts_on_price_type_id"
   end
 
   create_table "counter_parties", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -197,19 +197,21 @@ ActiveRecord::Schema.define(version: 2018_11_21_094627) do
   create_table "prices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "date", null: false
     t.bigint "product_id"
-    t.bigint "category_id"
+    t.bigint "product_type_id"
     t.float "price"
     t.bigint "currency_id"
+    t.boolean "for_base_unit"
     t.bigint "price_type_id"
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
-    t.index ["category_id"], name: "index_prices_on_category_id"
     t.index ["currency_id"], name: "index_prices_on_currency_id"
+    t.index ["date"], name: "index_prices_on_date"
     t.index ["discarded_at"], name: "index_prices_on_discarded_at"
     t.index ["price_type_id"], name: "index_prices_on_price_type_id"
     t.index ["product_id"], name: "index_prices_on_product_id"
+    t.index ["product_type_id"], name: "index_prices_on_product_type_id"
   end
 
   create_table "production_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -376,7 +378,7 @@ ActiveRecord::Schema.define(version: 2018_11_21_094627) do
   add_foreign_key "accounts", "companies"
   add_foreign_key "accounts", "currencies"
   add_foreign_key "categories", "categories", column: "parent_category_id"
-  add_foreign_key "contracts", "categories"
+  add_foreign_key "contracts", "categories", column: "price_type_id"
   add_foreign_key "contracts", "counter_parties"
   add_foreign_key "contracts", "currencies"
   add_foreign_key "counter_parties", "categories"
@@ -387,8 +389,8 @@ ActiveRecord::Schema.define(version: 2018_11_21_094627) do
   add_foreign_key "employees", "departments"
   add_foreign_key "payroll_items", "employees"
   add_foreign_key "payroll_items", "payrolls"
-  add_foreign_key "prices", "categories"
   add_foreign_key "prices", "categories", column: "price_type_id"
+  add_foreign_key "prices", "categories", column: "product_type_id"
   add_foreign_key "prices", "currencies"
   add_foreign_key "prices", "products"
   add_foreign_key "products", "categories"

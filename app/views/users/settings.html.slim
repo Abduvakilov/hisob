@@ -1,0 +1,21 @@
+= simple_form_for current_user,
+  url: settings_path,
+  authenticity_token: true,
+  defaults: { wrapper_html: { class: 'col-sm' } } do |f|
+  = f.error_notification
+  .form-row
+    = f.input :login
+    = f.input :password
+    = f.input :password_confirmation
+  .form-row
+    = f.input :default_day_difference, as: :integer
+    = f.input :rows_per_page, as: :integer
+  .form-row
+    = f.input :allow_negative_account_balance, as: :radio_buttons,
+      wrapper: :vertical_collection_inline
+  .form-row
+    = f.input :allow_negative_product_balance, as: :radio_buttons,
+      wrapper: :vertical_collection_inline
+
+  .row: button.btn.btn-primary.ml-auto type='submit'
+    = icon('edit', t('helpers.submit.save'))

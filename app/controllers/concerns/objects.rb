@@ -1,5 +1,11 @@
 module Objects
 
+  module ClassMethods
+    def path(query=nil)
+      Rails.application.routes.url_helpers.send "#{controller_name}_path", query
+    end
+  end
+
   def objects
     instance_variable_get("@#{controller_name}")
   end

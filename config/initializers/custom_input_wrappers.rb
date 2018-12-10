@@ -35,9 +35,20 @@ SimpleForm.setup do |config|
         end
       ba.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
       ba.use :hint, wrap_with: { tag: 'small', class: 'd-inline form-text text-muted ml-2' }
-
       end
     end
+  end
+
+  config.wrappers :select_with_link, tag: 'div', class: 'form-group', error_class: 'form-group-invalid', valid_class: 'form-group-valid' do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label
+    b.wrapper tag: 'div', class: 'input-group' do |ba|
+      ba.use :input, class: 'custom-select', error_class: 'is-invalid'
+      ba.use :link, class: 'btn btn-outline-secondary', wrap_with: { tag: 'div', class: 'input-group-append' }
+    end
+    b.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback d-block' }
+    b.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
   end
 
 end

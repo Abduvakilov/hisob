@@ -34,7 +34,7 @@ module TableHelper
     object.contract.counter_party
   end
 
-  %w[ total discount to_be_paid ].each do |field|
+  %w[ total discount to_be_paid price ].each do |field|
     define_method("table_#{field}") { |object|
       currency_precise_number(object.send(field), object.currency, unit: true)
     }

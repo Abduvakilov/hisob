@@ -44,8 +44,8 @@ class CounterParty < ApplicationRecord
   validates_presence_of :short_name, unless: :company_name?
   validates_presence_of :company_name, unless: :short_name?
 
-  belongs_to :district, optional: true
-  belongs_to :category, optional: true
+  belongs_to :district,   optional: true
+  belongs_to :price_type, optional: true
   has_many :contracts, -> { kept }
   has_many :sales,     -> { kept }, through: :contracts
   has_many :purchases, -> { kept }, through: :contracts
@@ -53,7 +53,7 @@ class CounterParty < ApplicationRecord
   after_create :create_contract
 
   def create_contract
-    Contract.create! counter_party_id: id, name: I18n.t('main_contract'), category_id: Category.main_price_type, currency: Currency.find_by_is_main(true)
+    Contract.create! counter_party_id: id, name: I18n.t('main_contract'), price_type_id: Category::DEFAULT_PRICE_TYPE_ID, currency: Currency.find_by_is_main(true)
   end
 
   def self.searched_by_childs

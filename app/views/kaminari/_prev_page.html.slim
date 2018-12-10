@@ -6,4 +6,4 @@
 /-     per_page:      number of items to fetch per page
 /-     remote:        data-remote
 li.prev.page
-  = link_to_unless current_page.first?, '«'.html_safe, url, rel: 'prev', remote: remote, class: "page-link"
+  a.page-link href=url rel='prev' «

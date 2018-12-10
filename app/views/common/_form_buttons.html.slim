@@ -3,24 +3,28 @@
     a.btn.btn-outline-secondary href=controller.path
       = icon 'chevron-left', t('views.back')
 
-  button type='submit' name='save' class='btn btn-primary mx-1'
-    = icon 'plus', f.object.persisted? ? \
-      t('helpers.submit.update', model: f.object.model_name.human) : \
-      t('helpers.submit.create', model: f.object.model_name.human)
+  button type='submit' class='btn btn-primary mx-1'
+    - if f.object.persisted?
+      = icon 'edit',
+        t('helpers.submit.update', model: f.object.model_name.human)
+    - else
+      = icon 'plus',
+        t('helpers.submit.create', model: f.object.model_name.human)
 
   - if f.object.persisted?
-    button[type='button' class='btn btn-outline-danger'
-      data-controller='confirmation'
-      data-confirmation-title=t('views.confirmation.discard.title',
-        model: f.object.model_name.human)
-      data-confirmation-body=(local_assigns[:confirmation_body] || \
-      t('views.confirmation.discard.body', model: f.object.model_name.human,
-        date: tag.b(l(f.object.created_at))))
-      data-confirmation-action=t('views.confirmation.discard.action',
-        model: f.object.model_name.human)
-      data-confirmation-url=url_for(id: f.object.id, action: :discard,
-        controller: controller_name, only_path: true) ]
-      = icon 'trash-alt', t('helpers.submit.discard')
+    - if @discardable
+      button[type='button' class='btn btn-outline-danger'
+        data-controller='confirmation'
+        data-confirmation-title=t('views.confirmation.discard.title',
+          model: f.object.model_name.human)
+        data-confirmation-body=(local_assigns[:confirmation_body] || \
+        t('views.confirmation.discard.body', model: f.object.model_name.human,
+          date: tag.b(l(f.object.created_at))))
+        data-confirmation-action=t('views.confirmation.discard.action',
+          model: f.object.model_name.human)
+        data-confirmation-url=url_for(id: f.object.id, action: :discard,
+          controller: controller_name, only_path: true) ]
+        = icon 'trash-alt', t('helpers.submit.discard')
   - else
     button type='submit' name='create_and_new' class='btn btn-outline-info'
       = icon 'chevron-circle-right', t('helpers.submit.create_and_new')

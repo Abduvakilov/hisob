@@ -15,9 +15,6 @@ export default class extends Flatpickr {
 			altInput: true,
 			wrap: true,
 		};
-		let value = this.element.querySelector('input').value;
-		if(!this.data.has('defaultDate') && value)
-			this.data.set('defaultDate', value);
 	}
 
 	change(selectedDates, dateStr) {

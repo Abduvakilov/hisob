@@ -434,7 +434,7 @@ SimpleForm.setup do |config|
     radio_buttons:  :vertical_collection,
     range:          :custom_range,
     time:           :custom_multi_select,
-    select:         :custom_multi_select,
+    select:         :select_with_link,
     account:        :custom_multi_select,
     datepicker:     :datepicker,
     datetimepicker: :datepicker

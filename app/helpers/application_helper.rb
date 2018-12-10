@@ -18,6 +18,11 @@ module ApplicationHelper
 		t _action_name, scope: [:views, :title, controller_name], default: (_model_name || model_name)
   end
 
+  def title_for(path)
+    controller, action = Rails.application.routes.recognize_path(path).values
+    t action, scope: [:views, :title, controller]
+  end
+
   def bootstrap_alert(key)
     case key
     when 'alert', 'error'

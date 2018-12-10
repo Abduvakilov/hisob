@@ -13,14 +13,14 @@ end
 company = Company.create! short_name: "Biz" unless Company.any?
 department = Department.create! name: "Boshqaruv", company: company unless Department.any?
 unless Category.any?
-  category      = Category.create! name: "Asosiy mahsulot"
-  category2     = Category.create! name: "Xomashyo"
   price_type    = Category.create! name: "Ulgurji", for: Price.name
   expense_type  = Category.create! name: "Yoqilg‘i xarajatlari", for: Expense.name
   expense_type2 = Category.create! name: "Uskunalar butlov qismlari", for: Expense.name
   expense_type3 = Category.create! name: "Transport butlov qismlari", for: Expense.name
   expense_type3 = Category.create! name: "Ofis xarajatlari", for: Expense.name
   expense_type4 = Category.create! name: "Boshqa xarajatlar", for: Expense.name
+  category      = Category.create! name: "Asosiy mahsulot", for: Product.name
+  category2     = Category.create! name: "Xomashyo", for: Product.name
 end
 unless Account.any?
   account = Account.create! name: "Birinchi Hisob", company: company, currency: currency

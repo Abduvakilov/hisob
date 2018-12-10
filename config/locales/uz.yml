@@ -109,6 +109,7 @@ uz:
     expense_type: Xarajat turi
     parent_category: Yuqori toifasi
     product: Mahsulot
+    product_type: Mahsulot turi
     price: Narxi
     discount: Chegirma
     customer: Mijoz
@@ -168,7 +169,7 @@ uz:
     accepted_as_currency: Valyuta
     allow_negative_account_balance: Hisobda mablag‘ yetarliligi tekshirilsin
     allow_negative_product_balance: Mahsulot soni yetarliligi tekshirilsin
-    default_day_difference: Standart vaqt farqi
+    default_day_difference: Standart kun farqi
     password_confirmation: Parolni tasdiqlash
     employee: Xodim
 
@@ -185,6 +186,7 @@ uz:
       discard: "Bekor qil"
       create_report: Hisobotni yarat
       login: Kirish
+      save: Saqla
 
   periods:
     today: Bugun

@@ -32,7 +32,7 @@ class Contract < ActiveRecord::Base
     name + ', ' + currency
   end
 
-  belongs_to :category, optional: true
+  belongs_to :price_type, optional: true
   belongs_to :counter_party
   belongs_to :currency
 

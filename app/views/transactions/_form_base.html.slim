@@ -24,7 +24,7 @@
   .form-row
     = render 'transactions/inputs/counter_party', f: f
 
-    = f.association :contract,
+    = f.association :contract, wrapper: :custom_multi_select,
       collection: f.object.contract&.with_others \
         &.in_date(f.object.datetime) || [],
       label_method: :to_s, required: false,

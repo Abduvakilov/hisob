@@ -20,4 +20,4 @@ table.records-table
     - if records.empty?
       tr
         td colspan=records.model.shown_fields.count = t 'views.no_records_found'
-== paginate records
+= paginate(records)

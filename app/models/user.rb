@@ -1,10 +1,10 @@
 class User < ApplicationRecord
 
-  composed_of :hi
   belongs_to :employee
   validates  :login, uniqueness: true
 
   DEFAULT_SETTINGS = {
+    rows_per_page: 20,
     default_day_difference: 0, homepage: '',
     allow_negative_account_balance: false,
     allow_negative_product_balance: false
@@ -46,10 +46,8 @@ class User < ApplicationRecord
   end
 
   def self.permitted_params
-     %w[ employee_id login password password_confirmation
-      default_day_difference
-      negative_account_balance_allowed?
-      negative_product_balance_allowed? ]
+     %w[employee_id login password password_confirmation] +
+     DEFAULT_SETTINGS.keys
   end
 
   def password_required?

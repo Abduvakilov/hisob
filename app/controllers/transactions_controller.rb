@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
 
   def index
-    self.objects  = model.kept.ordered.search(params[:search]).page(params[:page]).per OBJECTS_PER_PAGE
+    self.objects  = model.kept.ordered.search(params[:search]).page(params[:page]).per(rows_per_page)
     self.objects.order_values.prepend "#{params[:sort]} #{params[:dir]}" if params[:sort].present? && model.permitted_params.include?(params[:sort])
     filter_params = params.permit filter_fields
     @sorted       = filter_params.present?

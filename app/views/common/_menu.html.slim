@@ -5,8 +5,7 @@ nav#menu.nav.d-print-none[data-turbolinks-permanent]
      [productions_path, 'industry', Production],
      [purchases_path, 'box-open', Purchase],
      [counter_parties_path, 'user-friends', CounterParty],
-     [accounts_path, 'money-check-alt', Account],
-     [prices_path, 'hand-holding-usd', Price]].each do |el|
+     [accounts_path, 'money-check-alt', Account]].each do |el|
     a href=el[0] title=el[2].model_name.human
       = icon el[1]
       span.nav-label
@@ -17,9 +16,8 @@ nav#menu.nav.d-print-none[data-turbolinks-permanent]
     span.nav-label = t 'views.title.home_page.short'
 
   .bottom
-    - if user_signed_in?
-      a href=destroy_user_session_path data-turbolinks='false'
-          = icon 'sign-out-alt'
-          span.nav-label = t 'views.logout'
+    a href=destroy_user_session_path data-turbolinks='false'
+        = icon 'sign-out-alt'
+        span.nav-label = t 'views.logout'
     a.btn-expand[href="javascript:void(0)" onclick="toggleOpen(event)"]
       = icon 'list'

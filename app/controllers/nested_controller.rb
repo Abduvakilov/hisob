@@ -5,7 +5,7 @@ class NestedController < ApplicationController
   end
 
   def index
-    self.objects  = model.kept.where(required_key).page(params[:page]).per OBJECTS_PER_PAGE
+    self.objects  = model.kept.where(required_key).page(params[:page]).per(rows_per_page)
     self.objects.order_values.prepend("#{params[:sort]} #{params[:dir]}") if params[:sort].present? && model.permitted_params.include?(params[:sort])
   end
 
@@ -14,17 +14,22 @@ class NestedController < ApplicationController
     plural_path   = "#{parent_class_name}_#{model.model_name.plural}_path"
     if options.is_a?(model)
       if options.persisted?
-        send( singular_path, id: options)
+        send(singular_path, id: options)
       else
-        send( plural_path, options, required_key)
+        send(plural_path, options, required_key)
       end
     else
       if action = options.delete(:action)
-        send( "#{action}_#{singular_path}", options.merge(required_key))
+        send("#{action}_#{singular_path}", options.merge(required_key))
       else
-        send( plural_path, options.merge(required_key))
+        send(plural_path, options.merge(required_key))
       end
     end
+  end
+
+  def self.path(options={})
+    Rails.application.routes.url_helpers
+    .send("#{parent_class_name}_#{model.model_name.plural}_path", options)
   end
 
   def parent_class

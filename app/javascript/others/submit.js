@@ -18,21 +18,26 @@ function getSubmitListener(e) {
 
 function postSubmitListener(e) {
 	let form = e.target;
-	form.dispatchEvent(new Event('beforesubmit'));
-	form.querySelectorAll('[type=submit]').forEach(el=>el.disabled = true);
-	const token = document.querySelector('meta[name=csrf-token]').content;
 	e.stopImmediatePropagation(); e.preventDefault();
+	form.dispatchEvent(new Event('beforesubmit'));
+	let buttons = form.querySelectorAll('[type=submit]')
+	buttons.forEach(el=>el.disabled = true);
+
+	const token = document.querySelector('meta[name=csrf-token]');
 	let body = new FormData(form);
-	body.set('authenticity_token', token);
+	if(token) body.set('authenticity_token', token.content);
 	fetch(form.action, {
 		method: form.method, credentials: 'same-origin', redirect: 'manual',
 		body: body
 	}).then(res => {
+
 		let url = res.redirected ? res.url : res.headers.get('location');
 		if(url) {
 			Turbolinks.visit(url);
+			buttons.forEach(el=>el.disabled = false);
 			return;
 		}
+
 		res.text().then(html => {
 			form.outerHTML = html;
 			document.addEventListener('turbolinks:load', () => {
