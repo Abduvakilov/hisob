@@ -17,26 +17,22 @@ class Contract < ActiveRecord::Base
   extend Table::Sort
 
   def with_others
-    Contract.kept.where(counter_party_id: counter_party_id)
+    Contract.kept.in_date.where(counter_party_id: counter_party_id)
   end
 
   def single?
-    Contract.kept.where(counter_party_id: counter_party_id).count('id') == 1
-  end
-
-  def expired?
-    due_date? && due_date < Date.today
+    with_others.one?
   end
 
   def to_s
     name + ', ' + currency
   end
 
-  belongs_to :price_type, optional: true
+  belongs_to :price_type, class_name: 'Category'
   belongs_to :counter_party
   belongs_to :currency
 
-  has_many :sales
-  has_many :purchases
+  has_many :sales,     -> { kept }
+  has_many :purchases, -> { kept }
 
 end
