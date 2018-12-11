@@ -1,10 +1,10 @@
 = f.error_notification
 .form-row data-controller='contract'
   = f.input :datetime, as: :datepicker,
-    input_html: { 'data-target': 'contract.date' },
+    input_html: { 'data-target': 'contract.date',
+    value: f.object.datetime || user_default_time },
     wrapper_html: { data: { flatpickr_enable_time: true,
-    flatpickr_alt_format: t('datetime.formats.default'),
-    flatpickr_default_date: f.object.datetime || user_default_time } }
+    flatpickr_alt_format: t('datetime.formats.default') } }
   = f.input :counter_party,
     selected: f.object.contract&.counter_party_id,
     collection: CounterParty.kept.includes(:contracts) \

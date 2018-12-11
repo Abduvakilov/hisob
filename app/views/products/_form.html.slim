@@ -3,7 +3,8 @@
   = f.error_notification
   .form-row
     = f.input :name
-    = f.association :category, collection: Category.where(for: Product.name)
+    = f.association :category, link_query: { for: Product.name },
+      collection: Category.where(for: Product.name)
   .form-row
     = f.association :unit
     = f.input :include_base_unit, wrapper_html: { \

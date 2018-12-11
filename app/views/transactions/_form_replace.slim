@@ -4,10 +4,11 @@
   = f.error_notification
   = f.input :type_id, as: :hidden, input_html: { value: 20 }
   .form-row
-    = f.input :datetime, as: :datepicker, wrapper_html: { data: { \
-      flatpickr_default_date: user_default_time,
-      flatpickr_enable_time: true,
-      flatpickr_alt_format: t('time.formats.default') } }
+    = f.input :datetime, as: :datepicker,
+      input_html: { value: f.object.datetime || user_default_time },
+      wrapper_html: { data: { \
+        flatpickr_enable_time: true,
+        flatpickr_alt_format: t('time.formats.default') } }
     = f.input :amount, as: :currency
   .form-row
     = f.association :account, as: :account, label: 'Hisobdan',

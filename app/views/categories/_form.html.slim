@@ -5,7 +5,7 @@
 
   .form-row
     = f.input :name
-    = f.association :parent_category
+    = f.association :parent_category, wrapper: :custom_multi_select
 
   .form-row
     = f.input :notes

@@ -42,6 +42,10 @@ uz:
           new: Yangi Narx turi
           show: Narx turi
           index: Narx turlari
+        product:
+          new: Yangi Mahsulot turi
+          show: Mahsulot turi
+          index: Mahsulot turlari
       sessions:
         new: Kirish
       home_page:

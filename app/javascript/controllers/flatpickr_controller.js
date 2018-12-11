@@ -17,7 +17,9 @@ export default class extends Flatpickr {
 		};
 	}
 
-	change(selectedDates, dateStr) {
-		this.data.set('defaultDate', dateStr);
+	disconnect() {
+		const value = this.fp.input.value;
+		this.fp.destroy();
+		this.fp.input.value = value;
 	}
 }

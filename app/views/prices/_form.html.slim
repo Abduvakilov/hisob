@@ -5,7 +5,8 @@
 
   .form-row
     = f.input :date, as: :datepicker
-    = f.association :price_type, collection: Category.where(for: Price.name)
+    = f.association :price_type, link_query: { for: Price.name },
+      collection: Category.where(for: Price.name)
 
   .form-row
     legend.col-form-label
@@ -17,7 +18,7 @@
         unit: item.unit, baseUnit: item.base_unit,
         ratio: item.unit&.ratio_to_base_unit }.compact] },
       input_html: {'data-action': 'change->unit#updateUnits'}
-    = f.association :product_type,
+    = f.association :product_type, link_query: { for: Product.name },
       collection: Category.kept.where(for: Product.name).order( \
         params[:product_id] && \
         (main_category = Product.find(params[:product_id]).category_id) ? \
