@@ -22,5 +22,8 @@
   },
   "scripts": {
     "stats": "webpack-bundle-analyzer stats.json"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
