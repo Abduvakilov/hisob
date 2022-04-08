@@ -30,11 +30,8 @@ webpack-build-log.json
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/node_modules
 /public/packs
 /public/packs-test
-/node_modules
 yarn-debug.log*
 .yarn-integrity
-config/database.yml
 config/secrets.yml
