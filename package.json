@@ -4,7 +4,7 @@
     "@fortawesome/fontawesome-svg-core": "^1",
     "@fortawesome/free-solid-svg-icons": "^5",
     "@rails/webpacker": "^3",
-    "bootstrap": "^4.1",
+    "bootstrap": "^4",
     "chartist": "^0",
     "cleave.js": "^1.4",
     "flatpickr": "^4",
