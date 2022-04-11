@@ -5,7 +5,7 @@
   = f.input :type_id, as: :hidden, input_html: { value: 20 }
   .form-row
     = f.input :datetime, as: :datepicker,
-      input_html: { value: f.object.datetime || user_default_time },
+      input_html: { value: @transaction.datetime || user_default_time },
       wrapper_html: { data: { \
         flatpickr_enable_time: true,
         flatpickr_alt_format: t('time.formats.default') } }
@@ -13,12 +13,12 @@
   .form-row
     = f.association :account, as: :account, label: 'Hisobdan',
       collection: Account.kept,
-      selected: (@transaction.account_id ||= Account.kept.first.id),
+      selected: (@transaction.account_id ||= @default_account),
       wrapper_html: { 'data-controller': 'account' },
       input_html: { 'data-action': 'change->account#updateBalance',
                   'data-target': 'account.input' },
-      balance: currency_precise_number(@transaction.account.balance,
-        @transaction.account.currency, unit: true),
+      balance: (currency_precise_number(@transaction.account.balance,
+        @transaction.account.currency, unit: true) if @transaction.account),
       balance_data_target: 'account.balance'
     = f.association :counter_account, as: :account, label: 'Hisobga',
       collection: Account.kept,

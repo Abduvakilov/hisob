@@ -3,7 +3,7 @@
     defaults: { wrapper_html: { class: 'col-sm' } } do |f|
   = f.error_notification
   = f.association :account, as: :account,
-    selected: (f.object.account_id ||= Account.kept.first.id),
+    selected: (f.object.account_id ||= @default_account),
     wrapper: :hidden_account,
     balance: currency_precise_number(f.object.account.balance,
       f.object.account.currency, unit: true),

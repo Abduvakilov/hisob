@@ -1,5 +1,4 @@
-require 'autocomplete_off_input'
-class CurrencyInput < AutocomlpleteOff
+class CurrencyInput < AutocompleteOffInput
   def input_html_options
     super.merge 'data-controller': 'currency', class: 'text-right'
   end

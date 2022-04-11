@@ -1,5 +1,4 @@
-require 'autocomplete_off_input'
-class DatepickerInput < AutocomlpleteOff
+class DatepickerInput < AutocompleteOffInput
   # def wrapper_html_options
   #   super.merge 'data-flatpickr-default_date': DateTime.now,
   # end

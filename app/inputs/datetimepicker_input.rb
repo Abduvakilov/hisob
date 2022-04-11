@@ -1,3 +1,2 @@
-require 'autocomplete_off_input'
-class DatetimepickerInput < AutocomlpleteOff
+class DatetimepickerInput < AutocompleteOffInput
 end

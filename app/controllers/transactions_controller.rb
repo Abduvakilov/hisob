@@ -36,6 +36,7 @@ class TransactionsController < ApplicationController
 
   def new
     model = Transaction.models[params[:type].to_i]
+    @default_account = Account.first.id if Account.first
     @transaction = model.new
   end
 
