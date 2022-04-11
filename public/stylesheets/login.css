@@ -1,3 +1,6 @@
+[role=alert] {
+  color: red;
+}
 .card {
   position: relative;
   display: -ms-flexbox;

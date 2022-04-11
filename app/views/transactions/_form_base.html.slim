@@ -5,8 +5,8 @@
   = f.association :account, as: :account,
     selected: (f.object.account_id ||= @default_account),
     wrapper: :hidden_account,
-    balance: currency_precise_number(f.object.account.balance,
-      f.object.account.currency, unit: true),
+    balance: (currency_precise_number(f.object.account.balance,
+      f.object.account.currency, unit: true) if f.object.account),
     balance_data_target: 'account.balance'
   .form-row
     = f.input :type_id, label: 'Pul aylanmasi turi',
@@ -56,8 +56,8 @@
 
     = f.input :rate, as: :currency, wrapper_class: 'form-group w-sm-200',
       input_html: { \
-        value: currency_precise_number(f.object.rate,
-          f.object.account.currency) }
+        value: (currency_precise_number(f.object.rate,
+          f.object.account.currency) if f.object.account) }
 
   = more_wrapped f.object.class.name.downcase,
     checked: %w[accepted_as_amount accepted_as_currency_id notes].any? \
@@ -73,6 +73,6 @@
 
   = render 'common/form_buttons', f: f,
     confirmation_body: t('views.confirmation.discard.transaction.body',
-      amount: tag.b(currency_precise_number(f.object.amount,
-        f.object.account.currency, unit: true)),
+      amount: (tag.b(currency_precise_number(f.object.amount,
+        f.object.account.currency, unit: true)) if f.object.account),
       model: f.object.model_name.human)
