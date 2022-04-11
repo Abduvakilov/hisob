@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_21_094627) do
+ActiveRecord::Schema.define(version: 2022_04_10_062712) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
@@ -375,4 +375,42 @@ ActiveRecord::Schema.define(version: 2018_11_21_094627) do
     t.index ["login"], name: "index_users_on_login", unique: true
   end
 
+  add_foreign_key "accounts", "companies"
+  add_foreign_key "accounts", "currencies"
+  add_foreign_key "categories", "categories", column: "parent_category_id"
+  add_foreign_key "contracts", "categories", column: "price_type_id"
+  add_foreign_key "contracts", "counter_parties"
+  add_foreign_key "contracts", "currencies"
+  add_foreign_key "counter_parties", "categories"
+  add_foreign_key "counter_parties", "districts"
+  add_foreign_key "departments", "companies"
+  add_foreign_key "districts", "districts", column: "parent_district_id"
+  add_foreign_key "employees", "companies"
+  add_foreign_key "employees", "departments"
+  add_foreign_key "payroll_items", "employees"
+  add_foreign_key "payroll_items", "payrolls"
+  add_foreign_key "prices", "categories", column: "price_type_id"
+  add_foreign_key "prices", "categories", column: "product_type_id"
+  add_foreign_key "prices", "currencies"
+  add_foreign_key "prices", "products"
+  add_foreign_key "products", "categories"
+  add_foreign_key "products", "companies"
+  add_foreign_key "products", "counter_parties"
+  add_foreign_key "purchases", "contracts"
+  add_foreign_key "salaries", "currencies"
+  add_foreign_key "salaries", "departments"
+  add_foreign_key "salaries", "employees"
+  add_foreign_key "sale_items", "products"
+  add_foreign_key "sale_items", "sales"
+  add_foreign_key "sales", "contracts"
+  add_foreign_key "transactions", "accounts"
+  add_foreign_key "transactions", "accounts", column: "counter_account_id"
+  add_foreign_key "transactions", "categories", column: "expense_type_id"
+  add_foreign_key "transactions", "contracts"
+  add_foreign_key "transactions", "counter_parties"
+  add_foreign_key "transactions", "currencies", column: "accepted_as_currency_id"
+  add_foreign_key "transactions", "currencies", column: "asked_currency_id"
+  add_foreign_key "transactions", "employees"
+  add_foreign_key "units", "units", column: "base_unit_id"
+  add_foreign_key "users", "employees"
 end
