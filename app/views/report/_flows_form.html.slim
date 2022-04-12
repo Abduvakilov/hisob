@@ -1,5 +1,5 @@
 = simple_form_for local_assigns[:scope] || :flows,
-  url: polymorphic_path([:report, controller_name.singularize]),
+  url: polymorphic_path([:report, controller_name.singularize.to_sym]),
   method: :post, local: true, defaults: { label: false,
     wrapper_html: { class: 'col-sm' } },
   html: { class: 'form-row w-75', 'data-controller': 'flows' } do |f|

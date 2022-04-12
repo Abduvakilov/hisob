@@ -1,7 +1,7 @@
 - content_for :head do
   - javascript_pack_tag 'chart'
 = simple_form_for :summary,
-  url: polymorphic_path([:report,controller_name.singularize]),
+  url: polymorphic_path([:report,controller_name.singularize.to_sym]),
   method: :post, defaults: { \
     wrapper_html: {class: 'col-md'}, label: false \
   }, html: {'data-controller': 'summary'} do |f|

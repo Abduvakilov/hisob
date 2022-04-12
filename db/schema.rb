@@ -2,26 +2,25 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.integer "company_id"
     t.integer "currency_id"
     t.boolean "enable_overdraft"
-    t.integer "bank_account_number"
+    t.string "bank_account_number"
     t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["company_id"], name: "index_accounts_on_company_id"
     t.index ["currency_id"], name: "index_accounts_on_currency_id"
     t.index ["discarded_at"], name: "index_accounts_on_discarded_at"
@@ -32,9 +31,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.integer "parent_category_id"
     t.string "for"
     t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["discarded_at"], name: "index_categories_on_discarded_at"
     t.index ["for"], name: "index_categories_on_for"
     t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
@@ -43,9 +42,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
   create_table "companies", force: :cascade do |t|
     t.string "short_name"
     t.string "long_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["discarded_at"], name: "index_companies_on_discarded_at"
   end
 
@@ -57,9 +56,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.date "start_date"
     t.date "due_date"
     t.text "notes"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["counter_party_id"], name: "index_contracts_on_counter_party_id"
     t.index ["currency_id"], name: "index_contracts_on_currency_id"
     t.index ["discarded_at"], name: "index_contracts_on_discarded_at"
@@ -77,9 +76,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.boolean "is_supplier"
     t.boolean "is_customer"
     t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["category_id"], name: "index_counter_parties_on_category_id"
     t.index ["discarded_at"], name: "index_counter_parties_on_discarded_at"
     t.index ["district_id"], name: "index_counter_parties_on_district_id"
@@ -92,9 +91,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.string "code", null: false
     t.integer "precision", default: 2
     t.boolean "is_main"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["discarded_at"], name: "index_currencies_on_discarded_at"
     t.index ["is_main"], name: "index_currencies_on_is_main"
   end
@@ -103,9 +102,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.string "name", null: false
     t.integer "company_id"
     t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["company_id"], name: "index_departments_on_company_id"
     t.index ["discarded_at"], name: "index_departments_on_discarded_at"
   end
@@ -114,9 +113,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.string "name", null: false
     t.integer "parent_district_id"
     t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["discarded_at"], name: "index_districts_on_discarded_at"
     t.index ["parent_district_id"], name: "index_districts_on_parent_district_id"
   end
@@ -130,9 +129,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.integer "company_id"
     t.text "notes"
     t.boolean "gender"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["discarded_at"], name: "index_employees_on_discarded_at"
@@ -176,8 +175,8 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.float "tax"
     t.float "bonus"
     t.float "overtime"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["employee_id"], name: "index_payroll_items_on_employee_id"
     t.index ["payroll_id"], name: "index_payroll_items_on_payroll_id"
   end
@@ -186,9 +185,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.integer "month"
     t.integer "year"
     t.text "notes"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["discarded_at"], name: "index_payrolls_on_discarded_at"
     t.index ["month"], name: "index_payrolls_on_month"
     t.index ["year"], name: "index_payrolls_on_year"
@@ -203,9 +202,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.boolean "for_base_unit"
     t.integer "price_type_id"
     t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["currency_id"], name: "index_prices_on_currency_id"
     t.index ["date"], name: "index_prices_on_date"
     t.index ["discarded_at"], name: "index_prices_on_discarded_at"
@@ -225,9 +224,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
   create_table "productions", force: :cascade do |t|
     t.date "date", null: false
     t.text "notes"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["discarded_at"], name: "index_productions_on_discarded_at"
   end
 
@@ -240,9 +239,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.boolean "is_for_sale"
     t.integer "category_id"
     t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["company_id"], name: "index_products_on_company_id"
     t.index ["counter_party_id"], name: "index_products_on_counter_party_id"
@@ -261,13 +260,13 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
   end
 
   create_table "purchases", force: :cascade do |t|
-    t.datetime "datetime", null: false
+    t.datetime "datetime", precision: nil, null: false
     t.integer "contract_id", null: false
     t.float "discount"
     t.text "notes"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["contract_id"], name: "index_purchases_on_contract_id"
     t.index ["discarded_at"], name: "index_purchases_on_discarded_at"
   end
@@ -279,9 +278,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.float "amount", null: false
     t.integer "currency_id"
     t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "discarded_at", precision: nil
     t.index ["currency_id"], name: "index_salaries_on_currency_id"
     t.index ["department_id"], name: "index_salaries_on_department_id"
     t.index ["discarded_at"], name: "index_salaries_on_discarded_at"
@@ -299,18 +298,18 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
 
   create_table "sales", force: :cascade do |t|
     t.integer "contract_id", null: false
-    t.datetime "datetime", null: false
+    t.datetime "datetime", precision: nil, null: false
     t.float "discount"
     t.text "notes"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["contract_id"], name: "index_sales_on_contract_id"
     t.index ["discarded_at"], name: "index_sales_on_discarded_at"
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.datetime "datetime", null: false
+    t.datetime "datetime", precision: nil, null: false
     t.float "amount", null: false
     t.integer "type_id", limit: 1, null: false
     t.integer "counter_party_id"
@@ -324,9 +323,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.float "rate"
     t.integer "asked_currency_id"
     t.text "notes"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["accepted_as_currency_id"], name: "index_transactions_on_accepted_as_currency_id"
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["asked_currency_id"], name: "index_transactions_on_asked_currency_id"
@@ -344,9 +343,9 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.string "long_name", null: false
     t.integer "base_unit_id"
     t.float "ratio_to_base_unit"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["base_unit_id"], name: "index_units_on_base_unit_id"
     t.index ["discarded_at"], name: "index_units_on_discarded_at"
   end
@@ -356,20 +355,20 @@ ActiveRecord::Schema[6.1].define(version: 2022_04_10_062712) do
     t.boolean "is_admin"
     t.text "notes"
     t.text "settings"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "discarded_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "login", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.datetime "remember_created_at"
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
-    t.datetime "locked_at"
+    t.datetime "locked_at", precision: nil
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["employee_id"], name: "index_users_on_employee_id"
     t.index ["login"], name: "index_users_on_login", unique: true
