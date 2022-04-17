@@ -14,7 +14,7 @@ module TableHelper
   end
 
   %w[date datetime hire_date birthday].each do |field|
-    define_method("table_#{field}") { |object| l(object[field]) }
+    define_method("table_#{field}") { |object| l(object[field]) if object[field].present? }
   end
 
   def table_type_id(object)
@@ -36,7 +36,7 @@ module TableHelper
 
   %w[ total discount to_be_paid price ].each do |field|
     define_method("table_#{field}") { |object|
-      currency_precise_number(object.send(field), object.currency, unit: true)
+      currency_precise_number(object[field], object.currency, unit: true) if object[field].present?
     }
   end
 
