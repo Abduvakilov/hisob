@@ -13,8 +13,10 @@ export default class extends PersistencyController {
   }
 
   updateCounterParty() {
-  	let id = this.typeTarget.value;
-		this.counterParty.updateList(id);
+    if(this.counterParty) {
+      let id = this.typeTarget.value;
+      this.counterParty.updateList(id);
+    }
   }
 
   get counterParty() {
