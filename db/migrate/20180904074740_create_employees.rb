@@ -9,7 +9,6 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.references :company, foreign_key: true
       t.text       :notes
       t.boolean    :gender
-      t.text       :notes
 
       t.timestamps
     end
