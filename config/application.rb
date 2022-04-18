@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Acc
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 7.0
 
     config.autoload_paths += Dir[Rails.root.join("app", "models", "transaction")]
     config.i18n.load_path += Dir[Rails.root.join('locales', '*.uz.yml')]

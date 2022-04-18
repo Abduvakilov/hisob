@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.5"
+ruby "3.1.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0"
@@ -9,16 +9,12 @@ gem "rails", "~> 7.0"
 # Use Puma as the app server
 gem 'puma' #, '~> 3.11'
 # Use SCSS for stylesheets
-#gem 'sass-rails'#, '~> 5.0'
+# gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 # gem 'uglifier'#, '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 #gem 'mini_racer', platforms: :ruby
 
-# Use CoffeeScript for .coffee assets and views
-# gem 'coffee-rails'#, '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-# gem 'turbolinks'#, '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder' #, '~> 2.11.5'
 # Use Redis adapter to run Action Cable in production
@@ -46,32 +42,29 @@ group :production do
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-# Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "sqlite3"
 end
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console' #, '>= 3.3.0'
-  gem 'listen' #, '>= 3.0.5', '< 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  # gem 'spring-watcher-listen'
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console"
 
-  # gem 'annotate'
-  # gem 'rubocop', require: false
+  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
+  # gem "rack-mini-profiler"
 
+  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
+  # gem "spring"
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara' #, '>= 2.15', '< 4.0'
-  gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
 end
+
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -79,9 +72,17 @@ end
 gem 'simple_form'
 gem 'kaminari'
 gem 'slim'#, require: 'slim/logic_less'
-gem "webpacker", "~> 3.5.5"
+# gem "webpacker", "~> 4"
 gem 'discard'
 gem 'devise'
 
-gem "sprockets", "~> 3.7.2"
 gem "sprockets-rails"
+gem "jsbundling-rails"
+gem "cssbundling-rails"
+
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+# gem "turbo-rails"
+
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+# gem "stimulus-rails", "~> 2"
+

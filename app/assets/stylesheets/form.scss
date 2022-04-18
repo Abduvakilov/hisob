@@ -36,7 +36,7 @@
     border-color: $danger;
 
     &:focus {
-      @extend .form-control.is-invalid:focus;
+      @extend .form-control, .is-invalid, :focus;
     }
   }
 }

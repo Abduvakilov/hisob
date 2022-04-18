@@ -1,5 +1,5 @@
 - content_for :head do
-  - javascript_pack_tag 'chart'
+  - javascript_include_tag 'chart'
 = simple_form_for :summary,
   url: polymorphic_path([:report,controller_name.singularize.to_sym]),
   method: :post, defaults: { \

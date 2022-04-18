@@ -1,4 +1,4 @@
-import Chartist from 'chartist';
+// import Chartist from 'chartist';
 // document.addEventListener('turbolinks:load', () => {
 // var data = {
 //   // A labels array that can contain any sort of values

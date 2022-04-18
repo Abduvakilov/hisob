@@ -1,7 +1,7 @@
-import Turbolinks from 'turbolinks';
-import './icons';
-import alertTimeout from './alert';
-import formSubmit from './submit';
+import Turbolinks from 'turbolinks'; 
+import './icons.js';
+import alertTimeout from './alert.js';
+import formSubmit from './submit.js';
 
 Turbolinks.start();
 
@@ -16,6 +16,7 @@ document.addEventListener('turbolinks:load', function() {
 	alertTimeout();
 	linkRows();
 	formSubmit();
+  console.log('1')
 });
 
 function linkRows(){
