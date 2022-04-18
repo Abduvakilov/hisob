@@ -76,7 +76,7 @@ gem 'slim'#, require: 'slim/logic_less'
 gem 'discard'
 gem 'devise'
 
-gem "sprockets-rails"
+gem "sprockets-rails", '2.3.3'
 gem "jsbundling-rails"
 gem "cssbundling-rails"
 
