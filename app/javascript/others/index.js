@@ -1,18 +1,16 @@
-import Turbolinks from 'turbolinks'; 
+import "@hotwired/turbo-rails";
 import './icons.js';
 import alertTimeout from './alert.js';
 import formSubmit from './submit.js';
 
-Turbolinks.start();
-
 window.touch = 'ontouchstart' in document.documentElement;
 
-document.addEventListener('turbolinks:before-cache', function() {
+document.addEventListener('turbo:before-cache', function() {
 	let alert = document.querySelector('.alert');
 	if(alert) alert.remove();
 });
 
-document.addEventListener('turbolinks:load', function() {
+document.addEventListener('turbo:load', function() {
 	alertTimeout();
 	linkRows();
 	formSubmit();
@@ -28,7 +26,7 @@ function linkRows(){
 }
 
 function linkEventHandler(e) {
-	Turbolinks.visit(e.currentTarget.getAttribute('data-url'));
+	Turbo.visit(e.currentTarget.getAttribute('data-url'));
 	window.getSelection().removeAllRanges();
 }
 
