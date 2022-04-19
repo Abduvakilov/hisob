@@ -15,9 +15,9 @@
       selected: f.object.type_id_before_type_cast || \
         f.object.type_id = type_ids.values[0],
       input_html: { 'data-action': 'change->transaction#update',
-                    'data-target': 'transaction.type' }
+                    'data-transaction-target': 'type' }
     = f.input :datetime, as: :datepicker, input_html: { required: true,
-      'data-target': 'contract.date',
+      'data-contract-target': 'date',
       value: f.object.datetime || user_default_time },
       wrapper_html: { data: { flatpickr_enable_time: true,
         flatpickr_alt_format: t('time.formats.default') } }
@@ -42,7 +42,7 @@
         collection: Category.where(for: Expense.name),
         wrapper_html: { class: ['col-sm',
           ('d-none' unless f.object.to_purchase? || f.object.to_other?)],
-          'data-target': 'transaction.expenseTypeHidden' }
+          'data-transaction-target': 'expenseTypeHidden' }
 
     = f.input :amount, as: :currency, wrapper_class: 'form-group w-sm-200',
       required: true, input_html: { \
@@ -50,7 +50,7 @@
         f.object.account&.currency) }
 
   .form-row[class=('d-none' unless f.object.to_conversion?)
-    data-target='transaction.conversionHidden']
+    data-transaction-target='conversionHidden']
 
     = f.association :asked_currency, wrapper_class: 'form-group w-sm-200'
 

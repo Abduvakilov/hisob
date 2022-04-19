@@ -6,7 +6,7 @@ export default class extends Controller {
 	static productDetails = [];
 
 	get contractID() {
-		return document.querySelector('[data-target="contract.contract"]').value;
+		return document.querySelector('[data-contract-target="contract"]').value;
 	}
 
 	get products(){

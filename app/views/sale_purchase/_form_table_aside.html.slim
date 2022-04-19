@@ -2,7 +2,7 @@ table.form-table.w-auto
   tbody
     tr
       th.font-weight-bold scope='row' = t 'views.total'
-      td.w-50.text-right data-target="table.total"
+      td.w-50.text-right data-table-target="total"
         = currency_precise_number f.object.total, f.object.currency
     tr
       th scope="row" = t 'views.discount'
@@ -15,5 +15,5 @@ table.form-table.w-auto
             action: 'input->table#update'}
     tr
       th.font-weight-bold scope="row" = t 'views.to_be_paid'
-      td.w-50.text-right data-target='table.toBePaid'
+      td.w-50.text-right data-table-target='toBePaid'
         = currency_precise_number f.object.to_be_paid, f.object.currency

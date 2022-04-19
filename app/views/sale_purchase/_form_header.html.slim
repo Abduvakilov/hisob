@@ -1,7 +1,7 @@
 = f.error_notification
 .form-row data-controller='contract'
   = f.input :datetime, as: :datepicker,
-    input_html: { 'data-target': 'contract.date',
+    input_html: { 'data-contract-target': 'date',
     value: f.object.datetime || user_default_time },
     wrapper_html: { data: { flatpickr_enable_time: true,
     flatpickr_alt_format: t('datetime.formats.default') } }
@@ -16,5 +16,5 @@
     collection: f.object.contract&.with_others&.in_date(f.object.datetime) || [],
     label_method: :to_s, required: false, wrapper_class: ['form-group',
     ('d-none' if f.object.new_record? || f.object.contract&.single?)],
-    input_html: { 'data-target': 'contract.contract' }
+    input_html: { 'data-contract-target': 'contract' }
   /-  TODO customer default

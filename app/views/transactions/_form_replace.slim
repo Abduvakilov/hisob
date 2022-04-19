@@ -16,7 +16,7 @@
       selected: (@transaction.account_id ||= @default_account),
       wrapper_html: { 'data-controller': 'account' },
       input_html: { 'data-action': 'change->account#updateBalance',
-                  'data-target': 'account.input' },
+                  'data-account-target': 'input' },
       balance: (currency_precise_number(@transaction.account.balance,
         @transaction.account.currency, unit: true) if @transaction.account),
       balance_data_target: 'account.balance'
@@ -24,7 +24,7 @@
       collection: Account.kept,
       wrapper_html: { 'data-controller': 'account' },
       input_html: { 'data-action': 'change->account#updateBalance',
-                    'data-target': 'account.input' },
+                    'data-account-target': 'input' },
       balance: currency_precise_number(@transaction.counter_account&.balance,
         @transaction.counter_account&.currency, unit: true),
       balance_data_target: 'account.balance'

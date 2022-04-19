@@ -28,7 +28,7 @@
     = f.input :for_base_unit, include_blank: false,
       collection: [[@price.product&.base_unit, true],
         [@price.product&.unit, false]],
-      input_html: {'data-target': 'unit.unit' },
+      input_html: {'data-unit-target': 'unit' },
       wrapper_class: ['form-group', ('d-none' unless @price.product&.unit)]
     = f.input :price
     = f.association :currency

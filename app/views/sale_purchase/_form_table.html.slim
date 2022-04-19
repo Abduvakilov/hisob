@@ -18,9 +18,9 @@ table.form-table
           - if fa.object.persisted?
             = fa.check_box :_destroy, class: 'd-none'
           = fa.label :_destroy, 'data-action': 'click->row#remove click->table#update',
-            'data-target': 'row.minus' do
+            'data-row-target': 'minus' do
             = icon 'minus'
-        th scope='row' data-target='row.no' 1
+        th scope='row' data-row-target='no' 1
         = fa.input :product_id,
           collection: Product.includes(:unit).kept. \
             where(local_assigns[:product_where]). \
@@ -41,8 +41,8 @@ table.form-table
             autocomplete: 'off', min: 0, data: { \
             target: 'table.amount',
             action: 'input->row#copy input->table#update' }}
-        td data-target="unit.unit" = fa.object.product&.unit
+        td data-unit-target="unit" = fa.object.product&.unit
   tfoot
     tr
       td colspan=(exclude_price ? 3 : 4)
-      td data-target="table.totalAmount" = f.object.total_amount
+      td data-table-target="totalAmount" = f.object.total_amount

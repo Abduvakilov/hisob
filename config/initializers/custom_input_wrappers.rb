@@ -7,7 +7,7 @@ SimpleForm.setup do |config|
     b.use :label, class: 'col-sm-2'
     b.wrapper :anchor_wrapper, tag: 'div', class: 'col-sm-10', html: {'data-controller': 'account'} do |ba|
       ba.use :anchor, wrap_with: { tag: 'a', html: {href: 'javascript:void(0)', 'data-action': 'click->account#show'} }
-      ba.wrapper :hide_wrapper, tag: 'div', class: 'd-none', html: {'data-target': 'account.hidden'} do |bb|
+      ba.wrapper :hide_wrapper, tag: 'div', class: 'd-none', html: {'data-account-target': 'hidden'} do |bb|
         bb.wrapper tag: 'div', class: 'input-group' do |bc|
           bc.use :input, class: 'anchor_input custom-select', error_class: 'is-invalid', valid_class: 'is-valid', 'data-action': 'change->account#updateBalance'
           bc.use :link, class: 'btn btn-outline-secondary', wrap_with: { tag: 'div', class: 'input-group-append' }

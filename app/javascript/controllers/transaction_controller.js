@@ -37,7 +37,7 @@ export default class extends PersistencyController {
   }
 
   get contract() {
-    return document.querySelector('[data-target="contract.contract"]')
+    return document.querySelector('[data-contract-target="contract"]')
   }
 
   showExpenseTypeField() {

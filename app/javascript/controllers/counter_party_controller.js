@@ -46,7 +46,7 @@ export default class extends SelectrController {
   }
 
   get typeID() {
-		return document.querySelector('[data-target="transaction.type"]').value;
+		return document.querySelector('[data-transaction-target="type"]').value;
 	}
 
 }

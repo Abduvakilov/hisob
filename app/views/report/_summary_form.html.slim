@@ -11,13 +11,13 @@
       [t("frequnecies.#{e}"), e]}, selected: 'monthly'
     = f.input :daily, as: :datepicker,
       wrapper_html: {class: 'd-none'}, input_html: { \
-        'data-target': 'report.daily report.monthly',
+        'data-report-target': 'daily report.monthly',
         'data-flatpickr-mode': 'range'}
     - year = 30.days.ago.year
     - months=I18n.t('date.month_names').drop(1).each_with_index.map{|x,i| [x, i+1]}
     
     = f.simple_fields_for 'monthly', defaults: { \
-      wrapper_html: {class: 'col-6 col-md', 'data-target': 'report.monthly'},
+      wrapper_html: {class: 'col-6 col-md', 'data-report-target': 'monthly'},
       label: false} do |m|
       = m.input :from_year, collection: 2010..year, selected: year,
         wrapper_html: {class: 'col-6 col-md pr-0'}
@@ -30,7 +30,7 @@
       = m.input :to_month, collection: months, selected: Date.today.month
 
     = f.simple_fields_for 'yearly', defaults: { \
-      wrapper_html: {class: 'd-none col-6 col-md', 'data-target': 'report.yearly'},
+      wrapper_html: {class: 'd-none col-6 col-md', 'data-report-target': 'yearly'},
       label: false} do |y|
       = y.input :from_year, collection: 2010..year, selected: year
       .d-none.pt-sm-1.col-12.col-sm-auto.text-center —
