@@ -1,4 +1,4 @@
-import { Controller } from 'stimulus';
+import { Controller } from '@hotwired/stimulus';
 import Cleave from 'cleave.js';
 
 export default class extends Controller {

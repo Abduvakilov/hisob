@@ -18,16 +18,14 @@
       input_html: { 'data-action': 'change->account#updateBalance',
                   'data-account-target': 'input' },
       balance: (currency_precise_number(@transaction.account.balance,
-        @transaction.account.currency, unit: true) if @transaction.account),
-      balance_data_target: 'account.balance'
+        @transaction.account.currency, unit: true) if @transaction.account)
     = f.association :counter_account, as: :account, label: 'Hisobga',
       collection: Account.kept,
       wrapper_html: { 'data-controller': 'account' },
       input_html: { 'data-action': 'change->account#updateBalance',
                     'data-account-target': 'input' },
       balance: currency_precise_number(@transaction.counter_account&.balance,
-        @transaction.counter_account&.currency, unit: true),
-      balance_data_target: 'account.balance'
+        @transaction.counter_account&.currency, unit: true)
   = more_wrapped 'replace' do
     .form-row
       = f.input :notes

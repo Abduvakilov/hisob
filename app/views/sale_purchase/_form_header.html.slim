@@ -10,7 +10,7 @@
     collection: CounterParty.kept.includes(:contracts) \
       .where(counter_party_role => true).map { |cp| [cp, cp.id,
       contract: (cp.contracts.in_date.count == 1 ? cp.main_contract.id : '')] },
-    input_html: {required: true, data: { target: 'contract.cp',
+    input_html: {required: true, data: { 'contract-target': 'cp',
     controller: 'selectr', action: 'change->contract#updateContract'}}
   = f.association :contract, wrapper: :custom_multi_select,
     collection: f.object.contract&.with_others&.in_date(f.object.datetime) || [],

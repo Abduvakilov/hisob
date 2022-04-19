@@ -1,4 +1,4 @@
-import { Controller } from 'stimulus';
+import { Controller } from '@hotwired/stimulus';
 import Selectr from 'mobius1-selectr/src/selectr';
 import 'mobius1-selectr/src/selectr.css';
 

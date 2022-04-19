@@ -215,6 +215,8 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.4.2)
+    stimulus-rails (1.0.4)
+      railties (>= 6.0.0)
     strscan (3.0.1)
     temple (0.8.2)
     thor (1.2.1)
@@ -265,6 +267,7 @@ DEPENDENCIES
   slim
   sprockets-rails (= 2.3.3)
   sqlite3
+  stimulus-rails
   turbo-rails
   web-console
   webdrivers
