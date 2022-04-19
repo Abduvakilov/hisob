@@ -14,7 +14,6 @@ document.addEventListener('turbo:load', function() {
 	alertTimeout();
 	linkRows();
 	formSubmit();
-  console.log('1')
 });
 
 function linkRows(){
