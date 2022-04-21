@@ -8,7 +8,7 @@ export default class extends Controller {
 	click() {
 		if (!this.modal) {
 			this.render();
-			Turbo.dispatch('turbo:load');
+			Turbolinks.dispatch('turbolinks:load');
 		}
 		this.modal.addEventListener('click', e => {
 			if (!this.modal.children[0].children[0].contains(e.target))

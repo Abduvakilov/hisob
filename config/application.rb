@@ -15,8 +15,6 @@ module Acc
     config.i18n.load_path += Dir[Rails.root.join('locales', '*.uz.yml')]
   	config.i18n.default_locale = :uz
 
-    config.action_view.form_with_generates_remote_forms = false
-
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

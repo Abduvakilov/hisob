@@ -1,5 +1,5 @@
 // import Chartist from 'chartist';
-// document.addEventListener('turbo:load', () => {
+// document.addEventListener('turbolinks:load', () => {
 // var data = {
 //   // A labels array that can contain any sort of values
 //   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],

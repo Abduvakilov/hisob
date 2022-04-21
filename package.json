@@ -4,7 +4,6 @@
     "@fortawesome/fontawesome-svg-core": "^6",
     "@fortawesome/free-solid-svg-icons": "^6",
     "@hotwired/stimulus": "^3.0.1",
-    "@hotwired/turbo-rails": "^7.1.1",
     "bootstrap": "^4",
     "chartist": "^0",
     "cleave.js": "^1.4",
@@ -12,7 +11,8 @@
     "flatpickr": "^4",
     "mobius1-selectr": "https://github.com/Mobius1/Selectr#master",
     "sass": "^1.50.0",
-    "stimulus-flatpickr": "~2.0.0"
+    "stimulus-flatpickr": "~2.0.0",
+    "turbolinks": "^5.2.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",

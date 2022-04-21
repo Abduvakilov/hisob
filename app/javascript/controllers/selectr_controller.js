@@ -26,7 +26,7 @@ export default class extends Controller {
 	}
 
 	destroyBeforeCache() {
-		document.addEventListener('turbo:before-cache', function() {
+		document.addEventListener('turbolinks:before-cache', function() {
 			this.selectr.destroy();
 		}.bind(this), { once: true });
 	}

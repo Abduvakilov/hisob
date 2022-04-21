@@ -1,4 +1,4 @@
-nav#menu.nav.d-print-none[data-turbo-permanent]
+nav#menu.nav.d-print-none[data-turbolinks-permanent]
   - [[transactions_path, 'money-bill-alt', Transaction],
      [sales_path, 'truck-loading', Sale],
      [products_path, 'apple-alt', Product],
@@ -16,7 +16,7 @@ nav#menu.nav.d-print-none[data-turbo-permanent]
     span.nav-label = t 'views.title.home_page.short'
 
   .bottom
-    a href=destroy_user_session_path data-turbo='false'
+    a href=destroy_user_session_path data-turbolinks='false'
         = icon 'sign-out-alt'
         span.nav-label = t 'views.logout'
     a.btn-expand[href="javascript:void(0)" onclick="toggleOpen(event)"]

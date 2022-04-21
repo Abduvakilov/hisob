@@ -13,7 +13,7 @@ function getSubmitListener(e) {
 	e.stopImmediatePropagation(); e.preventDefault();
 	const entries = [...new FormData(e.target).entries()];
 	const params = '?' + entries.map(e => e.map(encodeURIComponent).join('=')).join('&');
-	Turbo.visit(e.target.action + params);
+	Turbolinks.visit(e.target.action + params);
 }
 
 function postSubmitListener(e) {
@@ -33,19 +33,19 @@ function postSubmitListener(e) {
 
 		let url = res.redirected ? res.url : res.headers.get('location');
 		if(url) {
-			Turbo.visit(url);
+			Turbolinks.visit(url);
 			buttons.forEach(el=>el.disabled = false);
 			return;
 		}
 
 		res.text().then(html => {
 			form.outerHTML = html;
-			document.addEventListener('turbo:load', () => {
+			document.addEventListener('turbolinks:load', () => {
 				Promise.resolve().then( () =>{
 					document.querySelector('.form-group-invalid .selectr-selected, input.is-invalid, select.is-invalid').focus();
 				});
 			}, {once: true});
-			Turbo.dispatch('turbo:load');
+			Turbolinks.dispatch('turbolinks:load');
 		});
 	});
 }
