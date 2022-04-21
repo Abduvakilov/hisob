@@ -34,7 +34,8 @@ table.form-table
               value: currency_precise_number(fa.object.price,
                 f.object.currency),
               autocomplete: 'off', min: 0, data: { \
-              target: 'table.price price.price',
+              table_target: 'price',
+              price_target: 'price',
               controller: 'currency',
               action: 'input->row#copy input->table#update'}}
         = fa.input :amount, input_html: { \

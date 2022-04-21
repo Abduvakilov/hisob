@@ -6,18 +6,17 @@
     selected: (f.object.account_id ||= @default_account),
     wrapper: :hidden_account,
     balance: (currency_precise_number(f.object.account.balance,
-      f.object.account.currency, unit: true) if f.object.account),
-    balance_data_target: 'account.balance'
+      f.object.account.currency, unit: true) if f.object.account)
   .form-row
     = f.input :type_id, label: 'Pul aylanmasi turi',
       collection: type_ids = f.object.class.type_ids \
         .transform_keys { |k| t(k, scope: 'attributes') },
       selected: f.object.type_id_before_type_cast || \
         f.object.type_id = type_ids.values[0],
-      input_html: { 'data-action': 'change->transaction#update',
-                    'data-transaction-target': 'type' }
+      input_html: { data: { action: 'change->transaction#update',
+                    transaction_target: 'type' }}
     = f.input :datetime, as: :datepicker, input_html: { required: true,
-      'data-contract-target': 'date',
+      data_contract_target: 'date',
       value: f.object.datetime || user_default_time },
       wrapper_html: { data: { flatpickr_enable_time: true,
         flatpickr_alt_format: t('time.formats.default') } }
@@ -32,7 +31,7 @@
         ('d-none' if f.object.new_record? || \
           !f.object.with_contract? || f.object.contract&.single?)],
       input_html: { data: { \
-        target: 'contract.contract',
+        'contract-target': 'contract',
         counter_party_id: f.object.contract&.counter_party_id } }
 
     - if params[:type] == '1' || f.object.expense?
