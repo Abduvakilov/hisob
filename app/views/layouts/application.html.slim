@@ -4,10 +4,10 @@ html[lang="uz"]
     title
       = title = @title || title_of_page
     meta[name="viewport" content="width=device-width, initial-scale=1"]
-    / - if action_name.in? ['show', 'new']
-    = csrf_meta_tag
-    = csp_meta_tag
-    = javascript_include_tag "others", "data-turbo-track": "reload", defer: true
+    - if action_name.in? ['show', 'new']
+      = csrf_meta_tag
+      = csp_meta_tag
+    = javascript_include_tag "others", "data-turbo-track": "reload"
 
     - if action_name == 'index'
       link rel="prefetch" href=asset_path('application.js')
