@@ -290,7 +290,7 @@ sass@^1.50.0:
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
-stimulus-flatpickr@~2.0.0:
+stimulus-flatpickr@~3.0.0:
   version "3.0.0-0"
   resolved "https://registry.yarnpkg.com/stimulus-flatpickr/-/stimulus-flatpickr-3.0.0-0.tgz#af9bfa70bd1b74654312580101387c9d13ee32f2"
   integrity sha512-TLfxen1OS+3Jy594+VmYkJz/IRaH5wqxxdbVB1aalS1+3EJgy/shqB/Fd4ttKWC8EIOVd8Pzx22oVnjNep3mTA==

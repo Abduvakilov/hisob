@@ -11,7 +11,7 @@
     "flatpickr": "^4",
     "mobius1-selectr": "https://github.com/Mobius1/Selectr#master",
     "sass": "^1.50.0",
-    "stimulus-flatpickr": "~2.0.0",
+    "stimulus-flatpickr": "~3.0.0",
     "turbolinks": "^5.2.0"
   },
   "scripts": {
