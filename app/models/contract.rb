@@ -2,8 +2,11 @@ class Contract < ActiveRecord::Base
 
   scope :ordered, -> {}
   scope :in_date, -> (date=Date.today) {
-    where(':date between ifnull(start_date, subdate(:date,1)) and
-      ifnull(due_date, :date+interval 1 day)', date: date)
+    where(':date between coalesce(start_date, :day_before) and coalesce(due_date, :day_after)',
+      date: date,
+      day_before: date.yesterday,
+      day_after: date.tomorrow
+    )
   }
 
   def in_date?(date=Date.today)

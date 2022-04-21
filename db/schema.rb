@@ -11,10 +11,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "company_id"
-    t.integer "currency_id"
+    t.bigint "company_id"
+    t.bigint "currency_id"
     t.boolean "enable_overdraft"
     t.string "bank_account_number"
     t.text "notes"
@@ -28,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "parent_category_id"
+    t.bigint "parent_category_id"
     t.string "for"
     t.text "notes"
     t.datetime "created_at", precision: nil, null: false
@@ -49,10 +52,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
   end
 
   create_table "contracts", force: :cascade do |t|
-    t.integer "counter_party_id"
+    t.bigint "counter_party_id"
     t.string "name", null: false
-    t.integer "price_type_id"
-    t.integer "currency_id"
+    t.bigint "price_type_id"
+    t.bigint "currency_id"
     t.date "start_date"
     t.date "due_date"
     t.text "notes"
@@ -71,8 +74,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
     t.string "primary_person"
     t.string "phone"
     t.string "email"
-    t.integer "district_id"
-    t.integer "category_id"
+    t.bigint "district_id"
+    t.bigint "category_id"
     t.boolean "is_supplier"
     t.boolean "is_customer"
     t.text "notes"
@@ -100,7 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "company_id"
+    t.bigint "company_id"
     t.text "notes"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -111,7 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
 
   create_table "districts", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "parent_district_id"
+    t.bigint "parent_district_id"
     t.text "notes"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -125,8 +128,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
     t.string "last_name"
     t.date "birthday"
     t.date "hire_date"
-    t.integer "department_id"
-    t.integer "company_id"
+    t.bigint "department_id"
+    t.bigint "company_id"
     t.text "notes"
     t.boolean "gender"
     t.datetime "created_at", precision: nil, null: false
@@ -138,8 +141,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
   end
 
   create_table "payroll_items", force: :cascade do |t|
-    t.integer "payroll_id"
-    t.integer "employee_id"
+    t.bigint "payroll_id"
+    t.bigint "employee_id"
     t.float "day_1_hours"
     t.float "day_2_hours"
     t.float "day_3_hours"
@@ -195,12 +198,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
 
   create_table "prices", force: :cascade do |t|
     t.date "date", null: false
-    t.integer "product_id"
-    t.integer "product_type_id"
+    t.bigint "product_id"
+    t.bigint "product_type_id"
     t.float "price"
-    t.integer "currency_id"
+    t.bigint "currency_id"
     t.boolean "for_base_unit"
-    t.integer "price_type_id"
+    t.bigint "price_type_id"
     t.text "notes"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -214,8 +217,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
   end
 
   create_table "production_items", force: :cascade do |t|
-    t.integer "production_id", null: false
-    t.integer "product_id", null: false
+    t.bigint "production_id", null: false
+    t.bigint "product_id", null: false
     t.integer "amount", null: false
     t.index ["product_id"], name: "index_production_items_on_product_id"
     t.index ["production_id"], name: "index_production_items_on_production_id"
@@ -232,12 +235,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
 
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "unit_id"
+    t.bigint "unit_id"
     t.boolean "include_base_unit"
-    t.integer "company_id"
-    t.integer "counter_party_id"
+    t.bigint "company_id"
+    t.bigint "counter_party_id"
     t.boolean "is_for_sale"
-    t.integer "category_id"
+    t.bigint "category_id"
     t.text "notes"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -251,8 +254,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
   end
 
   create_table "purchase_items", force: :cascade do |t|
-    t.integer "purchase_id", null: false
-    t.integer "product_id", null: false
+    t.bigint "purchase_id", null: false
+    t.bigint "product_id", null: false
     t.integer "amount", null: false
     t.float "price", null: false
     t.index ["product_id"], name: "index_purchase_items_on_product_id"
@@ -261,7 +264,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
 
   create_table "purchases", force: :cascade do |t|
     t.datetime "datetime", precision: nil, null: false
-    t.integer "contract_id", null: false
+    t.bigint "contract_id", null: false
     t.float "discount"
     t.text "notes"
     t.datetime "discarded_at", precision: nil
@@ -272,11 +275,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
   end
 
   create_table "salaries", force: :cascade do |t|
-    t.integer "employee_id"
-    t.integer "department_id"
+    t.bigint "employee_id"
+    t.bigint "department_id"
     t.date "from_date"
     t.float "amount", null: false
-    t.integer "currency_id"
+    t.bigint "currency_id"
     t.text "notes"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -288,16 +291,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
   end
 
   create_table "sale_items", force: :cascade do |t|
-    t.integer "product_id", null: false
+    t.bigint "product_id", null: false
     t.integer "amount", null: false
     t.float "price", null: false
-    t.integer "sale_id"
+    t.bigint "sale_id"
     t.index ["product_id"], name: "index_sale_items_on_product_id"
     t.index ["sale_id"], name: "index_sale_items_on_sale_id"
   end
 
   create_table "sales", force: :cascade do |t|
-    t.integer "contract_id", null: false
+    t.bigint "contract_id", null: false
     t.datetime "datetime", precision: nil, null: false
     t.float "discount"
     t.text "notes"
@@ -311,17 +314,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
   create_table "transactions", force: :cascade do |t|
     t.datetime "datetime", precision: nil, null: false
     t.float "amount", null: false
-    t.integer "type_id", limit: 1, null: false
-    t.integer "counter_party_id"
-    t.integer "expense_type_id"
-    t.integer "employee_id"
-    t.integer "contract_id"
+    t.integer "type_id", limit: 2, null: false
+    t.bigint "counter_party_id"
+    t.bigint "expense_type_id"
+    t.bigint "employee_id"
+    t.bigint "contract_id"
     t.float "accepted_as_amount"
-    t.integer "accepted_as_currency_id"
-    t.integer "account_id"
-    t.integer "counter_account_id"
+    t.bigint "accepted_as_currency_id"
+    t.bigint "account_id"
+    t.bigint "counter_account_id"
     t.float "rate"
-    t.integer "asked_currency_id"
+    t.bigint "asked_currency_id"
     t.text "notes"
     t.datetime "discarded_at", precision: nil
     t.datetime "created_at", precision: nil, null: false
@@ -341,7 +344,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
   create_table "units", force: :cascade do |t|
     t.string "short_name", null: false
     t.string "long_name", null: false
-    t.integer "base_unit_id"
+    t.bigint "base_unit_id"
     t.float "ratio_to_base_unit"
     t.datetime "discarded_at", precision: nil
     t.datetime "created_at", precision: nil, null: false
@@ -351,7 +354,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_062041) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.integer "employee_id"
+    t.bigint "employee_id"
     t.boolean "is_admin"
     t.text "notes"
     t.text "settings"

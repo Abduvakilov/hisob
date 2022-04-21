@@ -12,13 +12,13 @@ class CounterPartiesController < ApplicationController
                   CounterParty.includes(:contracts).find(params[:id]).main_contract
 
     sql = <<-SQL
-      select 'transaction' as model, t.id, datetime, ifnull(accepted_as_amount, amount) amount, type_id
+      select 'transaction' as model, t.id, datetime, coalesce(accepted_as_amount, amount) amount, type_id
       from transactions t
       where t.discarded_at is null and contract_id = :contract_id and (datetime between :start_date and :end_date)
 
       union all
 
-      select 'sale', s.id, datetime, si.total-ifnull(discount,0) as amount, null
+      select 'sale', s.id, datetime, si.total-coalesce(discount,0) as amount, null
       from sales s
       join (
         select sale_id, sum(price*amount) as total from sale_items si group by sale_id
@@ -27,7 +27,7 @@ class CounterPartiesController < ApplicationController
 
       union all
 
-      select 'purchase', p.id, datetime, pi.total-ifnull(discount,0) as amount, null
+      select 'purchase', p.id, datetime, pi.total-coalesce(discount,0) as amount, null
       from purchases as p
       join (
         select purchase_id, sum(price*amount) as total from purchase_items pi group by purchase_id

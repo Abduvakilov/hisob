@@ -12,12 +12,12 @@ class CounterParty < ApplicationRecord
     sql = <<-SQL
       select contract_id, sum(amount) balance from (
 
-      select (case type_id/10 when 0 then -1 else 1 end)*ifnull(accepted_as_amount, amount) amount, contract_id from transactions t
+      select (case type_id/10 when 0 then -1 else 1 end)*coalesce(accepted_as_amount, amount) amount, contract_id from transactions t
       where t.discarded_at is null and contract_id in (:contract_ids) and datetime <= :end_date
 
       union all
 
-      select si.total-ifnull(discount,0), contract_id from sales s
+      select si.total-coalesce(discount,0), contract_id from sales s
       join (
         select sale_id, sum(price*amount) as total from sale_items si group by sale_id
         ) as si on s.id = sale_id
@@ -25,7 +25,7 @@ class CounterParty < ApplicationRecord
 
       union all
 
-      select pi.total-ifnull(discount,0), contract_id from purchases as p
+      select pi.total-coalesce(discount,0), contract_id from purchases as p
       join (
         select purchase_id, sum(price*amount) as total from purchase_items pi group by purchase_id
         ) as pi on p.id = purchase_id
